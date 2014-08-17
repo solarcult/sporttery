@@ -38,6 +38,8 @@ public class Evaluator {
 //		findbestGuessCardsCircleMatchResult();
 	}
 	
+	
+	
 	public static double evaluatorGuessCardsCircleMatchResult()
 	{
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
@@ -330,6 +332,112 @@ public class Evaluator {
 		
 		Collections.sort(ds);
 		StrategyUtils.printFirstAnyItem(ds,256);
+	}
+	
+	private static void findbestGuessFiveOne() {
+			
+			List<Eva> ds = new ArrayList<Eva>();
+			
+			GuessFiveOne.scoredoor = 0d;
+			
+			while(GuessFiveOne.scoredoor < 5)
+			{
+				System.out.println("GuessFiveOne.scoredoor="+GuessFiveOne.scoredoor);
+				evaluatorGuessFiveOne(ds);
+				GuessFiveOne.scoredoor += 0.01;
+				
+				Collections.sort(ds);
+				ds = StrategyUtils.subList(ds, 0, 108);
+			}
+			
+			Collections.sort(ds);
+			StrategyUtils.printFirstAnyItem(ds,256);
+		}
+	
+	public static double evaluatorGuessFiveOne(List<Eva> ds)
+	{
+		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
+		
+		Guess4TeamMatchResult3 guess51 = new GuessFiveOne();
+		
+		int size = (int) (vsTeams.size() * predataP);
+		
+		double bingo = 0;
+		double guessnumber = 0;
+		for(int i=size;i<vsTeams.size();i++)
+		{
+			int g51 = guess51.guess4teamMatchResult(vsTeams.subList(0,size),vsTeams.get(i));
+	
+			Set<Integer> h = new HashSet<Integer>();h.add(-1);h.add(-2);h.add(-3);h.add(-4);h.add(-5);
+			if(h.contains(g51)) 
+			{
+				continue;
+			}
+			guessnumber++;
+			if(GuessUtils.isGuessCorrect(g51, vsTeams.get(i).getMatch_Result()))
+			{
+				bingo++;
+			}
+		}
+	//	System.out.println(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size));
+	//	System.out.println("guess three : " + (bingo/guessnumber) + " <-  correct%");
+		if((bingo/guessnumber)!=Double.NaN && (guessnumber /  (double)(vsTeams.size()-size))>0.08)
+			ds.add(new Eva((bingo/guessnumber), "GuessFiveOne.scoredoor= "+ GuessFiveOne.scoredoor +" | bingo " + bingo +" / guessnumber " + guessnumber + " eva: " + (vsTeams.size()-size)));
+		
+		return (bingo/guessnumber);
+	}
+		
+	private static void findbestGuessFiveTwo() {
+			
+			List<Eva> ds = new ArrayList<Eva>();
+			
+			GuessFiveOne.scoredoor = 0d;
+			
+			while(GuessFiveOne.scoredoor < 5)
+			{
+				System.out.println("GuessFiveTwo.scoredoor="+GuessFiveOne.scoredoor);
+				evaluatorGuessFiveTwo(ds);
+				GuessFiveOne.scoredoor += 0.01;
+				
+				Collections.sort(ds);
+				ds = StrategyUtils.subList(ds, 0, 108);
+			}
+			
+			Collections.sort(ds);
+			StrategyUtils.printFirstAnyItem(ds,256);
+		}
+	
+	public static double evaluatorGuessFiveTwo(List<Eva> ds)
+	{
+		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
+		
+		Guess4TeamMatchResult3 guess52 = new GuessFiveTwo();
+		
+		int size = (int) (vsTeams.size() * predataP);
+		
+		double bingo = 0;
+		double guessnumber = 0;
+		for(int i=size;i<vsTeams.size();i++)
+		{
+			int g52 = guess52.guess4teamMatchResult(vsTeams.subList(0,size),vsTeams.get(i));
+	
+			Set<Integer> h = new HashSet<Integer>();h.add(-1);h.add(-2);h.add(-3);h.add(-4);h.add(-5);
+			if(h.contains(g52)) 
+			{
+				continue;
+			}
+			guessnumber++;
+			if(GuessUtils.isGuessCorrect(g52, vsTeams.get(i).getMatch_Result()))
+			{
+				bingo++;
+			}
+		}
+	//	System.out.println(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size));
+	//	System.out.println("guess three : " + (bingo/guessnumber) + " <-  correct%");
+		if((bingo/guessnumber)!=Double.NaN && (guessnumber /  (double)(vsTeams.size()-size))>0.08)
+			ds.add(new Eva((bingo/guessnumber), "GuessFiveTwo.scoredoor= "+ GuessFiveOne.scoredoor +" | bingo " + bingo +" / guessnumber " + guessnumber + " eva: " + (vsTeams.size()-size)));
+		
+		return (bingo/guessnumber);
 	}
 	
 	public static double evaluatorGuessFour()

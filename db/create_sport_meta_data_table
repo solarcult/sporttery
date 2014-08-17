@@ -27,5 +27,5 @@ CREATE TABLE sport_meta_data
   teamb_goals integer NOT NULL,
   match_result smallint NOT NULL,
   host_rate_1125 double precision NOT NULL,
-  CONSTRAINT sport_meta_data_pkey PRIMARY KEY (year, month, day, changci,league)
+  CONSTRAINT sport_meta_data_pkey PRIMARY KEY (year, month, day, changci, week, league)
 )

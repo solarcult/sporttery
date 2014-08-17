@@ -45,54 +45,13 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 		}
 		
 		Set<Integer> awScores = new HashSet<Integer>();
-		Map<Integer, ScoreCounter> aBingoTimesMap = his_a_wins.getScoreCounterMap();
-		
-		List<ScoreCounter> awlist = new ArrayList<ScoreCounter>();
-		for(ScoreCounter sc : aBingoTimesMap.values())
+		List<ScoreCounter> awlist = AnalyzeScore.sortScore2List(his_a_wins);
+		if(debug)
 		{
-			awlist.add(sc);
+			System.out.println("a wins:");
+			StrategyUtils.printFirst24Item(awlist);
 		}
-		Collections.sort(awlist);
-		System.out.println("a wins:");
-		StrategyUtils.printFirst24Item(awlist);
-	
-		Set<Integer> bwScores = new HashSet<Integer>();
-		Map<Integer, ScoreCounter> bBingoTimesMap = his_b_wins.getScoreCounterMap();
-				
-		List<ScoreCounter> bwlist = new ArrayList<ScoreCounter>();
-		for(ScoreCounter sc : bBingoTimesMap.values())
-		{
-			bwlist.add(sc);
-		}
-		Collections.sort(bwlist);
-		System.out.println("b wins:");
-		StrategyUtils.printFirst24Item(bwlist);
 		
-		Set<Integer> alScores = new HashSet<Integer>();
-		//计算a的失球数
-		Map<Integer, ScoreCounter> aLoseTimesMap = his_a_loses.getScoreCounterMap();
-				
-		List<ScoreCounter> allist = new ArrayList<ScoreCounter>();
-		for(ScoreCounter sc : aLoseTimesMap.values())
-		{
-			allist.add(sc);
-		}
-		Collections.sort(allist);
-		System.out.println("a loses:");
-		StrategyUtils.printFirst24Item(allist);
-		
-		Set<Integer> blScores = new HashSet<Integer>();
-		Map<Integer, ScoreCounter> bLoseTimesMap = his_b_loses.getScoreCounterMap();
-		
-		List<ScoreCounter> bllist = new ArrayList<ScoreCounter>();
-		for(ScoreCounter sc : bLoseTimesMap.values())
-		{
-			bllist.add(sc);
-		}
-		Collections.sort(bllist);
-		System.out.println("b loses:");
-		StrategyUtils.printFirst24Item(bllist);
-				
 		if((double)(awlist.get(0).getCounter()+awlist.get(1).getCounter())/his_a_wins.getScores().size() > firstdoor)
 		{
 			awScores.add(awlist.get(0).getScore());
@@ -110,7 +69,14 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 			return awScores;	
 		}
 		
-		
+		Set<Integer> bwScores = new HashSet<Integer>();
+		//计算出b的进球数
+		List<ScoreCounter> bwlist = AnalyzeScore.sortScore2List(his_b_wins);
+		if(debug)
+		{
+			System.out.println("b wins:");
+			StrategyUtils.printFirst24Item(bwlist);
+		}
 		
 		if((double)(bwlist.get(0).getCounter()+bwlist.get(1).getCounter())/his_b_wins.getScores().size() > firstdoor)
 		{
@@ -129,7 +95,13 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 			return bwScores;	
 		}
 		
-		
+		Set<Integer> alScores = new HashSet<Integer>();
+		List<ScoreCounter> allist = AnalyzeScore.sortScore2List(his_a_loses);
+		if(debug)
+		{
+			System.out.println("a loses:");
+			StrategyUtils.printFirst24Item(allist);
+		}
 		
 		if((double)(allist.get(0).getCounter()+allist.get(1).getCounter())/his_a_loses.getScores().size() > firstdoor)
 		{
@@ -148,7 +120,13 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 			return alScores;	
 		}
 		
-		
+		Set<Integer> blScores = new HashSet<Integer>();
+		List<ScoreCounter> bllist = AnalyzeScore.sortScore2List(his_b_loses);
+		if(debug)
+		{
+			System.out.println("b loses:");
+			StrategyUtils.printFirst24Item(bllist);
+		}
 		
 		if((double)(bllist.get(0).getCounter()+bllist.get(1).getCounter())/his_b_loses.getScores().size() > firstdoor)
 		{
@@ -238,7 +216,7 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 			totaleverynum += sc.getCounter();
 		}
 
-//		if(debug)
+		if(debug)
 		{
 			Collections.sort(everylist);
 			System.out.println("everylist :");
@@ -246,7 +224,7 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 		}
 		
 		Guess4TeamScores1 leagues =  new GuessScoreLeagueProbability();
-		Set<Integer> leascores = leagues.guess4teamScores(vsTeams, predictMatch, false);
+		Set<Integer> leascores = leagues.guess4teamScores(vsTeams, predictMatch, true);
 		
 		Set<Integer> fscores = new HashSet<Integer>();
 		for(int t : tscores)
@@ -263,16 +241,8 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 			contain += everyScoresMap.get(f).getCounter();
 		}
 		
-//		System.out.println("最终结果所占比例%:"+ contain / totaleverynum);
+		System.out.println("最终结果所占比例%:"+ contain / totaleverynum);
 
-/*		20140730暂时不用,加上以后减少了猜测次数但胜率没有提高.
-		if((contain / totaleverynum) < firstdoor)
-		{
-			Set<Integer> r = new HashSet<Integer>();
-			r.add(-6);
-			return r;
-		}
-*/
 		return fscores;
 	}
 }

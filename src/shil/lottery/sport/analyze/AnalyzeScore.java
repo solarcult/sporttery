@@ -1,5 +1,7 @@
 package shil.lottery.sport.analyze;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.guess.ScoreCounter;
 import shil.lottery.sport.statistics.StatisticUtils;
 
 public class AnalyzeScore {
@@ -125,6 +128,34 @@ public class AnalyzeScore {
 		}
 		
 		return lnmap;
+	}
+	
+	/**
+	 * 分析球队比赛的结果,并统计排降序
+	 * @param his_ScoreCounter
+	 * @return List<ScoreCounter>
+	 * @since 2017-08-02 07:48
+	 */
+	public static List<ScoreCounter> sortScore2List(ScoreStuff his_ScoreCounter) {
+		Map<Integer,ScoreCounter> bBingoTimesMap = new HashMap<Integer, ScoreCounter>();
+		for(int i : his_ScoreCounter.getScores())
+		{
+			ScoreCounter scoreCounter = bBingoTimesMap.get(i);
+			if(scoreCounter==null)
+			{
+				scoreCounter = new ScoreCounter(i);
+				bBingoTimesMap.put(i, scoreCounter);
+			}
+			scoreCounter.increaseBingo();
+		}
+		
+		List<ScoreCounter> bwlist = new ArrayList<ScoreCounter>();
+		for(ScoreCounter sc : bBingoTimesMap.values())
+		{
+			bwlist.add(sc);
+		}
+		Collections.sort(bwlist);
+		return bwlist;
 	}
 	
 	@Test

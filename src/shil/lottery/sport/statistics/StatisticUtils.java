@@ -1,5 +1,9 @@
 package shil.lottery.sport.statistics;
 
+import java.util.List;
+
+import shil.lottery.sport.guess.ScoreCounter;
+
 public class StatisticUtils {
 	
 	/**
@@ -31,6 +35,23 @@ public class StatisticUtils {
 		}
 		
 		return Math.sqrt(fenmu/(ds.length-1));
+	}
+	
+	public static double weightAverage(List<ScoreCounter> scs)
+	{
+		double total = 0d;
+		for(ScoreCounter sc :scs)
+		{
+			total += sc.getCounter();
+		}
+		
+		double result = 0d;
+		for(ScoreCounter sc :scs)
+		{
+			result += (double)((double)sc.getCounter()/total) * sc.getScore();
+		}
+		
+		return result;
 	}
 	
 	/**
