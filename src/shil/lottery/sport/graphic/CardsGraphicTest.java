@@ -16,7 +16,7 @@ import shil.lottery.sport.cards.VSTeamCard;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.domain.VSTeam;
 
-public class CardsGraphic {
+public class CardsGraphicTest {
 	
 	public static void main(String[] args)
 	{
