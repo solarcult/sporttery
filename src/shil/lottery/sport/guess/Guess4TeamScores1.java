@@ -3,7 +3,7 @@ package shil.lottery.sport.guess;
 import java.util.List;
 import java.util.Set;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 public interface Guess4TeamScores1 {
 	

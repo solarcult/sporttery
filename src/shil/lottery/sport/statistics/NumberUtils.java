@@ -1,4 +1,4 @@
-package shil.lottery.sport.analyze;
+package shil.lottery.sport.statistics;
 
 import java.util.List;
 

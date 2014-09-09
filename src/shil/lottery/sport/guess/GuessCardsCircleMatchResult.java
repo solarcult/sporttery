@@ -8,7 +8,7 @@ import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
 import shil.lottery.sport.cards.CardPoint;
 import shil.lottery.sport.cards.MatchResultEnum;
 import shil.lottery.sport.cards.VSTeamCard;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 根据密度一个标准差来算概率

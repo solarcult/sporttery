@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 将数据Excel数据转换为VSTeam对象

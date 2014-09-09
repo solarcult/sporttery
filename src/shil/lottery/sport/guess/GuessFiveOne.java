@@ -2,6 +2,7 @@ package shil.lottery.sport.guess;
 
 import java.util.List;
 
+import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.statistics.StatisticUtils;
 
 public class GuessFiveOne extends AbstractGuessFive{

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.guess.GuessUtils;
 
 public class AnalyzeTeamMatchResult {

@@ -1,6 +1,6 @@
 package shil.lottery.sport.legacy;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 预测接口类

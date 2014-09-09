@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeScore;
-import shil.lottery.sport.analyze.ScoreStuff;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.ScoreCounter;
+import shil.lottery.sport.entity.ScoreStuff;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.guess.Guess4TeamScores1;
 import shil.lottery.sport.guess.GuessScoreLeagueProbability;
-import shil.lottery.sport.guess.ScoreCounter;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 /**

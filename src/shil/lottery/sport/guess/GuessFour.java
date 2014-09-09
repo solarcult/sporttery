@@ -2,7 +2,7 @@ package shil.lottery.sport.guess;
 
 import java.util.List;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 public class GuessFour implements Guess4TeamMatchResult3 {
 

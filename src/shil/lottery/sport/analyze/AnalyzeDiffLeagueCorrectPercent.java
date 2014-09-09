@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import shil.lottery.sport.db.SportMetaDaoImpl;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 分析不同联赛庄家猜测正确率类

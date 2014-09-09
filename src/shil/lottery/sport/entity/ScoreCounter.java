@@ -1,4 +1,4 @@
-package shil.lottery.sport.guess;
+package shil.lottery.sport.entity;
 
 public class ScoreCounter implements Comparable<ScoreCounter> {
 

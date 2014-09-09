@@ -11,8 +11,9 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import shil.lottery.sport.domain.VSTeam;
-import shil.lottery.sport.guess.ScoreCounter;
+import shil.lottery.sport.entity.ScoreCounter;
+import shil.lottery.sport.entity.ScoreStuff;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.statistics.StatisticUtils;
 
 public class AnalyzeScore {
@@ -36,7 +37,7 @@ public class AnalyzeScore {
 				ascore = new ScoreStuff();
 				vsWinScoreMap.put(teama, ascore);
 			}
-			ascore.getScores().add(vs.getTeama_goals());
+			ascore.addScores(vs.getTeama_goals());
 			
 			String teamb = vs.getVs()[1];
 			ScoreStuff bscore = vsWinScoreMap.get(teamb); 
@@ -45,7 +46,7 @@ public class AnalyzeScore {
 				bscore = new ScoreStuff();
 				vsWinScoreMap.put(teamb, bscore);
 			}
-			bscore.getScores().add(vs.getTeamb_goals());
+			bscore.addScores(vs.getTeamb_goals());
 		}
 		
 		return vsWinScoreMap;
@@ -70,7 +71,7 @@ public class AnalyzeScore {
 				ascore = new ScoreStuff();
 				vsLoseScoreMap.put(teama, ascore);
 			}
-			ascore.getScores().add(vs.getTeamb_goals());
+			ascore.addScores(vs.getTeamb_goals());
 			
 			String teamb = vs.getVs()[1];
 			ScoreStuff bscore = vsLoseScoreMap.get(teamb); 
@@ -79,7 +80,7 @@ public class AnalyzeScore {
 				bscore = new ScoreStuff();
 				vsLoseScoreMap.put(teamb, bscore);
 			}
-			bscore.getScores().add(vs.getTeama_goals());
+			bscore.addScores(vs.getTeama_goals());
 		}
 		
 		return vsLoseScoreMap;
@@ -104,7 +105,7 @@ public class AnalyzeScore {
 				score = new ScoreStuff();
 				leagueScoreMap.put(league, score);
 			}
-			score.getScores().add(vs.getTeama_goals() + vs.getTeamb_goals());
+			score.addScores(vs.getTeama_goals() + vs.getTeamb_goals());
 		}
 		
 		return leagueScoreMap;
@@ -162,12 +163,12 @@ public class AnalyzeScore {
 	public void testScore()
 	{
 		ScoreStuff s = new ScoreStuff();
-		s.getScores().add(38);
-		s.getScores().add(73);
-		s.getScores().add(86);
-		s.getScores().add(90);
-		s.getScores().add(111);
-		s.getScores().add(124);
+		s.addScores(38);
+		s.addScores(73);
+		s.addScores(86);
+		s.addScores(90);
+		s.addScores(111);
+		s.addScores(124);
 		
 		double[] d = new double[]{38,73,86,90,111,124};
 		Assert.assertEquals("this is it",s.getArithmeticAverage(), StatisticUtils.arithmeticMean(d),0);

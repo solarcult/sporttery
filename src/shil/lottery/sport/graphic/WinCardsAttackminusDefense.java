@@ -7,11 +7,11 @@ import java.util.Map;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 
-import shil.lottery.sport.analyze.NumberUtils;
 import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
 import shil.lottery.sport.cards.VSTeamCard;
 import shil.lottery.sport.db.SportMetaDaoImpl;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.statistics.NumberUtils;
 
 public class WinCardsAttackminusDefense {
 

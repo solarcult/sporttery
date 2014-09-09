@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 /**

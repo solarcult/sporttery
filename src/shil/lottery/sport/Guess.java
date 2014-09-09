@@ -8,7 +8,7 @@ import shil.lottery.sport.analyze.AnalyzeDiffLeagueCorrectPercent;
 import shil.lottery.sport.analyze.AnalyzeTeamMatchResult;
 import shil.lottery.sport.analyze.TeamMatchResult;
 import shil.lottery.sport.db.SportMetaDaoImpl;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.excel.LoadExcelData2VSTeams;
 import shil.lottery.sport.guess.Evaluator;
 import shil.lottery.sport.guess.Guess4TeamMatchResult2;

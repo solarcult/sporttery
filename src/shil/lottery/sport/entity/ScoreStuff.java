@@ -1,4 +1,4 @@
-package shil.lottery.sport.analyze;
+package shil.lottery.sport.entity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,42 +6,49 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import shil.lottery.sport.guess.ScoreCounter;
+import shil.lottery.sport.statistics.NumberUtils;
 import shil.lottery.sport.statistics.StatisticUtils;
-import shil.lottery.sport.strategy.StrategyUtils;
 
 /**
  * 记录进球数类
+ * refine的概念是去掉一个最高值一个最低值之类的想法,现在是百分比
  * @author LiangJingJing
  * @since 2014-07-26 19:51
  */
 public class ScoreStuff {
 	
 	private List<Integer> scores;
+	private Map<Integer,ScoreCounter> hitCounterMap;
 	
 	private double refineRate = 0.05;
 	
-	private static int lastNmatch = 100;
-	
 	public ScoreStuff() {
 		this.scores = new ArrayList<Integer>();
+		this.hitCounterMap  = new HashMap<Integer, ScoreCounter>();
 	}
 	
 	public List<Integer> getScores() {
-		//TODO 此处把数据缩减到最近10个 20140807
-		if(this.scores.size() > lastNmatch)
+		
+		return Collections.unmodifiableList(scores);
+	}
+	
+	public void addScores(int score)
+	{
+		this.scores.add(score);
+		
+		ScoreCounter scoreCounter = hitCounterMap.get(score);
+		if(scoreCounter==null)
 		{
-			this.scores = StrategyUtils.subList(this.scores, this.scores.size()-lastNmatch , this.scores.size());
+			scoreCounter = new ScoreCounter(score);
+			hitCounterMap.put(score, scoreCounter);
 		}
-		return scores;
+		scoreCounter.increaseBingo();
 	}
 	
 	public double[] getScoresDouble()
 	{
 		return NumberUtils.convertListsI2doubles(getScores());
 	}
-
-
 	
 	@Deprecated
 	public double[] getRefineScoresDouble()
@@ -89,11 +96,8 @@ public class ScoreStuff {
 	
 	public double getWeightAverage()
 	{
-		if(this.getScores().size() < 5) return -5;
-		
 		double weightAverage = 0d;
 		
-		Map<Integer,ScoreCounter> hitCounterMap = getScoreCounterMap();
 		for(ScoreCounter s : hitCounterMap.values())
 		{
 			double weight =(double)((double)s.getCounter() / (double)this.getScores().size());
@@ -105,18 +109,6 @@ public class ScoreStuff {
 	
 	public Map<Integer, ScoreCounter> getScoreCounterMap() {
 		
-		Map<Integer,ScoreCounter> hitCounterMap = new HashMap<Integer, ScoreCounter>();
-		
-		for(int i : this.getScores())
-		{
-			ScoreCounter scoreCounter = hitCounterMap.get(i);
-			if(scoreCounter==null)
-			{
-				scoreCounter = new ScoreCounter(i);
-				hitCounterMap.put(i, scoreCounter);
-			}
-			scoreCounter.increaseBingo();
-		}
 		return hitCounterMap;
 	}
 
@@ -149,6 +141,7 @@ public class ScoreStuff {
 	public String toString() {
 		return "ScoreStuff ["
 				+ "scores=" + getScores()
+				+ ", size="	+ getScores().size()
 //				+ ", refineRate=" + refineRate
 //				+ ", getScoresDouble()=" + Arrays.toString(getScoresDouble())
 				+ ", getArithmeticAverage()=" + getArithmeticAverage()

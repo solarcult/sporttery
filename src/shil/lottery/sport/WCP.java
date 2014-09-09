@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeDiffLeagueCorrectPercent;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.excel.LoadExcelData2VSTeams;
 import shil.lottery.sport.strategy.PursuitOfLottery3;
 import shil.lottery.sport.strategy.StrategySix;

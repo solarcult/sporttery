@@ -5,7 +5,9 @@ import java.util.Map;
 
 import shil.lottery.sport.analyze.AnalyzeTeamMatchResult;
 import shil.lottery.sport.analyze.TeamMatchResult;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.MatchResult;
+import shil.lottery.sport.entity.StatusCounter;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 根据历史胜负平的概率猜结果,貌似不好用,door和输赢的系数不好取,而且door的算法是否科学还有疑问
@@ -43,9 +45,9 @@ public class GuessThree implements Guess4TeamMatchResult3 {
 				* predictMatch.getPeopleVote_rate()[2];
 		
 		MatchResult matchResult = new MatchResult(door);
-		matchResult.setWinStatusCounter(matchResult.new StatusCounter(3, winchance));
-		matchResult.setDrawStatusCounter(matchResult.new StatusCounter(1, drawchance));
-		matchResult.setLoseStatusCounter(matchResult.new StatusCounter(0, losechance));
+		matchResult.setWinStatusCounter(new StatusCounter(3, winchance));
+		matchResult.setDrawStatusCounter(new StatusCounter(1, drawchance));
+		matchResult.setLoseStatusCounter(new StatusCounter(0, losechance));
 		
 //		System.out.println(matchResult);
 		

@@ -8,8 +8,10 @@ import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeVSTeamsCorrectPercent;
 import shil.lottery.sport.cards.AnalyzeCardPoint;
+import shil.lottery.sport.chain.ChainUtils;
+import shil.lottery.sport.chain.GuessNine;
 import shil.lottery.sport.db.SportMetaDaoImpl;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.legacy.Guess4TeamMatchResult1;
 import shil.lottery.sport.legacy.GuessOne;
 import shil.lottery.sport.legacy.GuessRefineScoreVSTeamProbability;
@@ -29,16 +31,49 @@ public class Evaluator {
 //		evaluatorGuessTwoThree();
 //		evaluatorGuessFour();
 //		findbestGuessFour();
-		findbestVSTeamScores();
+//		findbestVSTeamScores();
 //		findbestGuessSix();
 //		evaluatorGuessSix();
 //		evaluatorGuessSeven();
 //		evaluatorGuessEight();
 //		evaluatorGuessCardsCircleMatchResult();
 //		findbestGuessCardsCircleMatchResult();
+		evaluatorGuessNiceMatchResult();
 	}
 	
-	
+	public static double evaluatorGuessNiceMatchResult()
+	{
+		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
+		
+		Guess4TeamMatchResult3 guessc = new GuessNine();
+		
+		int size = (int) (vsTeams.size() * predataP);
+		
+		double bingo = 0;
+		double guessnumber = 0;
+		for(int i=size;i<vsTeams.size();i++)
+		{
+			int gc = guessc.guess4teamMatchResult(vsTeams.subList(0,i),vsTeams.get(i));
+
+			Set<Integer> h = new HashSet<Integer>();h.add(-1);h.add(-2);h.add(-3);h.add(-4);h.add(-5);
+			if(h.contains(gc))
+			{
+				continue;
+			}
+//			if(vsTeams.get(i).getMatch_Result()==1) continue;
+//			if(gc==5) continue;
+			guessnumber++;
+			if(ChainUtils.isGuessCorrect(gc, vsTeams.get(i).getMatch_Result()))
+			{
+				bingo++;
+			}
+		}
+		
+		System.out.println(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size));
+		System.out.println("guess nine : " + (bingo/guessnumber) + " <-  correct%");
+
+		return (bingo/guessnumber);
+	}
 	
 	public static double evaluatorGuessCardsCircleMatchResult()
 	{

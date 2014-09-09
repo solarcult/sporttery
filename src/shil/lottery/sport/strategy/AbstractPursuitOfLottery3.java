@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import shil.lottery.sport.domain.VSTeam;
-import shil.lottery.sport.domain.WCPBean;
+import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.entity.WCPBean;
 
 public abstract class AbstractPursuitOfLottery3 implements PursuitOfLottery3{
 

@@ -2,7 +2,7 @@ package shil.lottery.sport.analyze;
 
 import java.util.List;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 public class AnalyzeVSTeamsCorrectPercent {
 	

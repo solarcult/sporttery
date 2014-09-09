@@ -1,6 +1,8 @@
 package shil.lottery.sport.guess;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.MatchResult;
+import shil.lottery.sport.entity.StatusCounter;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 按照胜率的差值来预测
@@ -20,9 +22,9 @@ public class GuessTwo implements Guess4TeamMatchResult2 {
 		double losechance = predictMatch.getBetCalcRate_web()[2] * predictMatch.getPeopleVote_rate()[2];
 		
 		MatchResult matchResult = new MatchResult(door);
-		matchResult.setWinStatusCounter(matchResult.new StatusCounter(3, winchance));
-		matchResult.setDrawStatusCounter(matchResult.new StatusCounter(1, drawchance));
-		matchResult.setLoseStatusCounter(matchResult.new StatusCounter(0, losechance));
+		matchResult.setWinStatusCounter(new StatusCounter(3, winchance));
+		matchResult.setDrawStatusCounter(new StatusCounter(1, drawchance));
+		matchResult.setLoseStatusCounter(new StatusCounter(0, losechance));
 		
 		return matchResult;
 	}

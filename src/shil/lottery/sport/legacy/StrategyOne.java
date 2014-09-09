@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import shil.lottery.sport.domain.WCPBean;
+import shil.lottery.sport.entity.WCPBean;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 public class StrategyOne implements PursuitOfLottery{

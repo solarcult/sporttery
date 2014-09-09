@@ -3,7 +3,7 @@ package shil.lottery.sport.strategy;
 import java.util.ArrayList;
 import java.util.List;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 打杂工具类

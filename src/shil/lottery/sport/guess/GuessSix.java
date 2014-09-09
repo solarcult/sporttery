@@ -5,7 +5,7 @@ import java.util.Map;
 
 import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
 import shil.lottery.sport.cards.VSTeamCard;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 
 public class GuessSix implements Guess4TeamMatchResult3 {
 

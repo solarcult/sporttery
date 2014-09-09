@@ -1,4 +1,4 @@
-package shil.lottery.sport.domain;
+package shil.lottery.sport.entity;
 
 import java.util.Arrays;
 

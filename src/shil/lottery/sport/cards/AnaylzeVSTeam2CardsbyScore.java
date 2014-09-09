@@ -8,10 +8,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeScore;
-import shil.lottery.sport.analyze.NumberUtils;
-import shil.lottery.sport.analyze.ScoreStuff;
 import shil.lottery.sport.db.SportMetaDaoImpl;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.ScoreStuff;
+import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.statistics.NumberUtils;
 import shil.lottery.sport.statistics.StatisticUtils;
 
 /**

@@ -2,7 +2,7 @@ package shil.lottery.sport.statistics;
 
 import java.util.List;
 
-import shil.lottery.sport.guess.ScoreCounter;
+import shil.lottery.sport.entity.ScoreCounter;
 
 public class StatisticUtils {
 	

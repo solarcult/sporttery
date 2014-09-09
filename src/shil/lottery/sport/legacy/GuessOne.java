@@ -1,6 +1,6 @@
 package shil.lottery.sport.legacy;
 
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.guess.GuessUtils;
 
 /**

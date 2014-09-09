@@ -1,4 +1,4 @@
-package shil.lottery.sport.guess;
+package shil.lottery.sport.entity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,6 +55,8 @@ public class MatchResult {
 		
 		Collections.sort(statusCounters);
 		
+//		return statusCounters.get(0).getResult() + statusCounters.get(1).getResult();
+		
 		if(statusCounters.get(0).getProb() - statusCounters.get(1).getProb() > door)
 		{
 			return statusCounters.get(0).getResult(); 
@@ -69,74 +71,6 @@ public class MatchResult {
 				+ ", drawStatusCounter=" + drawStatusCounter
 				+ ", loseStatusCounter=" + loseStatusCounter
 				+ ", getMatch_Result()=" + getMatch_Result() + "]";
-	}
-
-
-
-	class StatusCounter implements Comparable<StatusCounter>
-	{
-		private int result;
-		private double prob;
-		public StatusCounter(int result,double prob)
-		{
-			this.result = result;
-			this.prob = prob;
-		}
-		
-		@Override
-		public int compareTo(StatusCounter o) {
-			if(this.prob > o.prob) return -1;
-			else if(this.prob < o.prob) return 1;
-			else return 0;
-		}
-
-		public int getResult() {
-			return result;
-		}
-
-		public double getProb() {
-			return prob;
-		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + getOuterType().hashCode();
-			long temp;
-			temp = Double.doubleToLongBits(prob);
-			result = prime * result + (int) (temp ^ (temp >>> 32));
-			result = prime * result + this.result;
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			StatusCounter other = (StatusCounter) obj;
-			if (!getOuterType().equals(other.getOuterType()))
-				return false;
-			if (Double.doubleToLongBits(prob) != Double
-					.doubleToLongBits(other.prob))
-				return false;
-			if (result != other.result)
-				return false;
-			return true;
-		}
-
-		private MatchResult getOuterType() {
-			return MatchResult.this;
-		}
-
-		@Override
-		public String toString() {
-			return "StatusCounter [result=" + result + ", prob=" + prob + "]";
-		}
 	}
 
 }

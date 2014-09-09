@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeScore;
-import shil.lottery.sport.analyze.ScoreStuff;
-import shil.lottery.sport.domain.VSTeam;
+import shil.lottery.sport.entity.ScoreStuff;
+import shil.lottery.sport.entity.VSTeam;
 
 /**
  * 根据联盟进球数的值猜测进球数

@@ -1,4 +1,4 @@
-package shil.lottery.sport.domain;
+package shil.lottery.sport.entity;
 
 /**
  * 根据利润排序的WCP计算过数据
