@@ -145,6 +145,7 @@ public class ScoreStuff {
 //				+ ", refineRate=" + refineRate
 //				+ ", getScoresDouble()=" + Arrays.toString(getScoresDouble())
 				+ ", getArithmeticAverage()=" + getArithmeticAverage()
+				+ ", getWeightAverage()=" + getWeightAverage()
 				+ ", getStandardDeviation()=" + getStandardDeviation()
 //				+ ", getRefineScoresDouble()=" + Arrays.toString(getRefineScoresDouble())
 //				+ ", getRefineArithmeticAverage()=" + getRefineArithmeticAverage()
