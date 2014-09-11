@@ -94,7 +94,7 @@ public class GuessUtils {
 	
 	public static boolean isGuessScoreLegal(Set<Integer> result)
 	{
-		if(result.size()==0) return false;
+		if(result.isEmpty()) return false;
 		
 		Set<Integer> bad = new HashSet<Integer>();
 		bad.add(-1);bad.add(-2);bad.add(-3);bad.add(-4);bad.add(-5);bad.add(-6);bad.add(-7);

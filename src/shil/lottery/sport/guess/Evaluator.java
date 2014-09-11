@@ -15,6 +15,8 @@ import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.legacy.Guess4TeamMatchResult1;
 import shil.lottery.sport.legacy.GuessOne;
 import shil.lottery.sport.legacy.GuessRefineScoreVSTeamProbability;
+import shil.lottery.sport.score.GuessScoreLeagueProbability;
+import shil.lottery.sport.score.GuessScoreVSTeamProbability;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 public class Evaluator {
@@ -60,8 +62,8 @@ public class Evaluator {
 			{
 				continue;
 			}
-//			if(vsTeams.get(i).getMatch_Result()==1) continue;
-//			if(gc==5) continue;
+			if(vsTeams.get(i).getMatch_Result()==1) continue;
+			if(gc==5) continue;
 			guessnumber++;
 			if(ChainUtils.isGuessCorrect(gc, vsTeams.get(i).getMatch_Result()))
 			{

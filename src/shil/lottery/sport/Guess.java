@@ -16,11 +16,11 @@ import shil.lottery.sport.guess.Guess4TeamMatchResult3;
 import shil.lottery.sport.guess.Guess4TeamScores1;
 import shil.lottery.sport.guess.GuessCardsCircleMatchResult;
 import shil.lottery.sport.guess.GuessFour;
-import shil.lottery.sport.guess.GuessScoreLeagueProbability;
-import shil.lottery.sport.guess.GuessScoreVSTeamProbability;
 import shil.lottery.sport.guess.GuessThree;
 import shil.lottery.sport.guess.GuessTwo;
 import shil.lottery.sport.guess.GuessUtils;
+import shil.lottery.sport.score.GuessScoreLeagueProbability;
+import shil.lottery.sport.score.GuessScoreVSTeamProbability;
 
 
 public class Guess {
@@ -68,8 +68,13 @@ public class Guess {
 			if(GuessUtils.isGuessScoreLegal(scores))
 			{
 				System.out.println("~~~league avg score is :  " +scores);	
+			}
+			
+			Set<Integer> vscores = vsscore.guess4teamScores(vsTeams, vs, false);
+			if(GuessUtils.isGuessScoreLegal(vscores))
+			{
 				System.out.println(" vs team scores: :)");
-				System.out.println(vsscore.guess4teamScores(vsTeams, vs, true));
+				System.out.println("finally: "+ vsscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
 			

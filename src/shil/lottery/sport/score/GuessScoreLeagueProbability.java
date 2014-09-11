@@ -1,4 +1,4 @@
-package shil.lottery.sport.guess;
+package shil.lottery.sport.score;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +12,7 @@ import shil.lottery.sport.analyze.AnalyzeScore;
 import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.guess.Guess4TeamScores1;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 public class GuessScoreLeagueProbability implements Guess4TeamScores1 {
@@ -28,7 +29,7 @@ public class GuessScoreLeagueProbability implements Guess4TeamScores1 {
 		Map<String,ScoreStuff> totals = AnalyzeScore.analyzeLeagueTotalScore(vsTeams);
 		ScoreStuff t_scoreStuff = totals.get(predictMatch.getLeague());
 		
-		if(t_scoreStuff==null || t_scoreStuff.getScores().size() < 10)
+		if(t_scoreStuff==null || t_scoreStuff.getScores().size() < GuessScoreVSTeamProbability.minmatch)
 		{
 			scores.add(-1);
 			return scores;	

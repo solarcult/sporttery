@@ -1,4 +1,4 @@
-package shil.lottery.sport.guess;
+package shil.lottery.sport.score;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +12,7 @@ import shil.lottery.sport.analyze.AnalyzeScore;
 import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.guess.Guess4TeamScores1;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 /**
@@ -24,6 +25,8 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 	public static double firstdoor = 0.849d; 
 			//0.845d; 
 //			0.799d; //best for test
+	
+	public static int minmatch = 7;
 
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) {
@@ -38,8 +41,8 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 		ScoreStuff his_b_wins = wins.get(predictMatch.getVs()[1]);
 		ScoreStuff his_b_loses = loses.get(predictMatch.getVs()[1]);
 		
-		if(his_a_wins == null || his_a_wins.getScores().size() < 9
-				|| his_b_wins == null || his_b_wins.getScores().size() < 9)
+		if(his_a_wins == null || his_a_wins.getScores().size() < minmatch
+				|| his_b_wins == null || his_b_wins.getScores().size() < minmatch)
 		{
 			tscores.add(-1);
 			return tscores;	
@@ -217,17 +220,32 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 			totaleverynum += sc.getCounter();
 		}
 
+		Collections.sort(everylist);
+		
 		if(debug)
 		{
-			Collections.sort(everylist);
 			System.out.println("everylist :");
 			StrategyUtils.printFirst24Item(everylist);
 		}
 		
-		Guess4TeamScores1 leagues =  new GuessScoreLeagueProbability();
-		Set<Integer> leascores = leagues.guess4teamScores(vsTeams, predictMatch, true);
-		
 		Set<Integer> fscores = new HashSet<Integer>();
+		
+		if(everylist.get(1).getCounter()==everylist.get(2).getCounter())
+		{
+			return fscores;
+		}
+		else
+		{
+			fscores.add(everylist.get(0).getScore());
+			fscores.add(everylist.get(1).getScore());
+		}
+//		fscores.add(everylist.get(2).getScore());
+		
+		
+		Guess4TeamScores1 leagues =  new GuessScoreLeagueProbability();
+		Set<Integer> leascores = leagues.guess4teamScores(vsTeams, predictMatch, debug);
+		
+		/*
 		for(int t : tscores)
 		{
 			if(leascores.contains(t))
@@ -235,15 +253,16 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 				fscores.add(t);
 			}
 		}
-		
+		*/
 		double contain = 0d;
 		for(int f : fscores)
 		{
 			contain += everyScoresMap.get(f).getCounter();
 		}
 		
-		System.out.println("最终结果所占比例%:"+ contain / totaleverynum);
-
+		if(debug)
+			System.out.println("最终结果所占比例%:"+ contain / totaleverynum);
+		
 		return fscores;
 	}
 }

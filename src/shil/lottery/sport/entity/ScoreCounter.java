@@ -4,8 +4,15 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 
 	private int score;
 	private int counter;
-
+	private double weight;
+	
 	public ScoreCounter(int score) {
+		this.score = score;
+		this.counter = 0;
+		this.weight = 1;
+	}
+
+	public ScoreCounter(int score,double weight) {
 		this.score = score;
 		this.counter = 0;
 	}
@@ -21,20 +28,24 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 	public int getCounter() {
 		return this.counter;
 	}
-
-	@Override
-	public int compareTo(ScoreCounter o) {
-		if (this.counter > o.counter) {
-			return -1;
-		} else if (this.counter < o.counter) {
-			return 1;
-		}
-		return 0;
+	
+	public double getWeight() {
+		return weight;
+	}
+	
+	public double getValue()
+	{
+		return this.counter * this.weight;
 	}
 
 	@Override
-	public String toString() {
-		return "ScoreCounter [score=" + score + ", counter=" + counter + "]";
+	public int compareTo(ScoreCounter o) {
+		if (this.getValue() > o.getValue()) {
+			return -1;
+		} else if (this.getValue() < o.getValue()) {
+			return 1;
+		}
+		return 0;
 	}
 
 	@Override
@@ -43,6 +54,9 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 		int result = 1;
 		result = prime * result + counter;
 		result = prime * result + score;
+		long temp;
+		temp = Double.doubleToLongBits(weight);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -59,6 +73,16 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 			return false;
 		if (score != other.score)
 			return false;
+		if (Double.doubleToLongBits(weight) != Double
+				.doubleToLongBits(other.weight))
+			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ScoreCounter [score=" + score + ", counter=" + counter
+				+ ", weight=" + weight + ", getValue()=" + getValue() + "]";
+	}
+
 }
