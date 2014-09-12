@@ -41,160 +41,167 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1
 			return tscores;
 		}
 
-		Set<Integer> awScores = new HashSet<Integer>();
 		List<ScoreCounter> awlist = AnalyzeScore.sortScore2List(his_a_wins);
 		if (debug) 
 		{
 			System.out.println("a wins:");
 			StrategyUtils.printFirst24Item(awlist);
 		}
-
+		
+		Set<ScoreCounter> awScores = new HashSet<ScoreCounter>();
 		if ((double) (awlist.get(0).getCounter() + awlist.get(1).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
 		{
-			awScores.add(awlist.get(0).getScore());
-			awScores.add(awlist.get(1).getScore());
-		} else if ((double) (awlist.get(0).getCounter()+ awlist.get(1).getCounter() + awlist.get(2).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
+			awScores.add(awlist.get(0));
+			awScores.add(awlist.get(1));
+		} 
+		else if ((double) (awlist.get(0).getCounter()+ awlist.get(1).getCounter() + awlist.get(2).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
 		{
-			awScores.add(awlist.get(0).getScore());
-			awScores.add(awlist.get(1).getScore());
-			awScores.add(awlist.get(2).getScore());
+			awScores.add(awlist.get(0));
+			awScores.add(awlist.get(1));
+			awScores.add(awlist.get(2));
 		} else 
 		{
-			awScores.add(-2);
-			return awScores;
+			tscores.add(-2);
+			return tscores;
 		}
-
-		Set<Integer> bwScores = new HashSet<Integer>();
-		// 计算出b的进球数
+		
+		
 		List<ScoreCounter> bwlist = AnalyzeScore.sortScore2List(his_b_wins);
 		if (debug) 
 		{
 			System.out.println("b wins:");
 			StrategyUtils.printFirst24Item(bwlist);
 		}
-
+		
+		Set<ScoreCounter> bwScores = new HashSet<ScoreCounter>();
 		if ((double) (bwlist.get(0).getCounter() + bwlist.get(1).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
 		{
-			bwScores.add(bwlist.get(0).getScore());
-			bwScores.add(bwlist.get(1).getScore());
-		} else if ((double) (bwlist.get(0).getCounter()+ bwlist.get(1).getCounter() + bwlist.get(2).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
+			bwScores.add(bwlist.get(0));
+			bwScores.add(bwlist.get(1));
+		} 
+		else if ((double) (bwlist.get(0).getCounter()+ bwlist.get(1).getCounter() + bwlist.get(2).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
 		{
-			bwScores.add(bwlist.get(0).getScore());
-			bwScores.add(bwlist.get(1).getScore());
-			bwScores.add(bwlist.get(2).getScore());
+			bwScores.add(bwlist.get(0));
+			bwScores.add(bwlist.get(1));
+			bwScores.add(bwlist.get(2));
 		} else
 		{
-			bwScores.add(-3);
-			return bwScores;
+			tscores.add(-3);
+			return tscores;
 		}
-
-		Set<Integer> alScores = new HashSet<Integer>();
+		
 		List<ScoreCounter> allist = AnalyzeScore.sortScore2List(his_a_loses);
 		if (debug) 
 		{
 			System.out.println("a loses:");
 			StrategyUtils.printFirst24Item(allist);
 		}
-
+		
+		Set<ScoreCounter> alScores = new HashSet<ScoreCounter>();
 		if ((double) (allist.get(0).getCounter() + allist.get(1).getCounter())/ his_a_loses.getScores().size() > firstdoor) 
 		{
-			alScores.add(allist.get(0).getScore());
-			alScores.add(allist.get(1).getScore());
+			alScores.add(allist.get(0));
+			alScores.add(allist.get(1));
 		} else if ((double) (allist.get(0).getCounter()+ allist.get(1).getCounter() + allist.get(2).getCounter())/ his_a_loses.getScores().size() > firstdoor) 
 		{
-			alScores.add(allist.get(0).getScore());
-			alScores.add(allist.get(1).getScore());
-			alScores.add(allist.get(2).getScore());
+			alScores.add(allist.get(0));
+			alScores.add(allist.get(1));
+			alScores.add(allist.get(2));
 		} else {
-			alScores.add(-4);
-			return alScores;
+			tscores.add(-4);
+			return tscores;
 		}
-
-		Set<Integer> blScores = new HashSet<Integer>();
+		
 		List<ScoreCounter> bllist = AnalyzeScore.sortScore2List(his_b_loses);
 		if (debug) 
 		{
 			System.out.println("b loses:");
 			StrategyUtils.printFirst24Item(bllist);
 		}
-
+		
+		Set<ScoreCounter> blScores = new HashSet<ScoreCounter>();
 		if ((double) (bllist.get(0).getCounter() + bllist.get(1).getCounter())/ his_b_loses.getScores().size() > firstdoor) 
 		{
-			blScores.add(bllist.get(0).getScore());
-			blScores.add(bllist.get(1).getScore());
-		} else if ((double) (bllist.get(0).getCounter()+ bllist.get(1).getCounter() + bllist.get(2).getCounter())/ his_b_loses.getScores().size() > firstdoor) 
+			blScores.add(bllist.get(0));
+			blScores.add(bllist.get(1));
+		} 
+		else if ((double) (bllist.get(0).getCounter()+ bllist.get(1).getCounter() + bllist.get(2).getCounter())/ his_b_loses.getScores().size() > firstdoor) 
 		{
-			blScores.add(bllist.get(0).getScore());
-			blScores.add(bllist.get(1).getScore());
-			blScores.add(bllist.get(2).getScore());
+			blScores.add(bllist.get(0));
+			blScores.add(bllist.get(1));
+			blScores.add(bllist.get(2));
 		} else 
 		{
-			blScores.add(-5);
-			return blScores;
+			tscores.add(-5);
+			return tscores;
 		}
-
+		
 		Map<Integer, ScoreCounter> everyScoresMap = new HashMap<Integer, ScoreCounter>();
+		double awsum = 0d;
+		for(ScoreCounter i:awScores) awsum += i.getCounter();
+		double bwsum = 0d;
+		for(ScoreCounter i : bwScores) bwsum += i.getCounter();
+		double alsum = 0d;
+		for(ScoreCounter i:alScores) alsum += i.getCounter();
+		double blsum = 0d;
+		for(ScoreCounter i: blScores) blsum += i.getCounter();
 
-		for (int i : awScores) 
+		for (ScoreCounter i : awScores) 
 		{
-			for (int j : blScores) 
+			for (ScoreCounter j : blScores) 
 			{
-				ScoreCounter scoreCounter = everyScoresMap.get(i + j);
+				ScoreCounter scoreCounter = everyScoresMap.get(i.getScore() + j.getScore());
 				if (scoreCounter == null) 
 				{
-					scoreCounter = new ScoreCounter(i + j);
-					everyScoresMap.put(i + j, scoreCounter);
+					scoreCounter = new ScoreCounter(i.getScore() + j.getScore(), ((double)i.getCounter()/awsum) * ((double)j.getCounter()/blsum));
+					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				tscores.add(i + j);
 			}
 		}
 
-		for (int i : alScores) 
+		for (ScoreCounter i : alScores) 
 		{
-			for (int j : bwScores) 
+			for (ScoreCounter j : bwScores) 
 			{
-				ScoreCounter scoreCounter = everyScoresMap.get(i + j);
+				ScoreCounter scoreCounter = everyScoresMap.get(i.getScore() + j.getScore());
 				if (scoreCounter == null) 
 				{
-					scoreCounter = new ScoreCounter(i + j);
-					everyScoresMap.put(i + j, scoreCounter);
+					scoreCounter = new ScoreCounter(i.getScore() + j.getScore(),(double)((double)i.getCounter()/alsum) * ((double)j.getCounter()/bwsum));
+					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				tscores.add(i + j);
 			}
 		}
 
-		for (int i : awScores) 
+		for (ScoreCounter i : awScores) 
 		{
-			for (int j : bwScores) 
+			for (ScoreCounter j : bwScores) 
 			{
-				ScoreCounter scoreCounter = everyScoresMap.get(i + j);
+				ScoreCounter scoreCounter = everyScoresMap.get(i.getScore() + j.getScore());
 				if (scoreCounter == null) 
 				{
-					scoreCounter = new ScoreCounter(i + j);
-					everyScoresMap.put(i + j, scoreCounter);
+					scoreCounter = new ScoreCounter(i.getScore() + j.getScore(),((double)i.getCounter()/awsum) * ((double)j.getCounter()/bwsum));
+					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				tscores.add(i + j);
 			}
 		}
 
-		for (int i : alScores) 
+		for (ScoreCounter i : alScores) 
 		{
-			for (int j : blScores) 
+			for (ScoreCounter j : blScores) 
 			{
-				ScoreCounter scoreCounter = everyScoresMap.get(i + j);
+				ScoreCounter scoreCounter = everyScoresMap.get(i.getScore() + j.getScore());
 				if (scoreCounter == null) 
 				{
-					scoreCounter = new ScoreCounter(i + j);
-					everyScoresMap.put(i + j, scoreCounter);
+					scoreCounter = new ScoreCounter(i.getScore() + j.getScore(),((double)i.getCounter()/alsum) * ((double)j.getCounter()/blsum));
+					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				tscores.add(i + j);
 			}
 		}
-
+		
 		double totaleverynum = 0;
 		List<ScoreCounter> everylist = new ArrayList<ScoreCounter>();
 		for (ScoreCounter sc : everyScoresMap.values()) 
@@ -211,19 +218,24 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1
 			StrategyUtils.printFirst24Item(everylist);
 		}
 
-		Set<Integer> fscores = new HashSet<Integer>();
+		Set<Integer> xscores = new HashSet<Integer>();
+		xscores.add(everylist.get(0).getScore());
+		xscores.add(everylist.get(1).getScore());
+		xscores.add(everylist.get(2).getScore());
 
-		if(everylist.get(1).getCounter() == everylist.get(2).getCounter()) 
-		{
-			return fscores;
-		} else {
-			fscores.add(everylist.get(0).getScore());
-			fscores.add(everylist.get(1).getScore());
-		}
-
-		Guess4TeamScores1 leagues = new GuessScoreLeagueProbability();
-		leagues.guess4teamScores(vsTeams,predictMatch, debug);
-
+		Set<Integer> fscores = 
+				xscores; 
+		
+//		new HashSet<Integer>();
+//		Guess4TeamScores1 leagues = new GuessScoreLeagueProbability();
+//		Set<Integer> lresult = leagues.guess4teamScores(vsTeams,predictMatch, debug);
+//		
+//		for(int i: xscores)
+//		{
+//			if(lresult.contains(i)) fscores.add(i);
+//		}
+		
+		
 		double contain = 0d;
 		for (int f : fscores) 
 		{
@@ -234,6 +246,7 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1
 			System.out.println("最终结果所占比例%:" + contain / totaleverynum);
 
 		return fscores;
+		
 	}
 
 }

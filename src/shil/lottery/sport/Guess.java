@@ -21,6 +21,7 @@ import shil.lottery.sport.guess.GuessTwo;
 import shil.lottery.sport.guess.GuessUtils;
 import shil.lottery.sport.score.GuessScoreLeagueProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamProbability;
+import shil.lottery.sport.score.GuessScoreVSTeamWeight;
 
 
 public class Guess {
@@ -37,6 +38,7 @@ public class Guess {
 		Guess4TeamMatchResult3 result5 = new GuessCardsCircleMatchResult();
 		Guess4TeamScores1 score = new GuessScoreLeagueProbability();
 		Guess4TeamScores1 vsscore = new GuessScoreVSTeamProbability();
+		Guess4TeamScores1 weightscore = new GuessScoreVSTeamWeight();
 		
 		Map<String, TeamMatchResult> tmrs = AnalyzeTeamMatchResult.analyzeTeamMatchResult(vsTeams);
 		
@@ -67,7 +69,8 @@ public class Guess {
 			Set<Integer> scores = score.guess4teamScores(vsTeams, vs, false);
 			if(GuessUtils.isGuessScoreLegal(scores))
 			{
-				System.out.println("~~~league avg score is :  " +scores);	
+				score.guess4teamScores(vsTeams, vs, true);
+				System.out.println("~~~league avg score is :  " +scores);
 			}
 			
 			Set<Integer> vscores = vsscore.guess4teamScores(vsTeams, vs, false);
@@ -77,6 +80,12 @@ public class Guess {
 				System.out.println("finally: "+ vsscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
+			Set<Integer> wscores = weightscore.guess4teamScores(vsTeams, vs, false);
+			if(GuessUtils.isGuessScoreLegal(wscores))
+			{
+				System.out.println(" weight team scores: :)");
+				System.out.println("finally weight: "+ weightscore.guess4teamScores(vsTeams, vs, true));
+			}
 			
 		}
 	}

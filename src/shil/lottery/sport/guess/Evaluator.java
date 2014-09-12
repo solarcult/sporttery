@@ -17,6 +17,7 @@ import shil.lottery.sport.legacy.GuessOne;
 import shil.lottery.sport.legacy.GuessRefineScoreVSTeamProbability;
 import shil.lottery.sport.score.GuessScoreLeagueProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamProbability;
+import shil.lottery.sport.score.GuessScoreVSTeamWeight;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 public class Evaluator {
@@ -40,7 +41,95 @@ public class Evaluator {
 //		evaluatorGuessEight();
 //		evaluatorGuessCardsCircleMatchResult();
 //		findbestGuessCardsCircleMatchResult();
-		evaluatorGuessNiceMatchResult();
+//		evaluatorGuessNiceMatchResult();
+//		evaluatorVsTeamScoresWeight();
+		findbestVSTeamScoresWeight();
+	}
+	
+	private static void findbestVSTeamScoresWeight() {
+		
+		List<Eva> ds = new ArrayList<Eva>();
+		
+//		GuessScoreLeagueProbability.firstdoor = 0d;
+		
+//		while(GuessScoreLeagueProbability.firstdoor < 1)
+		{
+			GuessScoreVSTeamWeight.firstdoor = 0d;
+//			System.out.println("GuessScoreLeagueProbability.firstdoor="+GuessScoreLeagueProbability.firstdoor+"GuessScoreVSTeamWeight.firstdoor="+GuessScoreVSTeamWeight.firstdoor);
+			while(GuessScoreVSTeamWeight.firstdoor < 1)
+			{
+				System.out.println("GuessScoreVSTeamWeight.firstdoor="+GuessScoreVSTeamWeight.firstdoor);
+				evaluatorVsTeamScores(ds);
+				GuessScoreVSTeamWeight.firstdoor += 0.01;
+			}
+//			GuessScoreLeagueProbability.firstdoor += 0.01;
+			Collections.sort(ds);
+			ds = StrategyUtils.subList(ds, 0, 108);
+		}
+		
+		Collections.sort(ds);
+		StrategyUtils.printFirstAnyItem(ds,256);
+	}
+	
+	public static void evaluatorVsTeamScoresWeight(List<Eva> ds)
+	{
+		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
+		
+		Guess4TeamScores1 guess = new GuessScoreVSTeamWeight();
+		
+		int size = (int) (vsTeams.size() * predataP);
+		
+		double bingo = 0;
+		double guessnumber = 0;
+		for(int i=size;i<vsTeams.size();i++)
+		{
+			List<VSTeam> temp = vsTeams.subList(0, i);
+			Set<Integer> s = guess.guess4teamScores(temp, vsTeams.get(i), false);
+			if(!GuessUtils.isGuessScoreLegal(s))
+			{
+				continue;
+			}
+			
+			guessnumber++;
+			if(GuessUtils.isGuessScoreCorrect(s, vsTeams.get(i).getTeama_goals()+vsTeams.get(i).getTeamb_goals()))
+			{
+				bingo++;
+			}
+		}
+		if((guessnumber /  (double)(vsTeams.size()-size))>0.08)
+			ds.add(new Eva((bingo/guessnumber), "GuessScoreLeagueProbability.firstdoor="+GuessScoreLeagueProbability.firstdoor+"GuessScoreVSTeamWeight.firstdoor="+GuessScoreVSTeamWeight.firstdoor +" | bingo " + bingo +" / guessnumber " + guessnumber + " eva: " + (vsTeams.size()-size)));
+	}
+	
+	public static void evaluatorVsTeamScoresWeight()
+	{
+		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
+		
+		Guess4TeamScores1 guess = new GuessScoreVSTeamWeight();
+		
+		System.out.println(vsTeams.size());
+		int size = (int) (vsTeams.size() * predataP);
+		
+		double bingo = 0;
+		double guessnumber = 0;
+		for(int i=size;i<vsTeams.size();i++)
+		{
+			List<VSTeam> temp = vsTeams.subList(0, i);
+			Set<Integer> s = guess.guess4teamScores(temp, vsTeams.get(i), false);
+			System.out.println(vsTeams.get(i).getVs()[0]+ " : "+s);
+			if(!GuessUtils.isGuessScoreLegal(s))
+			{
+				continue;
+			}
+			guessnumber++;
+			if(GuessUtils.isGuessScoreCorrect(s, vsTeams.get(i).getTeama_goals()+vsTeams.get(i).getTeamb_goals()))
+			{
+				bingo++;
+			}
+		}
+		System.out.println("中: "+bingo);
+		System.out.println("猜了: "+guessnumber);
+		System.out.println("一共: "+ (vsTeams.size() - size));
+		System.out.println("evaluatorVsTeamScores: " + (bingo/guessnumber) + " <-  correct%");
 	}
 	
 	public static double evaluatorGuessNiceMatchResult()

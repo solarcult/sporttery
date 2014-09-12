@@ -26,7 +26,7 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 			//0.845d; 
 //			0.799d; //best for test
 	
-	public static int minmatch = 7;
+	public static int minmatch = 9;
 
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) {
@@ -238,12 +238,13 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 {
 		{
 			fscores.add(everylist.get(0).getScore());
 			fscores.add(everylist.get(1).getScore());
+			fscores.add(everylist.get(2).getScore());
 		}
-//		fscores.add(everylist.get(2).getScore());
 		
 		
-		Guess4TeamScores1 leagues =  new GuessScoreLeagueProbability();
-		Set<Integer> leascores = leagues.guess4teamScores(vsTeams, predictMatch, debug);
+		
+//		Guess4TeamScores1 leagues =  new GuessScoreLeagueProbability();
+//		Set<Integer> leascores = leagues.guess4teamScores(vsTeams, predictMatch, debug);
 		
 		/*
 		for(int t : tscores)

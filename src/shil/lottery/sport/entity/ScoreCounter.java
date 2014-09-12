@@ -15,6 +15,7 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 	public ScoreCounter(int score,double weight) {
 		this.score = score;
 		this.counter = 0;
+		this.weight = weight;
 	}
 
 	public void increaseBingo() {
