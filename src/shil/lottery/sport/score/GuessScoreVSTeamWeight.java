@@ -42,13 +42,13 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		double contain = 0d;
 		for(int f=0;f< fscores.size();f++)
 		{
-			contain += everylist.get(f).getCounter();
+			contain += everylist.get(f).getWeight();
 		}
 		
 		double totaleverynum = 0;
 		for(ScoreCounter sc : everylist)
 		{
-			totaleverynum += sc.getCounter();
+			totaleverynum += sc.getWeight();
 		}
 		
 		if(debug)

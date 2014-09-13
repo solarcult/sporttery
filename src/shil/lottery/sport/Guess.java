@@ -48,7 +48,7 @@ public class Guess {
 		for(VSTeam vs : guessTeams)
 		{
 			System.out.println("\n* * *");
-			System.out.println(vs.getLeague());
+			System.out.println(vs.getLeague() +" : "+ vs.getChangci());
 			System.out.println(vs.getVs()[0] +" vs " +vs.getVs()[1]);
 			
 			int rr = result.guess4teamMatchResult(vs).getMatch_Result();
@@ -70,39 +70,48 @@ public class Guess {
 			System.out.println("b: "+tmrs.get(vs.getVs()[1]));
 			System.out.println();
 			Set<Integer> scores = score.guess4teamScores(vsTeams, vs, false);
-			if(GuessUtils.isGuessScoreLegal(scores))
+			boolean isleague = GuessUtils.isGuessScoreLegal(scores);
+			if(isleague)
 			{
 				score.guess4teamScores(vsTeams, vs, true);
 				System.out.println("~~~league avg score is :,  " +scores);
 			}
 			
 			Set<Integer> vscores = vsscore.guess4teamScores(vsTeams, vs, false);
-			if(GuessUtils.isGuessScoreLegal(vscores))
+			boolean isvsteam = GuessUtils.isGuessScoreLegal(vscores);
+			if(isvsteam)
 			{
 				System.out.println(" vs team scores: :.");
 				System.out.println("finally: "+ vsscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
 			Set<Integer> wscores = weightscore.guess4teamScores(vsTeams, vs, false);
-			if(GuessUtils.isGuessScoreLegal(wscores))
+			boolean isweight = GuessUtils.isGuessScoreLegal(wscores);
+			if(isweight)
 			{
 				System.out.println(" weight team scores: :)");
 				System.out.println("finally weight: "+ weightscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
 			Set<Integer> cscores = combinescore.guess4teamScores(vsTeams, vs, false);
-			if(GuessUtils.isGuessScoreLegal(cscores))
+			boolean iscombine = GuessUtils.isGuessScoreLegal(cscores);
+			if(iscombine)
 			{
 				System.out.println("\n combine scores: :!");
-				System.out.println(" @ @ @ finally combine: "+ combinescore.guess4teamScores(vsTeams, vs, false));
+				System.out.println(" @ @ @ finally combine: "+ cscores);
 			}
 			
 			Set<Integer> c7w = c7wscore.guess4teamScores(vsTeams, vs, false);
-			if(GuessUtils.isGuessScoreLegal(c7w))
+			boolean isc7w = GuessUtils.isGuessScoreLegal(c7w);
+			if(isc7w)
 			{
 				System.out.println("\n combine 7 vsteam scores: :0");
-				System.out.println(" ~ K K K ~ finally combine7weight: "+ c7wscore.guess4teamScores(vsTeams, vs, false));
+				System.out.println(" ~ K K K ~ finally combine7weight: "+ c7w);
 			}
+			
+			if(isleague&&isvsteam&&isweight&&iscombine&&isc7w)
+				System.out.println(" ^$ ^$ ^$ ^$ ^$ this is amazing, please come and buy me! up! ^$ ^$ ^$ ^$ ^$ ");
+			
 		}
 	}
 
