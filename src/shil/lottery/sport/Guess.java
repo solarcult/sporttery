@@ -10,7 +10,6 @@ import shil.lottery.sport.analyze.TeamMatchResult;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.excel.LoadExcelData2VSTeams;
-import shil.lottery.sport.guess.Evaluator;
 import shil.lottery.sport.guess.Guess4TeamMatchResult2;
 import shil.lottery.sport.guess.Guess4TeamMatchResult3;
 import shil.lottery.sport.guess.Guess4TeamScores1;
@@ -19,6 +18,8 @@ import shil.lottery.sport.guess.GuessFour;
 import shil.lottery.sport.guess.GuessThree;
 import shil.lottery.sport.guess.GuessTwo;
 import shil.lottery.sport.guess.GuessUtils;
+import shil.lottery.sport.score.GuessScoreCombine7Weight;
+import shil.lottery.sport.score.GuessScoreCombineAdvantage;
 import shil.lottery.sport.score.GuessScoreLeagueProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamWeight;
@@ -39,6 +40,8 @@ public class Guess {
 		Guess4TeamScores1 score = new GuessScoreLeagueProbability();
 		Guess4TeamScores1 vsscore = new GuessScoreVSTeamProbability();
 		Guess4TeamScores1 weightscore = new GuessScoreVSTeamWeight();
+		Guess4TeamScores1 combinescore = new GuessScoreCombineAdvantage();
+		Guess4TeamScores1 c7wscore = new GuessScoreCombine7Weight();
 		
 		Map<String, TeamMatchResult> tmrs = AnalyzeTeamMatchResult.analyzeTeamMatchResult(vsTeams);
 		
@@ -70,13 +73,13 @@ public class Guess {
 			if(GuessUtils.isGuessScoreLegal(scores))
 			{
 				score.guess4teamScores(vsTeams, vs, true);
-				System.out.println("~~~league avg score is :  " +scores);
+				System.out.println("~~~league avg score is :,  " +scores);
 			}
 			
 			Set<Integer> vscores = vsscore.guess4teamScores(vsTeams, vs, false);
 			if(GuessUtils.isGuessScoreLegal(vscores))
 			{
-				System.out.println(" vs team scores: :)");
+				System.out.println(" vs team scores: :.");
 				System.out.println("finally: "+ vsscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
@@ -87,6 +90,19 @@ public class Guess {
 				System.out.println("finally weight: "+ weightscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
+			Set<Integer> cscores = combinescore.guess4teamScores(vsTeams, vs, false);
+			if(GuessUtils.isGuessScoreLegal(cscores))
+			{
+				System.out.println("\n combine scores: :!");
+				System.out.println(" @ @ @ finally combine: "+ combinescore.guess4teamScores(vsTeams, vs, false));
+			}
+			
+			Set<Integer> c7w = c7wscore.guess4teamScores(vsTeams, vs, false);
+			if(GuessUtils.isGuessScoreLegal(c7w))
+			{
+				System.out.println("\n combine 7 vsteam scores: :0");
+				System.out.println(" ~ K K K ~ finally combine7weight: "+ c7wscore.guess4teamScores(vsTeams, vs, false));
+			}
 		}
 	}
 

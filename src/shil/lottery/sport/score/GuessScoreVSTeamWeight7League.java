@@ -16,50 +16,18 @@ import shil.lottery.sport.guess.Guess4TeamScores1;
 import shil.lottery.sport.strategy.StrategyUtils;
 
 /**
- * 67.8%的胜率,都没有原始的VSTeam 71.4%高
+ * 66.7%的胜率
  * @author LiangJingJing
- * @since 20140912 22:54
+ *
  */
-public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostionScore
+public class GuessScoreVSTeamWeight7League implements Guess4TeamScores1 
 {
 	public static double firstdoor = 0.86;
 
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) 
 	{
-		List<ScoreCounter> everylist = getPredictScoreList(vsTeams,predictMatch, debug);
-
-		if(everylist.isEmpty()) return Collections.emptySet();
-		
-		Set<Integer> xscores = new HashSet<Integer>();
-		xscores.add(everylist.get(0).getScore());	//25.7%
-		xscores.add(everylist.get(1).getScore());	//20.4%
-		xscores.add(everylist.get(2).getScore());	//21.6%
-//		xscores.add(everylist.get(3).getScore());	//16.3%
-
-		Set<Integer> fscores = xscores; 
-		
-		double contain = 0d;
-		for(int f=0;f< fscores.size();f++)
-		{
-			contain += everylist.get(f).getCounter();
-		}
-		
-		double totaleverynum = 0;
-		for(ScoreCounter sc : everylist)
-		{
-			totaleverynum += sc.getCounter();
-		}
-		
-		if(debug)
-			System.out.println("最终结果所占比例%:"+ contain / totaleverynum);
-		
-		return fscores;
-		
-	}
-
-	private List<ScoreCounter> getPredictScoreList(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) {
-		
+		Set<Integer> tscores = new HashSet<Integer>();
 
 		Map<String, ScoreStuff> wins = AnalyzeScore.analyzeTeamWinScore(vsTeams);
 		Map<String, ScoreStuff> loses = AnalyzeScore.analyzeTeamLoseScore(vsTeams);
@@ -74,7 +42,8 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 				|| his_b_wins == null
 				|| his_b_wins.getScores().size() < GuessScoreVSTeamProbability.minmatch) 
 		{
-			return Collections.emptyList();
+			tscores.add(-1);
+			return tscores;
 		}
 
 		List<ScoreCounter> awlist = AnalyzeScore.sortScore2List(his_a_wins);
@@ -85,8 +54,6 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> awScores = new HashSet<ScoreCounter>();
-		awScores.addAll(awlist);
-		
 		if ((double) (awlist.get(0).getCounter() + awlist.get(1).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
 		{
 			awScores.add(awlist.get(0));
@@ -99,7 +66,8 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 			awScores.add(awlist.get(2));
 		} else 
 		{
-			return Collections.emptyList();
+			tscores.add(-2);
+			return tscores;
 		}
 		
 		
@@ -111,8 +79,6 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> bwScores = new HashSet<ScoreCounter>();
-		bwScores.addAll(bwlist);
-		
 		if ((double) (bwlist.get(0).getCounter() + bwlist.get(1).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
 		{
 			bwScores.add(bwlist.get(0));
@@ -125,7 +91,8 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 			bwScores.add(bwlist.get(2));
 		} else
 		{
-			return Collections.emptyList();
+			tscores.add(-3);
+			return tscores;
 		}
 		
 		List<ScoreCounter> allist = AnalyzeScore.sortScore2List(his_a_loses);
@@ -136,8 +103,6 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> alScores = new HashSet<ScoreCounter>();
-		alScores.addAll(allist);
-		
 		if ((double) (allist.get(0).getCounter() + allist.get(1).getCounter())/ his_a_loses.getScores().size() > firstdoor) 
 		{
 			alScores.add(allist.get(0));
@@ -147,9 +112,9 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 			alScores.add(allist.get(0));
 			alScores.add(allist.get(1));
 			alScores.add(allist.get(2));
-		} else 
-		{
-			return Collections.emptyList();
+		} else {
+			tscores.add(-4);
+			return tscores;
 		}
 		
 		List<ScoreCounter> bllist = AnalyzeScore.sortScore2List(his_b_loses);
@@ -160,8 +125,6 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> blScores = new HashSet<ScoreCounter>();
-		blScores.addAll(bllist);
-		
 		if ((double) (bllist.get(0).getCounter() + bllist.get(1).getCounter())/ his_b_loses.getScores().size() > firstdoor) 
 		{
 			blScores.add(bllist.get(0));
@@ -174,10 +137,11 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 			blScores.add(bllist.get(2));
 		} else 
 		{
-			return Collections.emptyList();
+			tscores.add(-5);
+			return tscores;
 		}
 		
-
+		Map<Integer, ScoreCounter> everyScoresMap = new HashMap<Integer, ScoreCounter>();
 		double awsum = 0d;
 		for(ScoreCounter i:awScores) awsum += i.getCounter();
 		double bwsum = 0d;
@@ -187,7 +151,6 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		double blsum = 0d;
 		for(ScoreCounter i: blScores) blsum += i.getCounter();
 
-		Map<Integer, ScoreCounter> everyScoresMap = new HashMap<Integer, ScoreCounter>();
 		for (ScoreCounter i : awScores) 
 		{
 			for (ScoreCounter j : blScores) 
@@ -248,31 +211,47 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 			}
 		}
 		
+		double totaleverynum = 0;
 		List<ScoreCounter> everylist = new ArrayList<ScoreCounter>();
 		for (ScoreCounter sc : everyScoresMap.values()) 
 		{
 			everylist.add(sc);
+			totaleverynum += sc.getCounter();
 		}
 
 		Collections.sort(everylist);
-		
+
 		if (debug) 
 		{
 			System.out.println("everylist :");
 			StrategyUtils.printFirst24Item(everylist);
 		}
-		
-		return everylist;
-	}
 
-	@Override
-	public int getSpeicalPostionScore(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug, int postion) {
+		Set<Integer> xscores = new HashSet<Integer>();
+		xscores.add(everylist.get(0).getScore());
+		xscores.add(everylist.get(1).getScore());
+		xscores.add(everylist.get(2).getScore());
+
+		Set<Integer> fscores = new HashSet<Integer>();
+		Guess4TeamScores1 leagues = new GuessScoreLeagueProbability();
+		Set<Integer> lresult = leagues.guess4teamScores(vsTeams,predictMatch, debug);
 		
-		List<ScoreCounter> everylist = getPredictScoreList(vsTeams,predictMatch, debug);
+		for(int i: xscores)
+		{
+			if(lresult.contains(i)) fscores.add(i);
+		}
 		
-		if(everylist.isEmpty()||everylist.size()<postion+1) return -1;
-		else
-		return everylist.get(postion).getScore();
+		double contain = 0d;
+		for (int f : fscores) 
+		{
+			contain += everyScoresMap.get(f).getCounter();
+		}
+
+		if (debug)
+			System.out.println("最终结果所占比例%:" + contain / totaleverynum);
+
+		return fscores;
+		
 	}
 
 }

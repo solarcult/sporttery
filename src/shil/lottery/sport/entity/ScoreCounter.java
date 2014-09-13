@@ -9,17 +9,16 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 	public ScoreCounter(int score) {
 		this.score = score;
 		this.counter = 0;
-		this.weight = 1;
-	}
-
-	public ScoreCounter(int score,double weight) {
-		this.score = score;
-		this.counter = 0;
-		this.weight = weight;
+		this.weight = 0;
 	}
 
 	public void increaseBingo() {
 		this.counter++;
+	}
+	
+	public void increaseWeight(double weight)
+	{
+		this.weight += weight;
 	}
 
 	public int getScore() {
@@ -36,7 +35,8 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 	
 	public double getValue()
 	{
-		return this.counter * this.weight;
+		if(weight==0) return counter;
+		else return weight;
 	}
 
 	@Override

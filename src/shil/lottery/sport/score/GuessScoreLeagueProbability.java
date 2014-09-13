@@ -71,9 +71,10 @@ public class GuessScoreLeagueProbability implements Guess4TeamScores1 {
 		}
 		else if((double)(sclist.get(0).getCounter()+sclist.get(1).getCounter()+sclist.get(2).getCounter())/t_scoreStuff.getScores().size() > firstdoor)
 		{
-			scores.add(sclist.get(0).getScore());
-			scores.add(sclist.get(1).getScore());
-			scores.add(sclist.get(2).getScore());
+			scores.add(sclist.get(0).getScore());	//24.9
+			scores.add(sclist.get(1).getScore());	//23
+			scores.add(sclist.get(2).getScore());	//19
+//			if(sclist.size()>3) scores.add(sclist.get(3).getScore());	//12%
 			if(debug)
 			{
 				System.out.println("leagues所占比例%:" + (double)(sclist.get(0).getCounter()+sclist.get(1).getCounter()+sclist.get(2).getCounter())/t_scoreStuff.getScores().size());
