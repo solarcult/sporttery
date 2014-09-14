@@ -43,10 +43,19 @@ public class Guess {
 		Guess4TeamScores1 combinescore = new GuessScoreCombineAdvantage();
 		Guess4TeamScores1 c7wscore = new GuessScoreCombine7Weight();
 		
-		Map<String, TeamMatchResult> tmrs = AnalyzeTeamMatchResult.analyzeTeamMatchResult(vsTeams);
 		
+		String guesstworate =  Evaluator.evaluatorGuessTwo();
+		String guessthreerate = Evaluator.evaluatorGuessThree();
+		String guessfourrate = Evaluator.evaluatorGuessFour();
+		
+		Map<String, TeamMatchResult> tmrs = AnalyzeTeamMatchResult.analyzeTeamMatchResult(vsTeams);
 		for(VSTeam vs : guessTeams)
 		{
+			if(vs.getChangci()==61)
+			{
+				System.out.println("xx");
+			}
+			
 			System.out.println("\n* * *");
 			System.out.println(vs.getLeague() +" : "+ vs.getChangci());
 			System.out.println(vs.getVs()[0] +" vs " +vs.getVs()[1]);
@@ -54,13 +63,12 @@ public class Guess {
 			int rr = result.guess4teamMatchResult(vs).getMatch_Result();
 			if(rr>=0)
 			{
-				System.out.println(result.guess4teamMatchResult(vs));
 				System.out.println("~2~~result is :  " + rr);
-				Evaluator.evaluatorGuessTwo();
+				System.out.println(guesstworate);
 				System.out.println("~3~~result is :  " + result3.guess4teamMatchResult(vsTeams, vs));
-				Evaluator.evaluatorGuessThree();
+				System.out.println(guessthreerate);
 				System.out.println("~4~~result is :  " + result4.guess4teamMatchResult(vsTeams, vs));
-				Evaluator.evaluatorGuessFour();
+				System.out.println(guessfourrate);
 			}
 			System.out.println("~5~~result is :  " + result5.guess4teamMatchResult(vsTeams, vs));
 //			Evaluator.evaluatorGuessCardsCircleMatchResult();
@@ -111,7 +119,6 @@ public class Guess {
 			
 			if(isleague&&isvsteam&&isweight&&iscombine&&isc7w)
 				System.out.println(" ^$ ^$ ^$ ^$ ^$ this is amazing, please come and buy me! up! ^$ ^$ ^$ ^$ ^$ ");
-			
 		}
 	}
 

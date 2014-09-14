@@ -22,7 +22,7 @@ import shil.lottery.sport.strategy.StrategyUtils;
  */
 public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostionScore
 {
-	public static double firstdoor = 0.86;
+	public static double firstdoor = 0.858;
 
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) 
@@ -85,7 +85,7 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> awScores = new HashSet<ScoreCounter>();
-		awScores.addAll(awlist);
+//		awScores.addAll(awlist);
 		
 		if ((double) (awlist.get(0).getCounter() + awlist.get(1).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
 		{
@@ -111,7 +111,7 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> bwScores = new HashSet<ScoreCounter>();
-		bwScores.addAll(bwlist);
+//		bwScores.addAll(bwlist);
 		
 		if ((double) (bwlist.get(0).getCounter() + bwlist.get(1).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
 		{
@@ -136,7 +136,7 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> alScores = new HashSet<ScoreCounter>();
-		alScores.addAll(allist);
+//		alScores.addAll(allist);
 		
 		if ((double) (allist.get(0).getCounter() + allist.get(1).getCounter())/ his_a_loses.getScores().size() > firstdoor) 
 		{
@@ -160,7 +160,7 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		}
 		
 		Set<ScoreCounter> blScores = new HashSet<ScoreCounter>();
-		blScores.addAll(bllist);
+//		blScores.addAll(bllist);
 		
 		if ((double) (bllist.get(0).getCounter() + bllist.get(1).getCounter())/ his_b_loses.getScores().size() > firstdoor) 
 		{

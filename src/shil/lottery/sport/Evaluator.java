@@ -47,8 +47,8 @@ public class Evaluator {
 	public static void main(String[] args)
 	{
 //		findbest4();
-		evaluatorVsTeamScores();	//71.4%	85/119 	23.9%
-		evalutorLeagueScores();	//66.75%  538/806	22.5%
+//		evaluatorVsTeamScores();	//71.4%	85/119 	23.9%
+//		evalutorLeagueScores();	//66.75%  538/806	22.5%
 //		evaluatorGuessTwo();
 //		evaluatorGuessThree();
 //		evaluatorGuessTwoThree();
@@ -62,14 +62,14 @@ public class Evaluator {
 //		evaluatorGuessCardsCircleMatchResult();
 //		findbestGuessCardsCircleMatchResult();
 //		evaluatorGuessNiceMatchResult();
-		evaluatorVsTeamScoresWeight();
+//		evaluatorVsTeamScoresWeight();
 //		findbestVSTeamScoresWeight();
-		evaluatorVsTeamScoresWeight7VSTeam(); 	//67.8% 59/87			25.5%
-		evaluatorVsTeamScoresWeight7League();	//66.7%  76/114			23.9%
-		evaluatorVsTeamScoresWeight7League7VSTeam();	//68.9% 42/61	25.5%
-		evaluatorVsTeamScoresWeightNoFirstdoor();	//	65.8%  807/1227	21.9%
-		evaluatorScoresCombine();	//59%	136/230						23.5%
-		evaluatorScoresCombine7Weight(); //60.8% 104/171				23.4%
+//		evaluatorVsTeamScoresWeight7VSTeam(); 	//67.8% 59/87			25.5%
+//		evaluatorVsTeamScoresWeight7League();	//66.7%  76/114			23.9%
+//		evaluatorVsTeamScoresWeight7League7VSTeam();	//68.9% 42/61	25.5%
+//		evaluatorVsTeamScoresWeightNoFirstdoor();	//	65.8%  807/1227	21.9%
+//		evaluatorScoresCombine();	//59%	136/230						23.5%
+//		evaluatorScoresCombine7Weight(); //60.8% 104/171				23.4%
 	}
 	
 	public static void evaluatorScoresCombine7Weight()
@@ -290,13 +290,13 @@ public class Evaluator {
 		
 //		while(GuessScoreLeagueProbability.firstdoor < 1)
 		{
-			GuessScoreVSTeamWeight.firstdoor = 0d;
+			GuessScoreVSTeamWeight.firstdoor = 0.6d;
 //			System.out.println("GuessScoreLeagueProbability.firstdoor="+GuessScoreLeagueProbability.firstdoor+"GuessScoreVSTeamWeight.firstdoor="+GuessScoreVSTeamWeight.firstdoor);
 			while(GuessScoreVSTeamWeight.firstdoor < 1)
 			{
 				System.out.println("GuessScoreVSTeamWeight.firstdoor="+GuessScoreVSTeamWeight.firstdoor);
 				evaluatorVsTeamScoresWeight(ds);
-				GuessScoreVSTeamWeight.firstdoor += 0.01;
+				GuessScoreVSTeamWeight.firstdoor += 0.001;
 			}
 //			GuessScoreLeagueProbability.firstdoor += 0.01;
 			Collections.sort(ds);
@@ -333,7 +333,7 @@ public class Evaluator {
 			}
 		}
 		if((guessnumber /  (double)(vsTeams.size()-size))>0.08)
-			ds.add(new Eva((bingo/guessnumber), "GuessScoreLeagueProbability.firstdoor="+GuessScoreLeagueProbability.firstdoor+"GuessScoreVSTeamWeight.firstdoor="+GuessScoreVSTeamWeight.firstdoor +" | bingo " + bingo +" / guessnumber " + guessnumber + " eva: " + (vsTeams.size()-size)));
+			ds.add(new Eva((bingo/guessnumber), "GuessScoreVSTeamWeight.firstdoor="+GuessScoreVSTeamWeight.firstdoor +" | bingo " + bingo +" / guessnumber " + guessnumber + " eva: " + (vsTeams.size()-size)));
 	}
 	
 	public static void evaluatorVsTeamScoresWeight()
@@ -805,7 +805,7 @@ public class Evaluator {
 		return (bingo/guessnumber);
 	}
 	
-	public static double evaluatorGuessFour()
+	public static String evaluatorGuessFour()
 	{
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		
@@ -830,10 +830,11 @@ public class Evaluator {
 				bingo++;
 			}
 		}
-		System.out.println(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size));
-		System.out.println("guess four : " + (bingo/guessnumber) + " <-  correct%");
 		
-		return (bingo/guessnumber);
+		StringBuilder sb = new StringBuilder();
+		sb.append(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size)+"\n"+"guess two : " + (bingo/guessnumber) + " <-  correct%");
+		System.out.println(sb);
+		return sb.toString();
 	}
 	
 	public static double evaluatorGuessFour(List<Eva> ds)
@@ -861,8 +862,7 @@ public class Evaluator {
 				bingo++;
 			}
 		}
-//		System.out.println(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size));
-//		System.out.println("guess three : " + (bingo/guessnumber) + " <-  correct%");
+		
 		if((bingo/guessnumber)!=Double.NaN && (guessnumber /  (double)(vsTeams.size()-size))>0.08)
 			ds.add(new Eva((bingo/guessnumber), "GuessTwo= "+GuessTwo.door+" GuessThree= "+GuessThree.door +" | bingo " + bingo +" / guessnumber " + guessnumber + " eva: " + (vsTeams.size()-size)));
 		
@@ -907,7 +907,7 @@ public class Evaluator {
 		return (bingo/guessnumber);
 	}
 	
-	public static double evaluatorGuessThree()
+	public static String evaluatorGuessThree()
 	{
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		
@@ -933,13 +933,14 @@ public class Evaluator {
 				bingo++;
 			}
 		}
-		System.out.println(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size));
-		System.out.println("guess three : " + (bingo/guessnumber) + " <-  correct%");
 		
-		return (bingo/guessnumber);
+		StringBuilder sb = new StringBuilder();
+		sb.append(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size)+"\n"+"guess two : " + (bingo/guessnumber) + " <-  correct%");
+		System.out.println(sb);
+		return sb.toString();
 	}
 	
-	
+	@Deprecated
 	public static void findbest4()
 	{
 		
@@ -949,7 +950,7 @@ public class Evaluator {
 		while(GuessThree.door < 3)
 		{
 			System.out.println(GuessThree.door);
-			ds.add(evaluatorGuessThree());
+//			ds.add(evaluatorGuessThree());
 			GuessThree.door += 0.001;
 		}
 		
@@ -1054,16 +1055,12 @@ public class Evaluator {
 				bingo++;
 			}
 		}
-//		System.out.println("中: "+bingo);
-//		System.out.println("猜了: "+guessnumber);
-//		System.out.println("一共: "+ (vsTeams.size() - size));
-//		System.out.println("evaluatorVsTeamScores: " + (bingo/guessnumber) + " <-  correct%");
 		
 		if((guessnumber /  (double)(vsTeams.size()-size))>0.08)
 			ds.add(new Eva((bingo/guessnumber), "GuessScoreLeagueProbability.firstdoor="+GuessScoreLeagueProbability.firstdoor+"GuessScoreVSTeamProbability.firstdoor="+GuessScoreVSTeamProbability.firstdoor +" | bingo " + bingo +" / guessnumber " + guessnumber + " eva: " + (vsTeams.size()-size)));
 	}
 	
-	public static void evaluatorGuessTwo()
+	public static String evaluatorGuessTwo()
 	{
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		
@@ -1089,8 +1086,10 @@ public class Evaluator {
 				bingo++;
 			}
 		}
-		System.out.println(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size));
-		System.out.println("guess two : " + (bingo/guessnumber) + " <-  correct%");
+		StringBuilder sb = new StringBuilder();
+		sb.append(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size)+"\n"+"guess two : " + (bingo/guessnumber) + " <-  correct%");
+		System.out.println(sb);
+		return sb.toString();
 	}
 	
 	public static void evalutorLeagueScores()

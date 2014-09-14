@@ -22,7 +22,7 @@ import shil.lottery.sport.strategy.StrategyUtils;
  */
 public class GuessScoreVSTeamWeight7VSTeam implements Guess4TeamScores1 
 {
-	public static double firstdoor = 0.86;
+	public static double firstdoor = 0.858;
 
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) 

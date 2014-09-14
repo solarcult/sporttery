@@ -26,7 +26,7 @@ public class GuessScoreVSTeamProbability implements Guess4TeamScores1 ,SpeicalPo
 			//0.845d; 
 //			0.799d; //best for test
 	
-	public static int minmatch = 9;
+	public static int minmatch = 7;
 
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) {
