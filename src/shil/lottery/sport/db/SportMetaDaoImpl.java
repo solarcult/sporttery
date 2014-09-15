@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -18,6 +20,8 @@ import shil.lottery.sport.strategy.StrategyUtils;
  * @since before 2014-07-20
  */
 public class SportMetaDaoImpl {
+	
+	public static int minusMonth = -7;
 	
 	public static void insertVSTeams(List<VSTeam> vsTeams)
 	{
@@ -33,8 +37,8 @@ public class SportMetaDaoImpl {
 					+ "win_odds_percent,draw_odds_percent,lose_odds_percent,"
 					+ "people_bet_win_percent,people_bet_draw_percent,people_bet_lose_percent,"
 					+ "win_rate_mismatch,draw_rate_mismatch,lose_rate_mismatch,"
-					+ "teama_goals,teamb_goals,match_result,host_rate_1125)"
-					+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+					+ "teama_goals,teamb_goals,match_result,host_rate_1125,match_date)"
+					+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 					);
 
 		
@@ -70,6 +74,11 @@ public class SportMetaDaoImpl {
 				preStatement.setInt(26, vsTeam.getMatch_Result());
 				preStatement.setDouble(27, vsTeam.getHost_rate_1125());
 				
+				Calendar date = Calendar.getInstance();
+				date.set(vsTeam.getYear(), vsTeam.getMonth() - 1, vsTeam.getDay());
+				
+				preStatement.setDate(28, new java.sql.Date(date.getTimeInMillis()));
+				
 				preStatement.executeUpdate();
 			}
 			catch(Exception e)
@@ -93,6 +102,9 @@ public class SportMetaDaoImpl {
 	
 	public static List<VSTeam> loadEveryVSTeamRecords()
 	{
+		Calendar c =Calendar.getInstance();
+		c.add(Calendar.MONTH, minusMonth);
+		
 		List<VSTeam> vsTeams = new ArrayList<VSTeam>();
 		Connection connection = DataBaseManager.getConnection();
 		PreparedStatement preStatement = null;
@@ -104,8 +116,11 @@ public class SportMetaDaoImpl {
 					+ "win_odds,draw_odds,lose_odds,"
 					+ "people_bet_win_count,people_bet_draw_count,people_bet_lose_count,"
 					+ "teama_goals,teamb_goals "
-					+ "from sport_meta_data"
+					+ "from sport_meta_data "
+					+ "where match_date > ?"
 					);
+			
+			preStatement.setDate(1, new java.sql.Date(c.getTimeInMillis()));
 			
 			ResultSet resultSet = preStatement.executeQuery();
 			while(resultSet.next())
@@ -165,7 +180,7 @@ public class SportMetaDaoImpl {
 				new String[]{"北雪平","佐加顿斯"},
 				new double[]{2.30d,3.15d,2.70d},
 				new double[]{16058,19976,12606},
-				2014,07,15,051,"周一","瑞典超级联赛",3,5
+				2014,1,15,051,"周一","瑞典超级联赛",3,5
 				)
 			);
 		
@@ -176,6 +191,18 @@ public class SportMetaDaoImpl {
 	public void testLoad()
 	{
 		StrategyUtils.printFirst24Item(loadEveryVSTeamRecords());
+	}
+	
+	@Test
+	public void testDate()
+	{
+		Calendar c =Calendar.getInstance();
+		c.add(Calendar.MONTH, -8);
+		System.out.println(DateFormat.getDateInstance().format(c.getTime()));
+		
+		Calendar d = Calendar.getInstance();
+		d.set(2014, 01-1, 25);
+		System.out.println(DateFormat.getDateInstance().format(d.getTime()));
 	}
 	
 }

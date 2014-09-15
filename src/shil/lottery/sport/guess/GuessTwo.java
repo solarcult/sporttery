@@ -11,7 +11,7 @@ import shil.lottery.sport.entity.VSTeam;
  */
 public class GuessTwo implements Guess4TeamMatchResult2 {
 	
-	public static double door = 0.4d; 
+	public static double door = 0.389d; 
 			//0.3;
 	
 	@Override

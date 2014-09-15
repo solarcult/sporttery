@@ -684,11 +684,12 @@ public class Evaluator {
 		while(GuessThree.door < 5)
 		{
 			GuessTwo.door = 0;
-			System.out.println("GuessTwo="+GuessTwo.door+"GuessThree="+GuessThree.door);
+			
 			while(GuessTwo.door < 5)
 			{
 				evaluatorGuessFour(ds);
 				GuessTwo.door += 0.1;
+				System.out.println("GuessTwo="+GuessTwo.door+"GuessThree="+GuessThree.door);
 			}
 			GuessThree.door += 0.1;
 			Collections.sort(ds);
@@ -832,7 +833,7 @@ public class Evaluator {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size)+"\n"+"guess two : " + (bingo/guessnumber) + " <-  correct%");
+		sb.append(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size)+"\n"+"guess four : " + (bingo/guessnumber) + " <-  correct%");
 		System.out.println(sb);
 		return sb.toString();
 	}
@@ -935,7 +936,7 @@ public class Evaluator {
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size)+"\n"+"guess two : " + (bingo/guessnumber) + " <-  correct%");
+		sb.append(bingo +" / " + guessnumber + " eva: " + (vsTeams.size()-size)+"\n"+"guess three : " + (bingo/guessnumber) + " <-  correct%");
 		System.out.println(sb);
 		return sb.toString();
 	}
@@ -1074,7 +1075,6 @@ public class Evaluator {
 		for(int i=size;i<vsTeams.size();i++)
 		{
 			int s = guess.guess4teamMatchResult(vsTeams.get(i)).getMatch_Result();
-//			System.out.println(vsTeams.get(i).getVs()[0]+ " : "+s);
 			Set<Integer> h = new HashSet<Integer>();h.add(-1);h.add(-2);h.add(-3);
 			if(h.contains(s)) 
 			{
@@ -1096,8 +1096,6 @@ public class Evaluator {
 	{
 	List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		
-//		Guess4TeamResult1 guess = new GuessOne();
-//		Guess4TeamScores1 guess = new GuessScoreOne();
 		Guess4TeamScores1 guess = new GuessScoreLeagueProbability();
 		
 		System.out.println(vsTeams.size());
@@ -1110,7 +1108,6 @@ public class Evaluator {
 		{
 			List<VSTeam> temp = vsTeams.subList(0, i);
 			Set<Integer> s = guess.guess4teamScores(temp, vsTeams.get(i), false);
-//			System.out.println(vsTeams.get(i).getVs()[0]+ " : "+s);
 			if(!GuessUtils.isGuessScoreLegal(s))
 			{
 				continue;
@@ -1127,8 +1124,6 @@ public class Evaluator {
 		System.out.println("中: "+bingo);
 		System.out.println("猜了: "+guessnumber+" 平均每场猜了: "+totalguessnumber/guessnumber);
 		System.out.println((bingo/guessnumber) + " <-  correct%");
-//		System.out.println(AnalyzeVSTeamsCorrectPercent.analyzeVSTeamsHostCorrectPercent(vsTeams.subList(size, vsTeams.size())) + " times: " + vsTeams.subList(size, vsTeams.size()).size());
-//		System.out.println(AnalyzeVSTeamsCorrectPercent.analyzeVSTeamsPeopleVoteCorrectPercent(vsTeams.subList(size, vsTeams.size())) + " times: " + vsTeams.subList(size, vsTeams.size()).size());
 	}
 	
 	public static void evalutor2()

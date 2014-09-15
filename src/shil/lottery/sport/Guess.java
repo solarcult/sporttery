@@ -23,6 +23,7 @@ import shil.lottery.sport.score.GuessScoreCombineAdvantage;
 import shil.lottery.sport.score.GuessScoreLeagueProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamWeight;
+import shil.lottery.sport.score.GuessScoreVSTeamWeightNoFirstdoor;
 
 
 public class Guess {
@@ -42,6 +43,7 @@ public class Guess {
 		Guess4TeamScores1 weightscore = new GuessScoreVSTeamWeight();
 		Guess4TeamScores1 combinescore = new GuessScoreCombineAdvantage();
 		Guess4TeamScores1 c7wscore = new GuessScoreCombine7Weight();
+		Guess4TeamScores1 nodoorscore = new GuessScoreVSTeamWeightNoFirstdoor();
 		
 		
 		String guesstworate =  Evaluator.evaluatorGuessTwo();
@@ -51,13 +53,18 @@ public class Guess {
 		Map<String, TeamMatchResult> tmrs = AnalyzeTeamMatchResult.analyzeTeamMatchResult(vsTeams);
 		for(VSTeam vs : guessTeams)
 		{
-			if(vs.getChangci()==61)
-			{
-				System.out.println("xx");
-			}
+//			if(vs.getChangci()==19 
+//					||vs.getChangci()==28
+//					||vs.getChangci()==34
+//					)
+//			{
+//				System.out.println("xx");
+//			}
+//			else
+//				continue;
 			
 			System.out.println("\n* * *");
-			System.out.println(vs.getLeague() +" : "+ vs.getChangci());
+			System.out.println(vs.getLeague() +"  "+vs.getWeek()+" : "+ vs.getChangci());
 			System.out.println(vs.getVs()[0] +" vs " +vs.getVs()[1]);
 			
 			int rr = result.guess4teamMatchResult(vs).getMatch_Result();
@@ -99,6 +106,11 @@ public class Guess {
 			{
 				System.out.println(" weight team scores: :)");
 				System.out.println("finally weight: "+ weightscore.guess4teamScores(vsTeams, vs, true));
+			}
+			else
+			{
+//				System.out.println("NOODOOR weight team scores: :)");
+//				System.out.println("NOODOOR fffff weight: "+ nodoorscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
 			Set<Integer> cscores = combinescore.guess4teamScores(vsTeams, vs, false);
