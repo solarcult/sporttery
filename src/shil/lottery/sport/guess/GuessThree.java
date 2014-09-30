@@ -17,7 +17,8 @@ import shil.lottery.sport.entity.VSTeam;
 public class GuessThree implements Guess4TeamMatchResult3 {
 
 	public static double minMatchs = 5;
-	public static double door = 1d;
+	public static double door = 0.74; 
+			//1d;
 			//1.5d;
 	
 	@Override

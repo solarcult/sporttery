@@ -3,7 +3,7 @@ package shil.lottery.sport.entity;
 public class ScoreCounter implements Comparable<ScoreCounter> {
 
 	private int score;
-	private int counter;
+	private double counter;
 	private double weight;
 	
 	public ScoreCounter(int score) {
@@ -16,6 +16,11 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 		this.counter++;
 	}
 	
+	public void increaseCounter(double counter)
+	{
+		this.counter += counter;
+	}
+	
 	public void increaseWeight(double weight)
 	{
 		this.weight += weight;
@@ -25,7 +30,7 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 		return this.score;
 	}
 
-	public int getCounter() {
+	public double getCounter() {
 		return this.counter;
 	}
 	
@@ -40,10 +45,14 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 	}
 
 	@Override
-	public int compareTo(ScoreCounter o) {
-		if (this.getValue() > o.getValue()) {
+	public int compareTo(ScoreCounter o) 
+	{
+		if (this.getValue() > o.getValue()) 
+		{
 			return -1;
-		} else if (this.getValue() < o.getValue()) {
+		} 
+		else if (this.getValue() < o.getValue()) 
+		{
 			return 1;
 		}
 		return 0;
@@ -53,9 +62,10 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + counter;
-		result = prime * result + score;
 		long temp;
+		temp = Double.doubleToLongBits(counter);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + score;
 		temp = Double.doubleToLongBits(weight);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
@@ -70,7 +80,8 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 		if (getClass() != obj.getClass())
 			return false;
 		ScoreCounter other = (ScoreCounter) obj;
-		if (counter != other.counter)
+		if (Double.doubleToLongBits(counter) != Double
+				.doubleToLongBits(other.counter))
 			return false;
 		if (score != other.score)
 			return false;

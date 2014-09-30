@@ -33,7 +33,7 @@ public class GuessScoreVSTeamWeightNoFirstdoor implements Guess4TeamScores1 ,Spe
 		Set<Integer> xscores = new HashSet<Integer>();
 		xscores.add(everylist.get(0).getScore());	//23.5%
 		xscores.add(everylist.get(1).getScore());	//24.2%
-		xscores.add(everylist.get(2).getScore());	//18%
+//		xscores.add(everylist.get(2).getScore());	//18%
 //		xscores.add(everylist.get(3).getScore());	//13.5%
 		
 		Set<Integer> fscores = xscores; 
@@ -137,7 +137,7 @@ public class GuessScoreVSTeamWeightNoFirstdoor implements Guess4TeamScores1 ,Spe
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight(((double)i.getCounter()/awsum) * ((double)j.getCounter()/blsum));
+				scoreCounter.increaseWeight(Math.sqrt(((double)i.getCounter()/awsum) * ((double)j.getCounter()/blsum)));
 			}
 		}
 
@@ -152,7 +152,7 @@ public class GuessScoreVSTeamWeightNoFirstdoor implements Guess4TeamScores1 ,Spe
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight((double)((double)i.getCounter()/alsum) * ((double)j.getCounter()/bwsum));
+				scoreCounter.increaseWeight(Math.sqrt((double)((double)i.getCounter()/alsum) * ((double)j.getCounter()/bwsum)));
 			}
 		}
 
@@ -167,7 +167,7 @@ public class GuessScoreVSTeamWeightNoFirstdoor implements Guess4TeamScores1 ,Spe
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight(((double)i.getCounter()/awsum) * ((double)j.getCounter()/bwsum));
+				scoreCounter.increaseWeight(Math.sqrt(((double)i.getCounter()/awsum) * ((double)j.getCounter()/bwsum)));
 			}
 		}
 
@@ -182,7 +182,7 @@ public class GuessScoreVSTeamWeightNoFirstdoor implements Guess4TeamScores1 ,Spe
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight(((double)i.getCounter()/alsum) * ((double)j.getCounter()/blsum));
+				scoreCounter.increaseWeight(Math.sqrt(((double)i.getCounter()/alsum) * ((double)j.getCounter()/blsum)));
 			}
 		}
 		

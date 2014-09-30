@@ -7,13 +7,13 @@ import java.util.Set;
 import shil.lottery.sport.analyze.AnalyzeDiffLeagueCorrectPercent;
 import shil.lottery.sport.analyze.AnalyzeTeamMatchResult;
 import shil.lottery.sport.analyze.TeamMatchResult;
+import shil.lottery.sport.cards.GuessCardsCircleMatchResult;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.excel.LoadExcelData2VSTeams;
 import shil.lottery.sport.guess.Guess4TeamMatchResult2;
 import shil.lottery.sport.guess.Guess4TeamMatchResult3;
 import shil.lottery.sport.guess.Guess4TeamScores1;
-import shil.lottery.sport.guess.GuessCardsCircleMatchResult;
 import shil.lottery.sport.guess.GuessFour;
 import shil.lottery.sport.guess.GuessThree;
 import shil.lottery.sport.guess.GuessTwo;
@@ -24,6 +24,8 @@ import shil.lottery.sport.score.GuessScoreLeagueProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamProbability;
 import shil.lottery.sport.score.GuessScoreVSTeamWeight;
 import shil.lottery.sport.score.GuessScoreVSTeamWeightNoFirstdoor;
+import shil.lottery.sport.score.GuessScoreWeight7NoDoor;
+import shil.lottery.sport.score.diff.GuessScoreAdvancedMilkyWay;
 
 
 public class Guess {
@@ -44,7 +46,8 @@ public class Guess {
 		Guess4TeamScores1 combinescore = new GuessScoreCombineAdvantage();
 		Guess4TeamScores1 c7wscore = new GuessScoreCombine7Weight();
 		Guess4TeamScores1 nodoorscore = new GuessScoreVSTeamWeightNoFirstdoor();
-		
+		Guess4TeamScores1 w7n = new GuessScoreWeight7NoDoor();
+		Guess4TeamScores1 amw = new GuessScoreAdvancedMilkyWay();
 		
 		String guesstworate =  Evaluator.evaluatorGuessTwo();
 		String guessthreerate = Evaluator.evaluatorGuessThree();
@@ -97,7 +100,7 @@ public class Guess {
 			if(isvsteam)
 			{
 				System.out.println(" vs team scores: :.");
-				System.out.println("finally: "+ vsscore.guess4teamScores(vsTeams, vs, true));
+				System.out.println("vs finally: "+ vsscore.guess4teamScores(vsTeams, vs, true));
 			}
 			
 			Set<Integer> wscores = weightscore.guess4teamScores(vsTeams, vs, false);
@@ -105,13 +108,26 @@ public class Guess {
 			if(isweight)
 			{
 				System.out.println(" weight team scores: :)");
-				System.out.println("finally weight: "+ weightscore.guess4teamScores(vsTeams, vs, true));
+				System.out.println("weight finally weight: "+ weightscore.guess4teamScores(vsTeams, vs, true));
 			}
-			else
+			
 			{
-//				System.out.println("NOODOOR weight team scores: :)");
-//				System.out.println("NOODOOR fffff weight: "+ nodoorscore.guess4teamScores(vsTeams, vs, true));
+				System.out.println("NOODOOR weight team scores: :)");
+				System.out.println("NOODOOR fffff weight: "+ nodoorscore.guess4teamScores(vsTeams, vs, true));
 			}
+			
+			Set<Integer> w7ns = w7n.guess4teamScores(vsTeams, vs, false);
+			boolean isw7ns = GuessUtils.isGuessScoreLegal(w7ns);
+			if(isw7ns)
+			{
+				System.out.println();
+				System.out.println("~7777777777777777777777~");
+				System.out.println("7weight 7 nodoor team scores: :)");
+				System.out.println("7weight 7 nodoor7 finally 7weight 7 nodoor7: "+ w7ns);
+				System.out.println("~7777777777777777777777~");
+			}
+			
+			amw.guess4teamScores(vsTeams, vs, false);
 			
 			Set<Integer> cscores = combinescore.guess4teamScores(vsTeams, vs, false);
 			boolean iscombine = GuessUtils.isGuessScoreLegal(cscores);

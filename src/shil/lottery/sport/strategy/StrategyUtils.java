@@ -1,6 +1,7 @@
 package shil.lottery.sport.strategy;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import shil.lottery.sport.entity.VSTeam;
@@ -125,6 +126,15 @@ public class StrategyUtils {
 		for(int g=0; g<((lists.size()<24)?lists.size():24); g++)
 		{
 			System.out.println(lists.get(g));
+		}
+	}
+	
+	public static void printFirst24Item(Collection<?> collections)
+	{
+		
+		for(Object c : collections)
+		{
+			System.out.println(c);
 		}
 	}
 	

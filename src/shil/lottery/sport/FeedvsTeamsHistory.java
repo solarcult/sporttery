@@ -14,7 +14,7 @@ import shil.lottery.sport.excel.LoadExcelData2VSTeams;
 public class FeedvsTeamsHistory {
 
 	public static void main(String[] args) {
-		File dataDir = new File("matchdata/backup");
+		File dataDir = new File("matchdata");
 		File[] xlsfiles = dataDir.listFiles(new FilenameFilter() {
 			
 			@Override

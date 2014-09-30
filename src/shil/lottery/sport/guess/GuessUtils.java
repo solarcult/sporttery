@@ -98,6 +98,7 @@ public class GuessUtils {
 		
 		Set<Integer> bad = new HashSet<Integer>();
 		bad.add(-1);bad.add(-2);bad.add(-3);bad.add(-4);bad.add(-5);bad.add(-6);bad.add(-7);
+//		bad.add(0);bad.add(3);
 		
 		for(int i : result)
 		{

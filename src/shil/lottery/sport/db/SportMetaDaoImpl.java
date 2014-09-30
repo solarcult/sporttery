@@ -117,7 +117,7 @@ public class SportMetaDaoImpl {
 					+ "people_bet_win_count,people_bet_draw_count,people_bet_lose_count,"
 					+ "teama_goals,teamb_goals "
 					+ "from sport_meta_data "
-					+ "where match_date > ?"
+					+ "where match_date > ? order by match_date asc"
 					);
 			
 			preStatement.setDate(1, new java.sql.Date(c.getTimeInMillis()));

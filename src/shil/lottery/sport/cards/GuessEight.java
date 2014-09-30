@@ -1,16 +1,13 @@
-package shil.lottery.sport.guess;
+package shil.lottery.sport.cards;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import shil.lottery.sport.cards.AnalyzeQuadrantStatus;
-import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
-import shil.lottery.sport.cards.Quadrants;
-import shil.lottery.sport.cards.VSTeamCard;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.excel.LoadExcelData2VSTeams;
+import shil.lottery.sport.guess.Guess4TeamMatchResult3;
 
 /**
  * 根据卡片的攻击防御里进行分析

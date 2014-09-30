@@ -1,11 +1,10 @@
-package shil.lottery.sport.guess;
+package shil.lottery.sport.cards;
 
 import java.util.List;
 import java.util.Map;
 
-import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
-import shil.lottery.sport.cards.VSTeamCard;
 import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.guess.Guess4TeamMatchResult3;
 
 public class GuessSix implements Guess4TeamMatchResult3 {
 

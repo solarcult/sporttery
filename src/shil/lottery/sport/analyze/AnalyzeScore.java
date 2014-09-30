@@ -11,6 +11,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
+import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
@@ -47,6 +48,8 @@ public class AnalyzeScore {
 				vsWinScoreMap.put(teamb, bscore);
 			}
 			bscore.addScores(vs.getTeamb_goals());
+			
+//			if(vs.getVs()[0].equals("利雅得希拉尔") || vs.getVs()[1].equals("利雅得希拉尔")) System.out.println(vs);
 		}
 		
 		return vsWinScoreMap;
@@ -102,7 +105,7 @@ public class AnalyzeScore {
 			ScoreStuff score = leagueScoreMap.get(league); 
 			if(score==null)
 			{
-				score = new ScoreStuff();
+				score = new ScoreStuff(Integer.MAX_VALUE);
 				leagueScoreMap.put(league, score);
 			}
 			score.addScores(vs.getTeama_goals() + vs.getTeamb_goals());
@@ -177,8 +180,15 @@ public class AnalyzeScore {
 	
 	public static void main(String[] args)
 	{
-		System.out.println(Math.ceil(1.12345));
-		System.out.println(Math.rint(2.1));
+		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
+		
+		Map<String, ScoreStuff> wins = AnalyzeScore.analyzeTeamWinScore(vsTeams);
+		Map<String, ScoreStuff> loses = AnalyzeScore.analyzeTeamLoseScore(vsTeams);
+		
+		ScoreStuff his_a_wins = wins.get("利雅得希拉尔");
+		ScoreStuff his_a_loses = loses.get("利雅得希拉尔");
+		System.out.println(his_a_wins);
+		System.out.println(his_a_loses);
 	}
 
 }

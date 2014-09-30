@@ -22,7 +22,7 @@ import shil.lottery.sport.strategy.StrategyUtils;
  */
 public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostionScore
 {
-	public static double firstdoor = 0.858;
+	public static double firstdoor = 0.815;
 
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) 
@@ -34,7 +34,7 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		Set<Integer> xscores = new HashSet<Integer>();
 		xscores.add(everylist.get(0).getScore());	//25.7%
 		xscores.add(everylist.get(1).getScore());	//20.4%
-		xscores.add(everylist.get(2).getScore());	//21.6%
+//		xscores.add(everylist.get(2).getScore());	//21.6%
 //		xscores.add(everylist.get(3).getScore());	//16.3%
 
 		Set<Integer> fscores = xscores; 
@@ -87,7 +87,11 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		Set<ScoreCounter> awScores = new HashSet<ScoreCounter>();
 //		awScores.addAll(awlist);
 		
-		if ((double) (awlist.get(0).getCounter() + awlist.get(1).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
+		if ((double) (awlist.get(0).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
+		{
+			awScores.add(awlist.get(0));
+		} 
+		else if ((double) (awlist.get(0).getCounter() + awlist.get(1).getCounter())/ his_a_wins.getScores().size() > firstdoor) 
 		{
 			awScores.add(awlist.get(0));
 			awScores.add(awlist.get(1));
@@ -112,8 +116,12 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		
 		Set<ScoreCounter> bwScores = new HashSet<ScoreCounter>();
 //		bwScores.addAll(bwlist);
-		
-		if ((double) (bwlist.get(0).getCounter() + bwlist.get(1).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
+
+		if ((double) (bwlist.get(0).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
+		{
+			bwScores.add(bwlist.get(0));
+		}
+		else if ((double) (bwlist.get(0).getCounter() + bwlist.get(1).getCounter())/ his_b_wins.getScores().size() > firstdoor) 
 		{
 			bwScores.add(bwlist.get(0));
 			bwScores.add(bwlist.get(1));
@@ -138,7 +146,11 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 		Set<ScoreCounter> alScores = new HashSet<ScoreCounter>();
 //		alScores.addAll(allist);
 		
-		if ((double) (allist.get(0).getCounter() + allist.get(1).getCounter())/ his_a_loses.getScores().size() > firstdoor) 
+		if ((double) (allist.get(0).getCounter())/ his_a_loses.getScores().size() > firstdoor) 
+		{
+			alScores.add(allist.get(0));
+		}
+		else if ((double) (allist.get(0).getCounter() + allist.get(1).getCounter())/ his_a_loses.getScores().size() > firstdoor) 
 		{
 			alScores.add(allist.get(0));
 			alScores.add(allist.get(1));
@@ -199,7 +211,8 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight(((double)i.getCounter()/awsum) * ((double)j.getCounter()/blsum));
+//				scoreCounter.increaseWeight((((double)i.getCounter()/awsum) * ((double)j.getCounter()/blsum)));
+				scoreCounter.increaseWeight(Math.sqrt(((double)i.getCounter()/awsum) * ((double)j.getCounter()/blsum)));
 			}
 		}
 
@@ -214,7 +227,8 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight((double)((double)i.getCounter()/alsum) * ((double)j.getCounter()/bwsum));
+//				scoreCounter.increaseWeight(((double)((double)i.getCounter()/alsum) * ((double)j.getCounter()/bwsum)));
+				scoreCounter.increaseWeight(Math.sqrt((double)((double)i.getCounter()/alsum) * ((double)j.getCounter()/bwsum)));
 			}
 		}
 
@@ -229,7 +243,8 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight(((double)i.getCounter()/awsum) * ((double)j.getCounter()/bwsum));
+//				scoreCounter.increaseWeight((((double)i.getCounter()/awsum) * ((double)j.getCounter()/bwsum)));
+				scoreCounter.increaseWeight(Math.sqrt(((double)i.getCounter()/awsum) * ((double)j.getCounter()/bwsum)));
 			}
 		}
 
@@ -244,7 +259,8 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 					everyScoresMap.put(i.getScore() + j.getScore(), scoreCounter);
 				}
 				scoreCounter.increaseBingo();
-				scoreCounter.increaseWeight(((double)i.getCounter()/alsum) * ((double)j.getCounter()/blsum));
+//				scoreCounter.increaseWeight((((double)i.getCounter()/alsum) * ((double)j.getCounter()/blsum)));
+				scoreCounter.increaseWeight(Math.sqrt(((double)i.getCounter()/alsum) * ((double)j.getCounter()/blsum)));
 			}
 		}
 		

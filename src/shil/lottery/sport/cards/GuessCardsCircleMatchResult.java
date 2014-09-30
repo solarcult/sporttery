@@ -1,14 +1,9 @@
-package shil.lottery.sport.guess;
+package shil.lottery.sport.cards;
 
 import java.util.List;
 
-import shil.lottery.sport.cards.AnD;
-import shil.lottery.sport.cards.AnalyzeCardPoint;
-import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
-import shil.lottery.sport.cards.CardPoint;
-import shil.lottery.sport.cards.MatchResultEnum;
-import shil.lottery.sport.cards.VSTeamCard;
 import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.guess.Guess4TeamMatchResult3;
 
 /**
  * 根据密度一个标准差来算概率
