@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeScore;
-import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
 import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
@@ -31,6 +30,9 @@ public class GuessScoreAdvancedMilkyWay implements Guess4TeamScores1
 	@Override
 	public Set<Integer> guess4teamScores(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) 
 	{
+		
+		AdvancedMilkyWay.showPredictScoreDiffStatus(vsTeams, predictMatch);
+		
 		List<ScoreCounter> everylist = getPredictScoreList(vsTeams,predictMatch, debug);
 
 		if(everylist.isEmpty()) return Collections.emptySet();
@@ -45,9 +47,6 @@ public class GuessScoreAdvancedMilkyWay implements Guess4TeamScores1
 		xscores.add(everylist.get(1).getScore());	//24.2%
 //		xscores.add(everylist.get(2).getScore());	//18%
 //		xscores.add(everylist.get(3).getScore());	//13.5%
-		
-
-		anaylzeScoreChange(vsTeams,predictMatch);
 		
 		Set<Integer> fscores = xscores; 
 		
@@ -70,135 +69,6 @@ public class GuessScoreAdvancedMilkyWay implements Guess4TeamScores1
 		
 	}
 	
-	/**
-	 * 分析predict两队的排名分数差值,并选取周围的3个diff来展示进球数分布
-	 * @param vsTeams
-	 * @param predictMatch
-	 * @return
-	 */
-	private List<ScoreCounter> anaylzeScoreChange(List<VSTeam> vsTeams,VSTeam predictMatch)
-	{
-		//比赛信息
-		String league = predictMatch.getLeague();
-		String teama = predictMatch.getVs()[0];
-		String teamb = predictMatch.getVs()[1];
-	
-		//分析比赛状况
-		Map<String,List<VSTeam>> vsmap = AnaylzeTeamLeaguesPoint.anaylzeLeagueVSTeam(vsTeams);
-		Map<String,List<VSMatchResult>> mrmap = AnaylzeTeamLeaguesPoint.anaylzeLeagueTeamVSMatchResult(vsTeams);
-		List<VSMatchResult> as = mrmap.get(AnaylzeVSTeam2CardsbyScore.makeCardKey(league, teama));
-		List<VSMatchResult> bs = mrmap.get(AnaylzeVSTeam2CardsbyScore.makeCardKey(league, teamb));
-		List<VSTeam> alist = vsmap.get(AnaylzeVSTeam2CardsbyScore.makeCardKey(league, teama));
-		List<VSTeam> blist = vsmap.get(AnaylzeVSTeam2CardsbyScore.makeCardKey(league, teamb));
-		if(as==null || bs==null || alist == null || blist == null) return Collections.emptyList();
-		
-		//计算本次的diff
-		int diff = AnaylzeTeamLeaguesPoint.calcDiff(as,bs);
-		if(diff==777) return Collections.emptyList();
-		
-		//计算历史a,b两队diff进球统计信息
-		DiffScoreCounter adiff = diffScoreRate(teama, alist, vsTeams);
-		DiffScoreCounter bdiff = diffScoreRate(teamb, blist, vsTeams);
-		
-		//将两队历史信息整合
-		DiffScoreCounter combinedsc = combine2Diff(adiff, bdiff);
-		
-		//取出中间三个
-		Set<Integer> is = new HashSet<Integer>();
-		is.add(Math.abs(diff-1));
-		is.add(Math.abs(diff));
-		is.add(Math.abs(diff+1));
-		
-		System.out.println();
-		System.out.println("diff time:");
-		System.out.println(diff-1);
-		StrategyUtils.printFirst24Item(combinedsc.getDiffMap(Math.abs(diff-1)).values());
-		System.out.println(diff);
-		StrategyUtils.printFirst24Item(combinedsc.getDiffMap(Math.abs(diff)).values());
-		System.out.println(diff+1);
-		StrategyUtils.printFirst24Item(combinedsc.getDiffMap(Math.abs(diff+1)).values());
-		System.out.println("$ combine $");
-		StrategyUtils.printFirst24Item(combinedsc.combineDiffMap(is));
-		
-		return combinedsc.combineDiffMap(is);
-	}
-	
-	/**
-	 * 将两个DiffScoreCounter的相同diff和Score相加
-	 * @param adiff
-	 * @param bdiff
-	 * @return
-	 */
-	private DiffScoreCounter combine2Diff(DiffScoreCounter adiff,DiffScoreCounter bdiff)
-	{
-		DiffScoreCounter combine = new DiffScoreCounter(adiff.getTeam_name()+":"+bdiff.getTeam_name());
-		Set<Integer> tdiff = new HashSet<Integer>();
-		tdiff.addAll(adiff.getDiffScoreMap().keySet());
-		tdiff.addAll(bdiff.getDiffScoreMap().keySet());
-		for(int i : tdiff)
-		{
-			Map<Integer,ScoreCounter> as = adiff.getDiffMap(i);
-			Map<Integer,ScoreCounter> bs = bdiff.getDiffMap(i);
-			double a_t_score = adiff.getDiff_totalScoreCount(i);
-			double b_t_score = bdiff.getDiff_totalScoreCount(i);
-			double t_t_score = a_t_score + b_t_score;
-			Set<Integer> ss = new HashSet<Integer>();
-			ss.addAll(as.keySet());
-			ss.addAll(bs.keySet());
-			for(int score : ss)
-			{
-				double ac =0,bc = 0;
-				if(as.get(score)!=null)ac = as.get(score).getCounter();
-				if(bs.get(score)!=null)bc = bs.get(score).getCounter();
-				
-				double abs = ac + bc;
-				double weight =  abs / t_t_score;
-				combine.increaseDiffScoreWeight(i, score, abs , weight);
-			}
-		}
-		
-		return combine;
-	}
-	
-	/**
-	 * 分析team_name的历史记录,并算出此场比赛在当时diff下的总进球数
-	 * @param team_name
-	 * @param oneteamleaguelist
-	 * @param mrmap
-	 * @return DiffScoreCounter
-	 */
-	private DiffScoreCounter diffScoreRate(String team_name,List<VSTeam> oneteamleaguelist,List<VSTeam> vsTeams)
-	{
-		DiffScoreCounter diffScoreCounter = new DiffScoreCounter(team_name);
-		List<VSTeam> copy_vsTeams = new ArrayList<VSTeam>(vsTeams);
-		
-		for(int i = oneteamleaguelist.size()-1; i > 0; i--)
-		{
-			VSTeam vsteam = oneteamleaguelist.get(i);
-			//移出掉要运算的对象
-			copy_vsTeams.remove(vsteam);
-			if(copy_vsTeams.size()==vsTeams.size()) throw new RuntimeException("copy failed");
-			
-			Map<String,List<VSMatchResult>> mrmap = AnaylzeTeamLeaguesPoint.anaylzeLeagueTeamVSMatchResult(copy_vsTeams);
-			
-			
-			//找到vs[0]的历史记录
-			List<VSMatchResult> as = mrmap.get(AnaylzeVSTeam2CardsbyScore.makeCardKey(vsteam.getLeague(), vsteam.getVs()[0]));
-			//找到vs[1]的历史记录
-			List<VSMatchResult> bs = mrmap.get(AnaylzeVSTeam2CardsbyScore.makeCardKey(vsteam.getLeague(), vsteam.getVs()[1]));
-			
-			if(as==null || bs == null) continue;
-			
-			//计算当次的diff结果 
-			int diff = AnaylzeTeamLeaguesPoint.calcDiff(as, bs);
-			if(diff == 777) continue;
-			diff = Math.abs(diff);
-			diffScoreCounter.increaseDiffScore(diff, vsteam.getTeama_goals()+vsteam.getTeamb_goals());
-		}
-		
-		return diffScoreCounter;
-	}
-
 	private List<ScoreCounter> getPredictScoreList(List<VSTeam> vsTeams,VSTeam predictMatch, boolean debug) 
 	{
 		Map<String, ScoreStuff> wins = AnalyzeScore.analyzeTeamWinScore(vsTeams);

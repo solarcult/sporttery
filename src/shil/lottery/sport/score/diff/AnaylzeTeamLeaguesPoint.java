@@ -15,6 +15,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import shil.lottery.sport.cards.AnaylzeVSTeam2CardsbyScore;
 import shil.lottery.sport.db.SportMetaDaoImpl;
+import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.entity.VSTeam;
 
 /**
@@ -158,9 +159,9 @@ public class AnaylzeTeamLeaguesPoint {
 	 */
 	public static int calcDiff(List<VSMatchResult> as,List<VSMatchResult> bs)
 	{
-		if(as==null || bs == null) return 777;
+		if(as==null || bs == null) return DiffScoreCounter.ILLEAGAL;
 		int sampleSize = Math.min(as.size(), bs.size());
-		if(sampleSize < diff_Sample_Size_Min) return 777;
+		if(sampleSize < diff_Sample_Size_Min) return DiffScoreCounter.ILLEAGAL;
 		if(sampleSize > diff_Sample_Size_Max) sampleSize = diff_Sample_Size_Max;
 		int ar  = 0;
 		for(int i=as.size()-1;i>=as.size()-sampleSize;i--)
@@ -175,11 +176,6 @@ public class AnaylzeTeamLeaguesPoint {
 			br+=b.getMatch_result();
 		}
 		return ar - br;
-	}
-	
-	public void analyzeDiffScore(List<VSTeam> vsTeams)
-	{
-		
 	}
 
 	public static void main(String[] args)

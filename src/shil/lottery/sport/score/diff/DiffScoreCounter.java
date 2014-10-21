@@ -16,11 +16,15 @@ import shil.lottery.sport.entity.ScoreCounter;
  */
 public class DiffScoreCounter {
 	
+	public static int ILLEAGAL = 777;
+	public static int COMBINE = 888;
+	
+	private int diff;
 	private String team_name;
 	//diff,score,scorecounter
 	private Map<Integer,Map<Integer,ScoreCounter>> diffScoreMap;
 	
-	public DiffScoreCounter(String team_name)
+	public DiffScoreCounter(String team_name,int diff)
 	{
 		this.team_name = team_name;
 		this.diffScoreMap = new TreeMap<Integer, Map<Integer,ScoreCounter>>();
@@ -81,6 +85,12 @@ public class DiffScoreCounter {
 		
 		return scs;
 	}
+	
+	public List<ScoreCounter> getAllScoreMap()
+	{
+		return combineDiffMap(this.diffScoreMap.keySet());
+	}
+	
 	
 	/**
 	 * 返回此diff值所包含的所有进球数
@@ -148,8 +158,66 @@ public class DiffScoreCounter {
 
 	@Override
 	public String toString() {
-		return "DiffScoreCounter [team_name=" + team_name + ", diffScoreMap="
-				+ diffScoreMap + "]";
+		StringBuilder sb =  new StringBuilder();
+		sb.append("DiffScoreCounter [team_name=" + team_name + ", ");
+		sb.append("diff" + diff + ", diffScoreMap=\n");
+		for(Entry<Integer,Map<Integer,ScoreCounter>> diff : this.diffScoreMap.entrySet())
+		{
+			for(Entry<Integer,ScoreCounter> e : diff.getValue().entrySet())
+			{
+				sb.append(diff.getKey()+" : " + e.getKey() +" : "+ e.getValue().getCounter()+"\n");
+			}
+		}
+		
+		return sb.toString();
+	}
+
+	public int getDiff() {
+		return diff;
+	}
+
+	public void setDiff(int diff) {
+		this.diff = diff;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + diff;
+		result = prime * result
+				+ ((diffScoreMap == null) ? 0 : diffScoreMap.hashCode());
+		result = prime * result
+				+ ((team_name == null) ? 0 : team_name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DiffScoreCounter other = (DiffScoreCounter) obj;
+		if (diff != other.diff)
+			return false;
+		if (diffScoreMap == null) {
+			if (other.diffScoreMap != null)
+				return false;
+		} else if (!diffScoreMap.equals(other.diffScoreMap))
+			return false;
+		if (team_name == null) {
+			if (other.team_name != null)
+				return false;
+		} else if (!team_name.equals(other.team_name))
+			return false;
+		return true;
 	}
 	
+	public boolean isEmpty()
+	{
+		return diff == ILLEAGAL;
+	}
 }

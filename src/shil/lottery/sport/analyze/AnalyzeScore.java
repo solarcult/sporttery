@@ -15,6 +15,7 @@ import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
+import shil.lottery.sport.score.diff.AdvancedMilkyWay;
 import shil.lottery.sport.statistics.StatisticUtils;
 
 public class AnalyzeScore {
@@ -181,6 +182,8 @@ public class AnalyzeScore {
 	public static void main(String[] args)
 	{
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
+		
+		AdvancedMilkyWay.showLeagueScoreDiffStatus(vsTeams, "欧洲冠军联赛");
 		
 		Map<String, ScoreStuff> wins = AnalyzeScore.analyzeTeamWinScore(vsTeams);
 		Map<String, ScoreStuff> loses = AnalyzeScore.analyzeTeamLoseScore(vsTeams);
