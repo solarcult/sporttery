@@ -28,7 +28,7 @@ public class FeedvsTeamsHistory {
 		{
 			System.out.println("Process file" + f.getName());
 //			LoadExcelData2VSTeams.justDoIt(f);
-			SportMetaDaoImpl.insertVSTeams(LoadExcelData2VSTeams.justDoIt(f));
+			SportMetaDaoImpl.insertVSTeams(LoadExcelData2VSTeams.justDoIt(f,true));
 		}
 		
 	}

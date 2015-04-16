@@ -23,7 +23,7 @@ public class WCP {
 	public static void main(String[] args)
 	{
 		
-		List<VSTeam> vsTeams = LoadExcelData2VSTeams.justDoIt(new File("d:\\abc.xls"));
+		List<VSTeam> vsTeams = LoadExcelData2VSTeams.justDoIt(new File("d:\\abc.xls"),false);
 		
 //		Collections.sort(vsTeams);
 //		StrategyUtils.printFirst25Item(vsTeams);

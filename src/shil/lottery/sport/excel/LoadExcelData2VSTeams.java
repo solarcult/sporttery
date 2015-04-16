@@ -14,7 +14,7 @@ import shil.lottery.sport.entity.VSTeam;
  */
 public class LoadExcelData2VSTeams {
 	
-	public static List<VSTeam> justDoIt(File file)
+	public static List<VSTeam> justDoIt(File file,boolean isInsertMatchResult2DB)
 	{
 		List<VSTeam> vsTeams = new ArrayList<VSTeam>();
 		
@@ -51,7 +51,10 @@ public class LoadExcelData2VSTeams {
 	        int teama_goals = -1;
 	        int teamb_goals = -1;
 	        String resultScore = result[i+2][6];
-//	        if(resultScore.indexOf(":")!=-1) throw new RuntimeException("should not have :");
+	        if(isInsertMatchResult2DB){
+	        	//如果为新增数据,则:都会被替换为,
+	        	if(resultScore.indexOf(":")!=-1) throw new RuntimeException("should not have :");
+	        }
 	        String[] scores = resultScore.split(",");
 	        if(scores.length >= 2)
 	        {
@@ -67,6 +70,6 @@ public class LoadExcelData2VSTeams {
 
 	public static void main(String[] args)
 	{
-		justDoIt(new File("d:\\test.xls"));
+		justDoIt(new File("d:\\test.xls"),false);
 	}
 }

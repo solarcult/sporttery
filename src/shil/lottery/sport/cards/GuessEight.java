@@ -90,7 +90,7 @@ public class GuessEight implements Guess4TeamMatchResult3 {
 	public static void main(String[] args)
 	{
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
-		List<VSTeam> guessTeams = LoadExcelData2VSTeams.justDoIt(new File("e:\\abc.xls"));
+		List<VSTeam> guessTeams = LoadExcelData2VSTeams.justDoIt(new File("e:\\abc.xls"),false);
 		Guess4TeamMatchResult3 g8 = new GuessEight();
 		
 		for(VSTeam vs : guessTeams)

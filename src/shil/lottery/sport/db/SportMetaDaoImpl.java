@@ -21,6 +21,7 @@ import shil.lottery.sport.strategy.StrategyUtils;
  */
 public class SportMetaDaoImpl {
 	
+	//之前7个月的数据
 	public static int minusMonth = -7;
 	
 	public static void insertVSTeams(List<VSTeam> vsTeams)
@@ -102,8 +103,13 @@ public class SportMetaDaoImpl {
 	
 	public static List<VSTeam> loadEveryVSTeamRecords()
 	{
+		return loadBeforeMonthVSTeamRecords(minusMonth);
+	}
+	
+	public static List<VSTeam> loadBeforeMonthVSTeamRecords(int beforeMonth)
+	{
 		Calendar c =Calendar.getInstance();
-		c.add(Calendar.MONTH, minusMonth);
+		c.add(Calendar.MONTH, -beforeMonth);
 		
 		List<VSTeam> vsTeams = new ArrayList<VSTeam>();
 		Connection connection = DataBaseManager.getConnection();
@@ -197,11 +203,12 @@ public class SportMetaDaoImpl {
 	public void testDate()
 	{
 		Calendar c =Calendar.getInstance();
-		c.add(Calendar.MONTH, -8);
+		System.out.println(DateFormat.getDateInstance().format(c.getTime()));
+		c.add(Calendar.MONTH, -1);
 		System.out.println(DateFormat.getDateInstance().format(c.getTime()));
 		
 		Calendar d = Calendar.getInstance();
-		d.set(2014, 01-1, 25);
+		d.set(2014, 01, 25);
 		System.out.println(DateFormat.getDateInstance().format(d.getTime()));
 	}
 	

@@ -9,11 +9,17 @@ import java.util.Arrays;
  */
 public class VSTeam implements Comparable<VSTeam>{
 	
+	//对战双方
 	private String[] vs;
+	//官方给的赔率
 	private double[] peilv;
+	//用户购买胜负平的数量
 	private double[] peopleVote_num;
+	//根据赔率计算出来的概率,由程序推算出来
 	private double[] betCalcRate_web;
+	//根据用户投注计算出来的概率,由程序推算出来
 	private double[] peopleVote_rate;
+	//庄家返还比例,约小返还越多,对彩票购买者越好.
 	private double host_rate_1125;
 	
 	private int year;
@@ -88,6 +94,7 @@ public class VSTeam implements Comparable<VSTeam>{
 		{
 			betCalcRate_web[e] = convertRate[e] / total;
 		}
+		
 		
 		this.host_rate_1125 = total; 
 	}
@@ -240,4 +247,26 @@ public class VSTeam implements Comparable<VSTeam>{
 		this.teamb_goals = teamb_goals;
 	}
 	
+	public static void main(String[] args)
+	{
+//		double[] peilv = {1.79,3.20,4.00}; //1.121159217877095
+		double[] peilv = {2.20,3.05,2.95}; //1.1213973578519285
+		
+		//以下根据赔率计算胜负平所占的概率
+		double total = 0;
+		double[] convertRate = new double[peilv.length];
+		for(int e=0;e<peilv.length;e++)
+		{
+			convertRate[e] = 1 / peilv[e];
+			total += convertRate[e];
+		}
+		double[] betCalcRate_web = new double[3];
+		for(int e = 0; e<convertRate.length;e++)
+		{
+			betCalcRate_web[e] = convertRate[e] / total;
+			System.out.println(betCalcRate_web[e]);
+		}
+		
+		System.out.println(total);
+	}
 }
