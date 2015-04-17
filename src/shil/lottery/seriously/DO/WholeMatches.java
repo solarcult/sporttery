@@ -1,4 +1,4 @@
-package shil.lottery.seriously.utils;
+package shil.lottery.seriously.DO;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -72,7 +72,10 @@ public class WholeMatches {
 			teamleagueMap.put(leaguename, vsTeams);
 		}
 		
-		vsTeams.addFirst(vsTeam);
+		//protected:去重,防止相同比赛重复记录
+		if(!vsTeams.contains(vsTeam)){
+			vsTeams.addFirst(vsTeam);
+		}
 	}
 
 	public Set<String> getLeaguesNames() {

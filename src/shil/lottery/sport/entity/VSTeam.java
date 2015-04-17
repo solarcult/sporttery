@@ -31,7 +31,11 @@ public class VSTeam implements Comparable<VSTeam>{
 	private int teama_goals;
 	private int teamb_goals;
 	
-	private VSTeam(){};
+	private double[] goals;
+	
+	private VSTeam(){
+		this.goals = new double[2];
+	};
 	
 	public static VSTeam builderVSTeam(String[] vs,double[] peilv,double[] peopleVote_num)
 	{
@@ -241,12 +245,18 @@ public class VSTeam implements Comparable<VSTeam>{
 
 	private void setTeama_goals(int teama_goals) {
 		this.teama_goals = teama_goals;
+		this.goals[0] = teama_goals;
 	}
 
 	private void setTeamb_goals(int teamb_goals) {
 		this.teamb_goals = teamb_goals;
+		this.goals[1] = teama_goals;
 	}
 	
+	public double[] getGoals() {
+		return goals;
+	}
+
 	public static void main(String[] args)
 	{
 //		double[] peilv = {1.79,3.20,4.00}; //1.121159217877095
