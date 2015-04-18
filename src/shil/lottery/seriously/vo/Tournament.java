@@ -1,4 +1,4 @@
-package shil.lottery.seriously.DO;
+package shil.lottery.seriously.vo;
 
 import java.util.HashMap;
 import java.util.List;

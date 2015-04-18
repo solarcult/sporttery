@@ -3,7 +3,7 @@ package shil.lottery.seriously.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import shil.lottery.seriously.DO.WholeMatches;
+import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 
