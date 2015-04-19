@@ -1,3 +1,5 @@
+CREATE DATABASE sporttery
+
 CREATE TABLE sport_meta_data
 (
   year integer NOT NULL,
