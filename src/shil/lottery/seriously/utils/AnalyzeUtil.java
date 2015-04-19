@@ -3,6 +3,9 @@ package shil.lottery.seriously.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math3.fraction.Fraction;
+import org.apache.commons.math3.fraction.FractionFormat;
+
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
@@ -97,7 +100,16 @@ public class AnalyzeUtil {
 	 * @return
 	 */
 	public static int oppos(int i){
+		if(i!=0||i!=1) throw new RuntimeException(i+" postion is illeagal!");
 		return i==1?0:1;
 	}
 	
+	public static void main(String[] args){
+		FractionFormat format = new FractionFormat(); // default format
+		Fraction f = new Fraction(1,3);
+		String s = format.format(f); // s contains "1 / 2", note the reduced fraction
+		System.out.println(f);
+		System.out.println(f.doubleValue());
+		System.out.println(s);
+	}
 }

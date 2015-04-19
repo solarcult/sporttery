@@ -1,8 +1,6 @@
 package shil.lottery.seriously.vo;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
@@ -22,29 +20,28 @@ public class Tournament {
 	private String leaguename;
 	private String teamname;
 	private double matchesN;
-//	private double goals;
-//	private double losts;
-//	private double mean_goals;
-//	private double mean_losts;
-//	private double sd_goals;
-//	private double sd_losts;
-	private Map<Double, Double> goaldetailmap;
-	private Map<Double, Double> lostdetailmap;
 	private double win;
 	private double draw;
 	private double lose;
-	private DescriptiveStatistics goals;
-	private DescriptiveStatistics losts;
-	private Frequency winscore;
-	private Frequency losescore;
+	//记录进球的平均数量和基本数据分析
+	private DescriptiveStatistics goalStatistics;
+	private DescriptiveStatistics lostStatistics;
+	//记录进球的数量的频率统计信息
+	private Frequency goalFrequency;
+	private Frequency lostFrequency;
 
 	// 主场数据
-
+	private Tournament hostTournament;
 	// 客场数据
+	private Tournament guestTournament;
 
 	private Tournament() {
-		goaldetailmap = new HashMap<Double, Double>();
-		lostdetailmap = new HashMap<Double, Double>();
+		this.goalStatistics = new DescriptiveStatistics();
+		this.lostStatistics = new DescriptiveStatistics();
+		this.goalFrequency =  new Frequency();
+		this.lostFrequency = new Frequency();
+		this.hostTournament = new Tournament();
+		this.guestTournament = new Tournament();
 	}
 
 	public String getLeaguename() {
@@ -59,38 +56,6 @@ public class Tournament {
 		return matchesN;
 	}
 
-//	public double getGoals() {
-//		return goals;
-//	}
-//
-//	public double getLosts() {
-//		return losts;
-//	}
-//
-//	public double getMean_goals() {
-//		return mean_goals;
-//	}
-//
-//	public double getMean_losts() {
-//		return mean_losts;
-//	}
-//
-//	public double getSd_goals() {
-//		return sd_goals;
-//	}
-//
-//	public double getSd_losts() {
-//		return sd_losts;
-//	}
-
-	public Map<Double, Double> getGoaldetailmap() {
-		return goaldetailmap;
-	}
-
-	public Map<Double, Double> getLostdetailmap() {
-		return lostdetailmap;
-	}
-
 	public double getWin() {
 		return win;
 	}
@@ -103,18 +68,38 @@ public class Tournament {
 		return lose;
 	}
 
-	public static Tournament analyzeVSTeams2Tournament(String leaguename,
-			String teamname, List<VSTeam> vsTeams) {
+	public static Tournament analyzeVSTeams2Tournament(String leaguename, String teamname, List<VSTeam> vsTeams) {
 		Tournament tournament = new Tournament();
 		tournament.leaguename = leaguename;
 		tournament.teamname = teamname;
-		tournament.matchesN = vsTeams.size();
 		
-		for (VSTeam vsTeam : vsTeams) {
+		//过滤不相关的比赛
+		List<VSTeam> refinedVsTeams = AnalyzeUtil.filterVSTeamMatchs(leaguename, teamname, vsTeams);
+		
+		tournament.matchesN = refinedVsTeams.size();
+		
+		for (VSTeam vsTeam : refinedVsTeams) {
 			int pos = AnalyzeUtil.pos(teamname, vsTeam.getVs());
 			int oppos = AnalyzeUtil.oppos(pos);
-			tournament.goals.addValue(vsTeam.getGoals()[pos]);
-			tournament.losts.addValue(vsTeam.getGoals()[oppos]);
+			tournament.goalStatistics.addValue(vsTeam.getGoals()[pos]);
+			tournament.lostStatistics.addValue(vsTeam.getGoals()[oppos]);
+			tournament.goalFrequency.addValue(vsTeam.getGoals()[pos]);
+			tournament.lostFrequency.addValue(vsTeam.getGoals()[oppos]);
+			
+			if(pos==0){
+				//host
+				tournament.hostTournament.goalStatistics.addValue(vsTeam.getGoals()[pos]);
+				tournament.hostTournament.lostStatistics.addValue(vsTeam.getGoals()[oppos]);
+				tournament.hostTournament.goalFrequency.addValue(vsTeam.getGoals()[pos]);
+				tournament.hostTournament.lostFrequency.addValue(vsTeam.getGoals()[oppos]);
+			}else if(pos==1){
+				tournament.guestTournament.goalStatistics.addValue(vsTeam.getGoals()[pos]);
+				tournament.guestTournament.lostStatistics.addValue(vsTeam.getGoals()[oppos]);
+				tournament.guestTournament.goalFrequency.addValue(vsTeam.getGoals()[pos]);
+				tournament.guestTournament.lostFrequency.addValue(vsTeam.getGoals()[oppos]);
+			}else{
+				throw new RuntimeException("should not happend here.");
+			}
 		}
 		
 		return tournament;
