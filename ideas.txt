@@ -1,0 +1,26 @@
+									DIARY
+
+
+
+--------------------------
+
+2015-April-20 22:20
+
+1.今天我把VSTeam分析成Tournament的代码写完了,T里面抛弃了我以前的统计方式,改用MathCommon包里面已经实现的方案. 
+现在的T还没有跟赔率之类的加上关联,只是分析了进球数相关的信息,以后要分析的时候记得加上VSTeam中的赔率之类的信息一起
+
+2.接下来准备进行相关性分析,看了一下common math 里面有Covariance and correlation这些功能.
+标称数据用卡方X2检验. 
+数值型数据用相关系数(correlation coefficient)和协方差(covariance),它们都评估一个属性的值如何随另一个变化.
+
+3. 
+Covariance computes covariances,  
+PearsonsCorrelation provides Pearson's Product-Moment correlation coefficients,  
+SpearmansCorrelation computes Spearman's rank correlation (先将非数值数据Rank,然后通过PearsonsCorrelation进行分析) 
+KendallsCorrelation computes Kendall's tau rank correlation. (根据和谐不和谐来计算相关性)
+
+4.Math Common的包又更新了,前几天刚更新成3.4.1,现在已经是3.5了.真快.
+
+5.买了Y50 GTX960M的笔记本后,我得忍着不打游戏,GTA5前几天刚出.其实我一直认为只有范导那样的人才有资格打游戏.打游戏对我们来说是一件奢侈的事情啊.
+
+23:37
