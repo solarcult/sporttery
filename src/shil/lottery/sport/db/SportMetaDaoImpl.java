@@ -103,7 +103,7 @@ public class SportMetaDaoImpl {
 	
 	public static List<VSTeam> loadEveryVSTeamRecords()
 	{
-		return loadBeforeMonthVSTeamRecords(minusMonth);
+		return loadBeforeMonthVSTeamRecords(999);
 	}
 	
 	public static List<VSTeam> loadBeforeMonthVSTeamRecords(int beforeMonth)
