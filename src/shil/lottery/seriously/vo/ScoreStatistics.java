@@ -17,7 +17,7 @@ import shil.lottery.sport.entity.VSTeam;
  * @author yuanshun.sl
  * @since 2015-April-17 11:10
  */
-public class Tournament {
+public class ScoreStatistics {
 	
 	public static int lose = 0;
 	public static int draw = 1;
@@ -35,17 +35,17 @@ public class Tournament {
 	private Frequency lostFrequency;
 
 	// 主场数据
-	private Tournament hostTournament;
+	private ScoreStatistics hostScoreStatistics;
 	// 客场数据
-	private Tournament guestTournament;
+	private ScoreStatistics guestScoreStatistics;
 
-	private Tournament() {
+	private ScoreStatistics() {
 		this.goalStatistics = new DescriptiveStatistics();
 		this.lostStatistics = new DescriptiveStatistics();
 		this.goalFrequency =  new Frequency();
 		this.lostFrequency = new Frequency();
-		this.hostTournament = new Tournament();
-		this.guestTournament = new Tournament(); 
+		this.hostScoreStatistics = new ScoreStatistics();
+		this.guestScoreStatistics = new ScoreStatistics(); 
 		this.match013 = new Frequency();
 	}
 
@@ -57,37 +57,34 @@ public class Tournament {
 		return teamname;
 	}
 
-	public static Tournament analyzeVSTeams2Tournament(String leaguename, String teamname, List<VSTeam> vsTeams) {
-		Tournament tournament = new Tournament();
-		tournament.leaguename = leaguename;
-		tournament.teamname = teamname;
-		
-		//过滤不相关的比赛, 去掉这个限制,因为这样可以得到这支球队所有的比赛结果,不用被联赛限制,为了更好的通用性.过滤应在外层调用
-		//List<VSTeam> refinedVsTeams = AnalyzeUtil.filterVSTeamMatchs(leaguename, teamname, vsTeams);
-		
+	public static ScoreStatistics analyzeVSTeams2scoreStatistics(String leaguename, String teamname, List<VSTeam> vsTeams) {
+		ScoreStatistics scoreStatistics = new ScoreStatistics();
+		scoreStatistics.leaguename = leaguename;
+		scoreStatistics.teamname = teamname;
+
 		for (VSTeam vsTeam : vsTeams) {
 			int pos = AnalyzeUtil.pos(teamname, vsTeam.getVs());
 			if(pos==-1) continue;
-			feedTournament(tournament, pos, vsTeam.getGoals());
+			feedScoreStatistics(scoreStatistics, pos, vsTeam.getGoals());
 			
 			//host?
 			if(pos==0){
-				feedTournament(tournament.hostTournament, pos, vsTeam.getGoals());
+				feedScoreStatistics(scoreStatistics.hostScoreStatistics, pos, vsTeam.getGoals());
 			}else if(pos==1){
-				feedTournament(tournament.guestTournament, pos, vsTeam.getGoals());
+				feedScoreStatistics(scoreStatistics.guestScoreStatistics, pos, vsTeam.getGoals());
 			}
 		}
 		
-		return tournament;
+		return scoreStatistics;
 	}
 	
-	public static void feedTournament(Tournament tournament , int postion , double[] goals){
-		int oppos = AnalyzeUtil.oppos(postion);
-		tournament.goalStatistics.addValue(goals[postion]);
-		tournament.lostStatistics.addValue(goals[oppos]);
-		tournament.goalFrequency.addValue(goals[postion]);
-		tournament.lostFrequency.addValue(goals[oppos]);
-		tournament.match013.addValue(AnalyzeUtil.match013(postion,goals));
+	public static void feedScoreStatistics(ScoreStatistics scoreStatistics , int position , double[] goals){
+		int oppos = AnalyzeUtil.oppos(position);
+		scoreStatistics.goalStatistics.addValue(goals[position]);
+		scoreStatistics.lostStatistics.addValue(goals[oppos]);
+		scoreStatistics.goalFrequency.addValue(goals[position]);
+		scoreStatistics.lostFrequency.addValue(goals[oppos]);
+		scoreStatistics.match013.addValue(AnalyzeUtil.match013(position,goals));
 	}
 
 }

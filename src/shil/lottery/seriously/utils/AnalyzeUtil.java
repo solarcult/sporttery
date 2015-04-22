@@ -2,7 +2,7 @@ package shil.lottery.seriously.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import shil.lottery.seriously.vo.Tournament;
+import shil.lottery.seriously.vo.ScoreStatistics;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
@@ -59,6 +59,50 @@ public class AnalyzeUtil {
 	}
 	
 	/**
+	 * 判断是否为主场,主场返回0,客场返回1. 不包含这个球队返回-1.
+	 * @param teamname
+	 * @param vsnames
+	 * @return
+	 */
+	public static int pos(String teamname, String[] vsnames){
+
+		for(int i=0;i<vsnames.length;i++){
+			if(teamname.equals(vsnames[i])) return i;
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * 得到对手所在位置,配合pos()
+	 * @param i
+	 * @return
+	 */
+	public static int oppos(int i){
+		if(i!=0 && i!=1) throw new RuntimeException(i+" postion is illeagal!");
+		return i==1?0:1;
+	}
+	
+	/**
+	 * 分析比赛结果
+	 * @param pos
+	 * @param goals
+	 * @return
+	 */
+	public static int match013(int pos,double goals[]){
+		int result = ScoreStatistics.draw;
+		int oppos = AnalyzeUtil.oppos(pos);
+		
+		if(goals[pos] > goals[oppos]){
+			result = ScoreStatistics.win;
+		}else if(goals[pos] < goals[oppos]){
+			result = ScoreStatistics.lose;
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * 将Vsteams过滤为只有某联赛和某组队的数据
 	 * @param leaguename
 	 * @param teamname
@@ -81,68 +125,6 @@ public class AnalyzeUtil {
 		return refinedVsTeams;
 	}
 	
-	/**
-	 * 判断是否为主场,主场返回0,客场返回1. 不包含这个球队返回-1.
-	 * @param teamname
-	 * @param vsnames
-	 * @return
-	 */
-	public static int pos(String teamname, String[] vsnames){
-		
-		for(int i=0;i<vsnames.length;i++){
-			if(teamname.equals(vsnames[i])) return i;
-		}
-		
-		return -1;
-	}
-	
-	/**
-	 * 得到对手所在位置,配合pos()
-	 * @param i
-	 * @return
-	 */
-	public static int oppos(int i){
-		if(i!=0||i!=1) throw new RuntimeException(i+" postion is illeagal!");
-		return i==1?0:1;
-	}
-	
-	public static int match013(int pos,double goals[]){
-		int result = Tournament.draw;
-		int oppos = AnalyzeUtil.oppos(pos);
-		
-		if(goals[pos] > goals[oppos]){
-			result = Tournament.win;
-		}else if(goals[pos] < goals[oppos]){
-			result = Tournament.lose;
-		}
-		
-		return result;
-	}
-	
 	public static void main(String[] args){
-//		FractionFormat format = new FractionFormat(); // default format
-//		Fraction f = new Fraction(1,3);
-//		String s = format.format(f); // s contains "1 / 2", note the reduced fraction
-//		System.out.println(f);
-//		System.out.println(f.doubleValue());
-//		System.out.println(s);
-		
-//		Frequency x = new Frequency();
-//		x.addValue(0);
-//		x.addValue(3);
-//		x.addValue(1);
-//		x.addValue(1);
-//		x.addValue(1);
-//		x.addValue(5);
-//		System.out.println(x.getCount(1));
-//		System.out.println(x.getCumFreq(1));
-//		System.out.println(x.getCumPct(1));
-//		System.out.println(x.getPct(1));
-//		System.out.println(x.getSumFreq());
-//		Iterator<Entry<Comparable<?>, Long>> i = x.entrySetIterator();
-//		while(i.hasNext()){
-//			Entry<?, ?> e =  i.next();
-//			System.out.println(e.getKey()+" : "+e.getValue());
-//		}
 	}
 }
