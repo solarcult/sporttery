@@ -19,10 +19,6 @@ import shil.lottery.sport.entity.VSTeam;
  */
 public class ScoreStatistics {
 	
-	public static int lose = 0;
-	public static int draw = 1;
-	public static int win = 3;
-
 	private String leaguename;
 	private String teamname;
 	//胜负平统计

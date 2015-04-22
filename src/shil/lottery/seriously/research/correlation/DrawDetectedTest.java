@@ -31,7 +31,7 @@ public class DrawDetectedTest {
 			final List<Double> draw = new ArrayList<Double>();
 
 			for(VSTeam vsTeam : vsTeams){
-				if(vsTeam.getMatch_Result() == 1){
+				if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
 					draw.add(Math.abs(vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]);
 				}else{
 					notdraw.add(Math.abs(vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]);
@@ -42,8 +42,8 @@ public class DrawDetectedTest {
 				@Override
 				public XYDataset getDeltaCards() {
 					DefaultXYDataset dataset = new DefaultXYDataset();
-					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdraw),BasicWinLoseRateTest.providerValues(notdraw.size(), 1)});
-					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(draw),BasicWinLoseRateTest.providerValues(draw.size(), -1)});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdraw),AnalyzeUtil.providerDoubleArrayValues(notdraw.size(), 1)});
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(draw),AnalyzeUtil.providerDoubleArrayValues(draw.size(), -1)});
 					return dataset;
 				}
 			};

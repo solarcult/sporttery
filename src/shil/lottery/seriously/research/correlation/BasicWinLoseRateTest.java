@@ -33,10 +33,10 @@ public class BasicWinLoseRateTest {
 			final List<Double> drawValues = new ArrayList<Double>();
 			final List<Double> loseValues = new ArrayList<Double>();
 			for(VSTeam vsTeam : vsTeams){
-				if(vsTeam.getMatch_Result() == 3){
+				if(vsTeam.getMatch_Result() == AnalyzeUtil.win){
 					winValues.add(vsTeam.getBetCalcRate_web()[0]);
 					loseValues.add(vsTeam.getBetCalcRate_web()[2]);
-				}else if(vsTeam.getMatch_Result() == 1){
+				}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
 					drawValues.add(vsTeam.getBetCalcRate_web()[1]);
 				}else{
 					winValues.add(vsTeam.getBetCalcRate_web()[2]);
@@ -50,9 +50,9 @@ public class BasicWinLoseRateTest {
 					DefaultXYDataset dataset = new DefaultXYDataset();
 					double[][] dot = new double[][]{{0},{0}};
 					dataset.addSeries("0,0", dot);
-					dataset.addSeries("win", new double[][]{NumberUtils.convertListDs2doubles(winValues),providerValues(winValues.size(),3)});
-					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawValues),providerValues(drawValues.size(),1)});
-					dataset.addSeries("lose", new double[][]{NumberUtils.convertListDs2doubles(loseValues),providerValues(loseValues.size(),-1)});
+					dataset.addSeries("win", new double[][]{NumberUtils.convertListDs2doubles(winValues),AnalyzeUtil.providerDoubleArrayValues(winValues.size(),3)});
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawValues),AnalyzeUtil.providerDoubleArrayValues(drawValues.size(),1)});
+					dataset.addSeries("lose", new double[][]{NumberUtils.convertListDs2doubles(loseValues),AnalyzeUtil.providerDoubleArrayValues(loseValues.size(),-1)});
 					return dataset;
 				}
 				
@@ -65,11 +65,5 @@ public class BasicWinLoseRateTest {
 //	public static double[][] convertWinArrays(List<Double> ws){
 //		double
 //	}
-	
-	public static double[] providerValues(int size,int value){
-		double[] ds = new double[size];
-		for(int i=0; i < size; i++)
-			ds[i] = value;
-		return ds;
-	}
+
 }

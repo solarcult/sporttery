@@ -2,7 +2,6 @@ package shil.lottery.seriously.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import shil.lottery.seriously.vo.ScoreStatistics;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
@@ -25,6 +24,10 @@ import shil.lottery.sport.entity.VSTeam;
 public class AnalyzeUtil {
 
 	public static int leagalMinMatches = 5;
+	
+	public static int lose = 0;
+	public static int draw = 1;
+	public static int win = 3;
 	
 	/**
 	 * 分析X月的数据
@@ -101,13 +104,13 @@ public class AnalyzeUtil {
 	 * @return
 	 */
 	public static int match013(int pos,double goals[]){
-		int result = ScoreStatistics.draw;
+		int result = AnalyzeUtil.draw;
 		int oppos = AnalyzeUtil.oppos(pos);
 		
 		if(goals[pos] > goals[oppos]){
-			result = ScoreStatistics.win;
+			result = AnalyzeUtil.win;
 		}else if(goals[pos] < goals[oppos]){
-			result = ScoreStatistics.lose;
+			result = AnalyzeUtil.lose;
 		}
 		
 		return result;
@@ -137,5 +140,12 @@ public class AnalyzeUtil {
 	}
 	
 	public static void main(String[] args){
+	}
+
+	public static double[] providerDoubleArrayValues(int size,int value){
+		double[] ds = new double[size];
+		for(int i=0; i < size; i++)
+			ds[i] = value;
+		return ds;
 	}
 }

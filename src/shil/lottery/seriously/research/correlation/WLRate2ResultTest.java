@@ -38,10 +38,10 @@ public class WLRate2ResultTest {
 			final List<Double> losex = new ArrayList<Double>();
 			final List<Double> losey = new ArrayList<Double>();
 			for(VSTeam vsTeam : vsTeams){
-				if(vsTeam.getMatch_Result() == 3){
+				if(vsTeam.getMatch_Result() == AnalyzeUtil.win){
 					winx.add(vsTeam.getBetCalcRate_web()[0]);
 					winy.add(vsTeam.getBetCalcRate_web()[2]);
-				}else if(vsTeam.getMatch_Result() == 1){
+				}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
 					drawx.add(vsTeam.getBetCalcRate_web()[0]);
 					drawy.add(vsTeam.getBetCalcRate_web()[2]);
 				}else{
