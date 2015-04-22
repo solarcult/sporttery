@@ -1,4 +1,4 @@
-package shil.lottery.seriously.research.correlation;
+package shil.lottery.seriously.research.result013.correlation;
 
 import java.util.ArrayList;
 import java.util.List;
