@@ -1,6 +1,6 @@
 2015-April-20
 
-hey
+hey 
 
 this sporttery is make for predict the futrue of sport lottery.
 i try to use some statistics and machine learning tech.
