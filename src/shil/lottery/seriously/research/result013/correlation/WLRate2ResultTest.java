@@ -56,6 +56,38 @@ public class WLRate2ResultTest {
 					DefaultXYDataset dataset = new DefaultXYDataset();
 					dataset.addSeries("win", new double[][]{NumberUtils.convertListDs2doubles(winx),NumberUtils.convertListDs2doubles(winy)});
 					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy)});
+					dataset.addSeries("x", new double[][]{{0},{0}});
+					dataset.addSeries("lose", new double[][]{NumberUtils.convertListDs2doubles(losex),NumberUtils.convertListDs2doubles(losey)});
+					return dataset;
+				}
+			};
+			
+			new AbstractScatterPlotGraphic(leaguename+"_win","主队的胜率","客队的胜率"){
+				@Override
+				public XYDataset getDeltaCards() {
+					DefaultXYDataset dataset = new DefaultXYDataset();
+					dataset.addSeries("win", new double[][]{NumberUtils.convertListDs2doubles(winx),NumberUtils.convertListDs2doubles(winy)});
+					return dataset;
+				}
+			};
+			
+			new AbstractScatterPlotGraphic(leaguename+"_draw","主队的胜率","客队的胜率"){
+				@Override
+				public XYDataset getDeltaCards() {
+					DefaultXYDataset dataset = new DefaultXYDataset();
+					dataset.addSeries("win", new double[][]{{0},{0}});
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy)});
+					return dataset;
+				}
+			};
+			
+			new AbstractScatterPlotGraphic(leaguename+"_lose","主队的胜率","客队的胜率"){
+				@Override
+				public XYDataset getDeltaCards() {
+					DefaultXYDataset dataset = new DefaultXYDataset();
+					dataset.addSeries("win", new double[][]{{0},{0}});
+					dataset.addSeries("draw", new double[][]{{0},{0}});
+					dataset.addSeries("x", new double[][]{{0},{0}});
 					dataset.addSeries("lose", new double[][]{NumberUtils.convertListDs2doubles(losex),NumberUtils.convertListDs2doubles(losey)});
 					return dataset;
 				}

@@ -43,7 +43,26 @@ public class DrawDetectedTest {
 				}
 			}
 			
-			new AbstractScatterPlotGraphic(leaguename,"相减绝对值比","drawvalue"){
+			new AbstractScatterPlotGraphic(leaguename+"_draw","相减绝对值比","draw_value"){
+				@Override
+				public XYDataset getDeltaCards() {
+					DefaultXYDataset dataset = new DefaultXYDataset();
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(draw),NumberUtils.convertListDs2doubles(drawy)});
+					return dataset;
+				}
+			};
+			
+			new AbstractScatterPlotGraphic(leaguename+"_notdraw","相减绝对值比","draw_value"){
+				@Override
+				public XYDataset getDeltaCards() {
+					DefaultXYDataset dataset = new DefaultXYDataset();
+					dataset.addSeries("draw", new double[][]{{0},{0}});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdraw),NumberUtils.convertListDs2doubles(notdrawy)});
+					return dataset;
+				}
+			};
+			
+			new AbstractScatterPlotGraphic(leaguename,"相减绝对值比","draw_value"){
 				@Override
 				public XYDataset getDeltaCards() {
 					DefaultXYDataset dataset = new DefaultXYDataset();
