@@ -24,6 +24,8 @@ import shil.lottery.sport.entity.VSTeam;
  */
 public class AnalyzeUtil {
 
+	public static int leagalMinMatches = 5;
+	
 	/**
 	 * 分析X月的数据
 	 * @param x
@@ -31,6 +33,15 @@ public class AnalyzeUtil {
 	 */
 	public static WholeMatches analyzeXmonth(int x){
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadBeforeMonthVSTeamRecords(x);
+		return analyzeWholeMatches(vsTeams);
+	}
+	
+	/**
+	 * 分析所有的数据
+	 * @return
+	 */
+	public static WholeMatches analyzeWholeRecords(){
+		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		return analyzeWholeMatches(vsTeams);
 	}
 	
