@@ -27,7 +27,7 @@ public class BasicWinLoseRateTest {
 		Set<String> leaguenames = wholeMatches.getLeaguesNames();
 		
 		for(String leaguename : leaguenames){
-			List<VSTeam> vsTeams = wholeMatches.getLeaguesMap().get(leaguename);
+			List<VSTeam> vsTeams = wholeMatches.getLeaguesVSTeamsMap().get(leaguename);
 			if(vsTeams.size()<AnalyzeUtil.leagalMinMatches) continue;
 			final List<Double> winValues = new ArrayList<Double>();
 			final List<Double> drawValues = new ArrayList<Double>();
@@ -57,13 +57,6 @@ public class BasicWinLoseRateTest {
 				}
 				
 			};
-			
 		}
 	}
-	
-	
-//	public static double[][] convertWinArrays(List<Double> ws){
-//		double
-//	}
-
 }

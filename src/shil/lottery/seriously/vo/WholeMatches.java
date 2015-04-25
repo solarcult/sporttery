@@ -10,6 +10,7 @@ import java.util.Set;
 
 
 
+
 import shil.lottery.sport.entity.VSTeam;
 
 /**
@@ -30,7 +31,9 @@ public class WholeMatches {
 	//联赛名称set<名称>
 	private Set<String> leaguesNames;
 	//联赛Map<联赛名称,List<VSTeam>按从旧到新>
-	private Map<String,List<VSTeam>> leaguesMap;
+	private Map<String,List<VSTeam>> leaguesVSTeamsMap;
+	//联赛队伍名称Map<联赛名称,Set<队伍名称>>
+	private Map<String,Set<String>> leaguesTeamnamesMap;
 	//队伍set<名称>
 	private Set<String> teamnames;
 	//队伍name,Map<联赛名称,List<VSTeam>自己在这个联赛中的比赛记录,按从旧到新>
@@ -38,7 +41,8 @@ public class WholeMatches {
 	
 	public WholeMatches(){
 		this.leaguesNames = new HashSet<String>();
-		this.leaguesMap = new HashMap<String, List<VSTeam>>();
+		this.leaguesVSTeamsMap = new HashMap<String, List<VSTeam>>();
+		this.leaguesTeamnamesMap = new HashMap<String,Set<String>>();
 		this.teamnames = new HashSet<String>();
 		this.teamDigest = new HashMap<String, Map<String,List<VSTeam>>>();
 	}
@@ -47,14 +51,22 @@ public class WholeMatches {
 		return this.leaguesNames.add(leaguename);
 	}
 	
-	public void addLeaguesMap(String leaguename, VSTeam vsTeam){
-		List<VSTeam> vsTeams = this.leaguesMap.get(leaguename);
+	public void addLeaguesVSTeamsMap(String leaguename, VSTeam vsTeam){
+		List<VSTeam> vsTeams = this.leaguesVSTeamsMap.get(leaguename);
 		if(vsTeams == null){
 			vsTeams = new ArrayList<VSTeam>();
-			this.leaguesMap.put(leaguename, vsTeams);
+			this.leaguesVSTeamsMap.put(leaguename, vsTeams);
 		}
-		
 		vsTeams.add(vsTeam);
+	}
+	
+	public void addLeaguesTeamnamesMap(String leaguename, String teamname){
+		Set<String> teamnames = this.leaguesTeamnamesMap.get(leaguename);
+		if(teamnames == null){
+			teamnames = new HashSet<String>();
+			this.leaguesTeamnamesMap.put(leaguename, teamnames);
+		}
+		teamnames.add(teamname);
 	}
 	
 	public boolean addTeamname(String teamname){
@@ -84,8 +96,8 @@ public class WholeMatches {
 		return leaguesNames;
 	}
 
-	public Map<String, List<VSTeam>> getLeaguesMap() {
-		return leaguesMap;
+	public Map<String, List<VSTeam>> getLeaguesVSTeamsMap() {
+		return leaguesVSTeamsMap;
 	}
 
 	public Set<String> getTeamnames() {
@@ -94,6 +106,35 @@ public class WholeMatches {
 
 	public Map<String, Map<String, List<VSTeam>>> getTeamDigest() {
 		return teamDigest;
+	}
+	
+	public Map<String, Set<String>> getLeaguesTeamnamesMap() {
+		return leaguesTeamnamesMap;
+	}
+
+	/**
+	 * 将VSTeams分析出WholeMatches对象
+	 * @param vsTeams
+	 * @return
+	 */
+	public static WholeMatches analyzeWholeMatches(List<VSTeam> vsTeams){
+		
+		WholeMatches wholeMatches = new WholeMatches();
+		
+		for(VSTeam vsTeam : vsTeams){
+			
+			String leaguename = vsTeam.getLeague();
+			wholeMatches.addLeaguesName(leaguename);
+			wholeMatches.addLeaguesVSTeamsMap(leaguename, vsTeam);
+			
+			for(String teamname : vsTeam.getVs()){
+				wholeMatches.addTeamname(teamname);
+				wholeMatches.addTeamDigest(teamname, leaguename, vsTeam);
+				wholeMatches.addLeaguesTeamnamesMap(leaguename, teamname);
+			}
+		}
+		
+		return wholeMatches;
 	}
 	
 }

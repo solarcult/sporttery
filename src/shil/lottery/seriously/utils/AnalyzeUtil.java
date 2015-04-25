@@ -36,7 +36,7 @@ public class AnalyzeUtil {
 	 */
 	public static WholeMatches analyzeXmonth(int x){
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadBeforeMonthVSTeamRecords(x);
-		return analyzeWholeMatches(vsTeams);
+		return WholeMatches.analyzeWholeMatches(vsTeams);
 	}
 	
 	/**
@@ -45,31 +45,7 @@ public class AnalyzeUtil {
 	 */
 	public static WholeMatches analyzeWholeRecords(){
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
-		return analyzeWholeMatches(vsTeams);
-	}
-	
-	/**
-	 * 将VSTeams分析出WholeMatches对象
-	 * @param vsTeams
-	 * @return
-	 */
-	public static WholeMatches analyzeWholeMatches(List<VSTeam> vsTeams){
-		
-		WholeMatches wholeMatches = new WholeMatches();
-		
-		for(VSTeam vsTeam : vsTeams){
-			
-			String leaguename = vsTeam.getLeague();
-			wholeMatches.addLeaguesName(leaguename);
-			wholeMatches.addLeaguesMap(leaguename, vsTeam);
-			
-			for(String teamname : vsTeam.getVs()){
-				wholeMatches.addTeamname(teamname);
-				wholeMatches.addTeamDigest(teamname, leaguename, vsTeam);
-			}
-		}
-		
-		return wholeMatches;
+		return WholeMatches.analyzeWholeMatches(vsTeams);
 	}
 	
 	/**

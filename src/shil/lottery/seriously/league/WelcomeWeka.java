@@ -19,16 +19,14 @@ public class WelcomeWeka {
 		Attribute numbers = new Attribute("numbers");
 		ArrayList<Attribute> as = new ArrayList<Attribute>();
 		as.add(numbers);
-		Instances dataset = new Instances("classifer",as,0);
-		double[] dd = new double[]{2,3,3,4,8,9,11,12,16,17,18,19,22,23,24,25};
+		Instances dataset = new Instances("classifer",as,1);
+		double[] dd = new double[]{1,2,3,4,5,6,7,8,9,10,11,12,13,0};
 		for(int i=0;i<dd.length;i++){
-		
-		double[] nums = new double[dataset.numAttributes()];
-		
-		nums[0]=dd[i];
-		Instance inst = new DenseInstance(1,nums);
-		System.out.print(" "+nums[0]);
-		dataset.add(inst);
+			double[] nums = new double[dataset.numAttributes()];
+			nums[0]=dd[i];
+			Instance inst = new DenseInstance(1,nums);
+			System.out.print(" "+nums[0]);
+			dataset.add(inst);
 		}
 		String[] options = new String[6];
 		options[0] = "-N";
@@ -51,7 +49,7 @@ public class WelcomeWeka {
 //			Iterator i = sk.getCapabilities().capabilities();
 //			while(i.hasNext()){
 //				Capability c = (Capability) i.next();
-//				System.out.println(c);
+//				System.out.println(c); 
 //			}
 //			System.out.println(sk);
 //			System.out.println(sk);

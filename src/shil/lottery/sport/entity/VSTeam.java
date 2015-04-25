@@ -120,13 +120,21 @@ public class VSTeam implements Comparable<VSTeam>{
 		}
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Arrays.hashCode(peilv);
-		result = prime * result + Arrays.hashCode(peopleVote_num);
+		result = prime * result + changci;
+		result = prime * result + day;
+		result = prime * result + ((league == null) ? 0 : league.hashCode());
+		result = prime * result + month;
+		result = prime * result + teama_goals;
+		result = prime * result + teamb_goals;
 		result = prime * result + Arrays.hashCode(vs);
+		result = prime * result + ((week == null) ? 0 : week.hashCode());
+		result = prime * result + year;
 		return result;
 	}
 
@@ -139,11 +147,29 @@ public class VSTeam implements Comparable<VSTeam>{
 		if (getClass() != obj.getClass())
 			return false;
 		VSTeam other = (VSTeam) obj;
-		if (!Arrays.equals(peilv, other.peilv))
+		if (changci != other.changci)
 			return false;
-		if (!Arrays.equals(peopleVote_num, other.peopleVote_num))
+		if (day != other.day)
+			return false;
+		if (league == null) {
+			if (other.league != null)
+				return false;
+		} else if (!league.equals(other.league))
+			return false;
+		if (month != other.month)
+			return false;
+		if (teama_goals != other.teama_goals)
+			return false;
+		if (teamb_goals != other.teamb_goals)
 			return false;
 		if (!Arrays.equals(vs, other.vs))
+			return false;
+		if (week == null) {
+			if (other.week != null)
+				return false;
+		} else if (!week.equals(other.week))
+			return false;
+		if (year != other.year)
 			return false;
 		return true;
 	}

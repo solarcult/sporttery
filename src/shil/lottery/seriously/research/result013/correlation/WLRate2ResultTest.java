@@ -29,7 +29,7 @@ public class WLRate2ResultTest {
 		Set<String> leaguenames = wholeMatches.getLeaguesNames();
 		
 		for(String leaguename : leaguenames){
-			List<VSTeam> vsTeams = wholeMatches.getLeaguesMap().get(leaguename);
+			List<VSTeam> vsTeams = wholeMatches.getLeaguesVSTeamsMap().get(leaguename);
 			if(vsTeams.size()<AnalyzeUtil.leagalMinMatches) continue;
 			final List<Double> winx = new ArrayList<Double>();
 			final List<Double> winy = new ArrayList<Double>();
