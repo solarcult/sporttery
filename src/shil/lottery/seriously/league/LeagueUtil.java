@@ -19,6 +19,11 @@ import weka.core.DenseInstance;
 import weka.core.Instance;
 import weka.core.Instances;
 
+/**
+ * 分析每一个联赛队伍排名情况.
+ * @author LiangJingJing
+ * @date Apr 25, 2015 10:43:26 AM
+ */
 public class LeagueUtil {
 	
 	public static LeaguePosition analyzeOneLeague(String leaguename,WholeMatches wholeMatches){

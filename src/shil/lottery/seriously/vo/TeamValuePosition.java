@@ -1,5 +1,10 @@
 package shil.lottery.seriously.vo;
 
+/**
+ * 记录联赛中队伍的总分值value和所占的位置cool,位置分4等,优良中差,记得,可以相减.4321.
+ * @author LiangJingJing
+ * @date Apr 25, 2015 1:04:26 PM
+ */
 public class TeamValuePosition implements Comparable<TeamValuePosition>{
 	
 	private String league;
