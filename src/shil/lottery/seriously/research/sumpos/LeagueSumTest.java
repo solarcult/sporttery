@@ -55,12 +55,22 @@ public class LeagueSumTest {
 			}
 		}
 		
-		 AnalyzeUtil.frequencyDescriptor(win);
-		 AnalyzeUtil.frequencyDescriptor(draw);
-		 AnalyzeUtil.frequencyDescriptor(lose);
-		 AnalyzeUtil.frequencyDescriptor(wincool);
-		 AnalyzeUtil.frequencyDescriptor(drawcool);
-		 AnalyzeUtil.frequencyDescriptor(losecool);
+		System.out.println(win);
+		System.out.println(draw);
+		System.out.println(lose);
+		System.out.println(wincool);
+		System.out.println(drawcool);
+		System.out.println(losecool);
+		
+		for(int i=-3;i<4;i++){
+			Frequency x = new Frequency();
+			x.incrementValue(i+"win", wincool.getCount(i));
+			x.incrementValue(i+"draw", drawcool.getCount(i));
+			x.incrementValue(i+"lose", losecool.getCount(i));
+			System.out.println(x);
+		}
+		
+		
 		 
 		/*
 		new AbstractScatterPlotGraphic("比赛差值测试","差值","胜负平"){
