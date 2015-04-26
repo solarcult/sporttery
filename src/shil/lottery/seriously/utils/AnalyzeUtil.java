@@ -1,7 +1,12 @@
 package shil.lottery.seriously.utils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+
+import org.apache.commons.math3.stat.Frequency;
+
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
@@ -114,14 +119,20 @@ public class AnalyzeUtil {
 		}
 		return refinedVsTeams;
 	}
-	
-	public static void main(String[] args){
-	}
 
 	public static double[] providerDoubleArrayValues(int size,int value){
 		double[] ds = new double[size];
 		for(int i=0; i < size; i++)
 			ds[i] = value;
 		return ds;
+	}
+	
+	public static void frequencyDescriptor(Frequency frequency){
+		Iterator<Entry<Comparable<?>,Long>> iterator = frequency.entrySetIterator();
+		while(iterator.hasNext()){
+			Entry<Comparable<?>,Long> entry = iterator.next();
+			System.out.println(entry.getKey() + " : " + entry.getValue());
+		}
+		System.out.println(frequency+"sum: "+frequency.getSumFreq());
 	}
 }
