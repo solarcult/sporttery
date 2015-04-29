@@ -1,9 +1,7 @@
 package shil.lottery.seriously.utils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.apache.commons.math3.stat.Frequency;
 
@@ -33,6 +31,10 @@ public class AnalyzeUtil {
 	public static int lose = 0;
 	public static int draw = 1;
 	public static int win = 3;
+	
+	public static char Connect = ':';
+	public static int MultRate10 = 10;
+	public static int MultRate100 = 100;
 	
 	/**
 	 * 分析X月的数据
@@ -127,12 +129,35 @@ public class AnalyzeUtil {
 		return ds;
 	}
 	
-	public static void frequencyDescriptor(Frequency frequency){
-		Iterator<Entry<Comparable<?>,Long>> iterator = frequency.entrySetIterator();
-		while(iterator.hasNext()){
-			Entry<Comparable<?>,Long> entry = iterator.next();
-			System.out.println(entry.getKey() + " : " + entry.getValue());
+	public static double[] getFrequencyZvaluebyXDoublesPct(double[] xs, Frequency frequency){
+		double[] z = new double[xs.length];
+		for(int i=0;i<xs.length;i++){
+			z[i] = frequency.getPct((int)xs[i]);
 		}
-		System.out.println(frequency+"sum: "+frequency.getSumFreq());
+		return z;
+	}
+	
+	public static double[] getFrequencyZvaluebyXDoublesCount(double[] xs, Frequency frequency){
+		double[] z = new double[xs.length];
+		for(int i=0;i<xs.length;i++){
+			z[i] = frequency.getCount((int)xs[i]);
+		}
+		return z;
+	}
+	
+	public static double[] getFrequencyZvaluebyXYDoublesCount(double[] xs, double[] ys, Frequency frequency){
+		double[] z = new double[xs.length];
+		for(int i=0;i<xs.length;i++){
+			z[i] = frequency.getCount(xs[i]+Connect+ys[i]);
+		}
+		return z;
+	}
+	
+	public static double[] getFrequencyZvaluebyXYDoublesPct(double[] xs, double[] ys, Frequency frequency){
+		double[] z = new double[xs.length];
+		for(int i=0;i<xs.length;i++){
+			z[i] = frequency.getPct(xs[i]+Connect+ys[i]);
+		}
+		return z;
 	}
 }

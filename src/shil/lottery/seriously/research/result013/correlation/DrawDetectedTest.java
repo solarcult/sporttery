@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.math3.stat.Frequency;
 import org.jfree.data.xy.DefaultXYDataset;
+import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYZDataset;
 
+import shil.lottery.seriously.utils.AbstractBubbleChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.entity.VSTeam;
@@ -28,18 +32,22 @@ public class DrawDetectedTest {
 		for(String leaguename : leaguenames){
 			List<VSTeam> vsTeams = wholeMatches.getLeaguesVSTeamsMap().get(leaguename);
 			if(vsTeams.size()<AnalyzeUtil.leagalMinMatches) continue;
-			final List<Double> notdraw = new ArrayList<Double>();
-			final List<Double> draw = new ArrayList<Double>();
-			final List<Double> notdrawy = new ArrayList<Double>();
+			final List<Double> drawx = new ArrayList<Double>();
 			final List<Double> drawy = new ArrayList<Double>();
+			final Frequency drawz = new Frequency();
+			final List<Double> notdrawy = new ArrayList<Double>();
+			final List<Double> notdrawx = new ArrayList<Double>();
+			final Frequency notdrawz = new Frequency();
 
 			for(VSTeam vsTeam : vsTeams){
 				if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
-					draw.add(Math.abs(vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]);
+					drawx.add((vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]);
 					drawy.add(vsTeam.getBetCalcRate_web()[1]);
+					drawz.addValue((vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]+AnalyzeUtil.Connect+vsTeam.getBetCalcRate_web()[1]);
 				}else{
-					notdraw.add(Math.abs(vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]);
+					notdrawx.add((vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]);
 					notdrawy.add(vsTeam.getBetCalcRate_web()[1]);
+					notdrawz.addValue((vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]+AnalyzeUtil.Connect+vsTeam.getBetCalcRate_web()[1]);
 				}
 			}
 			
@@ -47,7 +55,18 @@ public class DrawDetectedTest {
 				@Override
 				public XYDataset getDeltaCards() {
 					DefaultXYDataset dataset = new DefaultXYDataset();
-					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(draw),NumberUtils.convertListDs2doubles(drawy)});
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy)});
+					dataset.addSeries("point", new double[][]{{0},{0}});
+					return dataset;
+				}
+			};
+			
+			new AbstractBubbleChart(leaguename+"_draw","(主胜率-客胜率)/平率 ","draw_value") {
+				@Override
+				public XYZDataset getXYZDataset() {
+					DefaultXYZDataset dataset = new DefaultXYZDataset();
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy), drawz)});
+					dataset.addSeries("point", new double[][]{{0},{0},{0}});
 					return dataset;
 				}
 			};
@@ -56,8 +75,18 @@ public class DrawDetectedTest {
 				@Override
 				public XYDataset getDeltaCards() {
 					DefaultXYDataset dataset = new DefaultXYDataset();
-					dataset.addSeries("draw", new double[][]{{0},{0}});
-					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdraw),NumberUtils.convertListDs2doubles(notdrawy)});
+					dataset.addSeries("point", new double[][]{{0},{0}});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy)});
+					return dataset;
+				}
+			};
+			
+			new AbstractBubbleChart(leaguename+"_notdraw","(主胜率-客胜率)/平率 ","draw_value") {
+				@Override
+				public XYZDataset getXYZDataset() {
+					DefaultXYZDataset dataset = new DefaultXYZDataset();
+					dataset.addSeries("point", new double[][]{{0},{0},{0}});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy), notdrawz)});
 					return dataset;
 				}
 			};
@@ -66,12 +95,24 @@ public class DrawDetectedTest {
 				@Override
 				public XYDataset getDeltaCards() {
 					DefaultXYDataset dataset = new DefaultXYDataset();
-					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(draw),NumberUtils.convertListDs2doubles(drawy)});
-					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdraw),NumberUtils.convertListDs2doubles(notdrawy)});
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy)});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy)});
+					dataset.addSeries("point", new double[][]{{0},{0}});
+					return dataset;
+				}
+			};
+			
+			new AbstractBubbleChart(leaguename,"(主胜率-客胜率)/平率 ","draw_value") {
+				@Override
+				public XYZDataset getXYZDataset() {
+					DefaultXYZDataset dataset = new DefaultXYZDataset();
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy), drawz)});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy), notdrawz)});
+					dataset.addSeries("point", new double[][]{{0},{0},{0}});
 					return dataset;
 				}
 			};
 		}
 	}
-
+	
 }

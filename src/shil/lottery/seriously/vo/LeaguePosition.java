@@ -104,6 +104,10 @@ public class LeaguePosition {
 				+ "]";
 	}
 	
+	public boolean isBelievable(){
+		return this.percentOfTeam() >= 0.925;
+	}
+	
 	public static LeaguePosition analyzeOneLeague(String leaguename,WholeMatches wholeMatches){
 		LeaguePosition leaguePosition = new LeaguePosition(leaguename);
 		int minmatch = Integer.MAX_VALUE;
@@ -193,15 +197,15 @@ public class LeaguePosition {
 				if(current == -1){
 					//初始化状态值,由于排序时分数最高的在前面,所以开始的球队最棒
 					current = level;
-					teamValuePositions.get(i).setCool(currentCool);
+					teamValuePositions.get(i).setLevel(currentCool);
 				}else if(level==current){
 					//在同一梯队
-					teamValuePositions.get(i).setCool(currentCool);
+					teamValuePositions.get(i).setLevel(currentCool);
 				}else{
 					//梯队发生变化 x!=current
 					current = level;
 					currentCool--;
-					teamValuePositions.get(i).setCool(currentCool);
+					teamValuePositions.get(i).setLevel(currentCool);
 				}
 			}
 			

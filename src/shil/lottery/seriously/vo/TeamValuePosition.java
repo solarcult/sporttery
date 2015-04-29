@@ -10,7 +10,7 @@ public class TeamValuePosition implements Comparable<TeamValuePosition>{
 	private String league;
 	private String teamname;
 	private int value;
-	private int cool;
+	private int level;
 	
 	public TeamValuePosition(String league, String teamname){
 		this.league = league;
@@ -29,12 +29,12 @@ public class TeamValuePosition implements Comparable<TeamValuePosition>{
 		return value;
 	}
 
-	public int getCool() {
-		return cool;
+	public int getLevel() {
+		return level;
 	}
 
-	public void setCool(int cool) {
-		this.cool = cool;
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
 	public String getLeague() {
@@ -53,7 +53,7 @@ public class TeamValuePosition implements Comparable<TeamValuePosition>{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + cool;
+		result = prime * result + level;
 		result = prime * result + ((league == null) ? 0 : league.hashCode());
 		result = prime * result
 				+ ((teamname == null) ? 0 : teamname.hashCode());
@@ -70,7 +70,7 @@ public class TeamValuePosition implements Comparable<TeamValuePosition>{
 		if (getClass() != obj.getClass())
 			return false;
 		TeamValuePosition other = (TeamValuePosition) obj;
-		if (cool != other.cool)
+		if (level != other.level)
 			return false;
 		if (league == null) {
 			if (other.league != null)
@@ -90,7 +90,7 @@ public class TeamValuePosition implements Comparable<TeamValuePosition>{
 	@Override
 	public String toString() {
 		return "TeamValuePosition [league=" + league + ", teamname=" + teamname
-				+ ", value=" + value + ", cool=" + cool + "]";
+				+ ", value=" + value + ", cool=" + level + "]";
 	}
 	
 }
