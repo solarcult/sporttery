@@ -27,6 +27,7 @@ import shil.lottery.sport.entity.VSTeam;
 public class AnalyzeUtil {
 
 	public static int leagalMinMatches = 5;
+	public static int leagalMaxMatches = 9;
 	
 	public static int lose = 0;
 	public static int draw = 1;

@@ -127,6 +127,9 @@ public class LeaguePosition {
 			}
 		}
 		
+		//不能超过最大取的比赛数量
+		minmatch = (minmatch > AnalyzeUtil.leagalMaxMatches)? AnalyzeUtil.leagalMaxMatches : minmatch;
+		
 		leaguePosition.setMinMatches(minmatch);
 		leaguePosition.setTotalTeamNum(teamnames.size());
 		

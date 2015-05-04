@@ -83,4 +83,32 @@ public class ScoreStatistics {
 		scoreStatistics.match013.addValue(AnalyzeUtil.match013(position,goals));
 	}
 
+	public Frequency getMatch013() {
+		return match013;
+	}
+
+	public DescriptiveStatistics getGoalStatistics() {
+		return goalStatistics;
+	}
+
+	public DescriptiveStatistics getLostStatistics() {
+		return lostStatistics;
+	}
+
+	public Frequency getGoalFrequency() {
+		return goalFrequency;
+	}
+
+	public Frequency getLostFrequency() {
+		return lostFrequency;
+	}
+
+	public ScoreStatistics getHostScoreStatistics() {
+		return hostScoreStatistics;
+	}
+
+	public ScoreStatistics getGuestScoreStatistics() {
+		return guestScoreStatistics;
+	}
+
 }
