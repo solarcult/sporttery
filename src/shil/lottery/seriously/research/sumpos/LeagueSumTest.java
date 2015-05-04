@@ -82,7 +82,7 @@ public class LeagueSumTest {
 			@Override
 			public XYZDataset getXYZDataset() {
 				DefaultXYZDataset dataset = new DefaultXYZDataset();
-				double[][] dot = new double[][]{{-1},{-1},{0.05}};
+				double[][] dot = new double[][]{{-0.5},{-0.5},{0.02}};
 				dataset.addSeries("0,0", dot);
 				dataset.addSeries("see", new double[][]{NumberUtils.convertListDs2doubles(xs),NumberUtils.convertListDs2doubles(ys),AnalyzeUtil.getFrequencyZvaluebyXDoublesPct(NumberUtils.convertListDs2doubles(xs), win)});
 				return dataset;

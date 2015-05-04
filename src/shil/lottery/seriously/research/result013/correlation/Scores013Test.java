@@ -34,10 +34,14 @@ public class Scores013Test {
 			ScoreStatistics as = ScoreStatistics.analyzeVSTeams2scoreStatistics(vsTeam.getLeague(), teamA, teamAs.subList(teamAs.size()-al, teamAs.size()));
 			ScoreStatistics bs = ScoreStatistics.analyzeVSTeams2scoreStatistics(vsTeam.getLeague(), teamB, teamBs.subList(teamAs.size()-bl, teamAs.size()));
 			
-			as.getGoalStatistics().getStandardDeviation();
+			double gsd  = as.getGoalStatistics().getStandardDeviation() - bs.getGoalStatistics().getStandardDeviation();
+			double lsd = as.getLostStatistics().getStandardDeviation() - bs.getLostStatistics().getStandardDeviation();
+			
+			double agbl = as.getGoalStatistics().getStandardDeviation() - bs.getLostStatistics().getStandardDeviation();
+			double albg = as.getLostStatistics().getStandardDeviation() - bs.getGoalStatistics().getStandardDeviation();
 			
 			
-			
+			/*
 			LeaguePosition leaguePosition = LeaguePosition.analyzeOneLeague(vsTeam.getLeague(), wholeMatches);
 			if(leaguePosition==null) continue;
 			//联赛中排序的队伍比例必须超过这个值,才算有效
@@ -50,6 +54,7 @@ public class Scores013Test {
 			}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
 			}else{
 			}
+			*/
 		}
 	}
 
