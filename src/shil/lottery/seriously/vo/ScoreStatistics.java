@@ -35,14 +35,17 @@ public class ScoreStatistics {
 	// 客场数据
 	private ScoreStatistics guestScoreStatistics;
 
-	private ScoreStatistics() {
+	private ScoreStatistics(boolean isMain) {
 		this.goalStatistics = new DescriptiveStatistics();
 		this.lostStatistics = new DescriptiveStatistics();
 		this.goalFrequency =  new Frequency();
 		this.lostFrequency = new Frequency();
-		this.hostScoreStatistics = new ScoreStatistics();
-		this.guestScoreStatistics = new ScoreStatistics(); 
 		this.match013 = new Frequency();
+		if(isMain){
+			this.hostScoreStatistics = new ScoreStatistics(false);
+			this.guestScoreStatistics = new ScoreStatistics(false);
+		}
+		
 	}
 
 	public String getLeaguename() {
@@ -54,7 +57,7 @@ public class ScoreStatistics {
 	}
 
 	public static ScoreStatistics analyzeVSTeams2scoreStatistics(String leaguename, String teamname, List<VSTeam> vsTeams) {
-		ScoreStatistics scoreStatistics = new ScoreStatistics();
+		ScoreStatistics scoreStatistics = new ScoreStatistics(true);
 		scoreStatistics.leaguename = leaguename;
 		scoreStatistics.teamname = teamname;
 

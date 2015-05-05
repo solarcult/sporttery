@@ -154,10 +154,10 @@ public class AnalyzeUtil {
 		return z;
 	}
 	
-	public static double[] getFrequencyZvaluebyXYDoublesPct(double[] xs, double[] ys, Frequency frequency){
+	public static double[] getFrequencyZvaluebyXYDoublesPct(double[] xs, double[] ys, Frequency frequency, double mult){
 		double[] z = new double[xs.length];
 		for(int i=0;i<xs.length;i++){
-			z[i] = frequency.getPct(xs[i]+Connect+ys[i]);
+			z[i] = frequency.getPct(xs[i]+Connect+ys[i])*mult;
 		}
 		return z;
 	}

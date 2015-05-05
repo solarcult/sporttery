@@ -276,7 +276,7 @@ public class VSTeam implements Comparable<VSTeam>{
 
 	private void setTeamb_goals(int teamb_goals) {
 		this.teamb_goals = teamb_goals;
-		this.goals[1] = teama_goals;
+		this.goals[1] = teamb_goals;
 	}
 	
 	public double[] getGoals() {

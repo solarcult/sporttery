@@ -20,9 +20,9 @@ public class CardsGraphicTest {
 	
 	public static void main(String[] args)
 	{
-//		wingraphic();
+		wingraphic();
 //		losegraphic();
-		deltagraphic();
+//		deltagraphic();
 //		deltagraphicTest();
 //		linegraphic();
 //		linegraphicTest();

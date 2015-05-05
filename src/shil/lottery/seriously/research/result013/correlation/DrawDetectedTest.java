@@ -65,7 +65,7 @@ public class DrawDetectedTest {
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy), drawz)});
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy), drawz, 1)});
 					dataset.addSeries("point", new double[][]{{0},{0},{0}});
 					return dataset;
 				}
@@ -86,7 +86,7 @@ public class DrawDetectedTest {
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
 					dataset.addSeries("point", new double[][]{{0},{0},{0}});
-					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy), notdrawz)});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy), notdrawz, 1)});
 					return dataset;
 				}
 			};
@@ -106,8 +106,8 @@ public class DrawDetectedTest {
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy), drawz)});
-					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy), notdrawz)});
+					dataset.addSeries("draw", new double[][]{NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(drawx),NumberUtils.convertListDs2doubles(drawy), drawz, 1)});
+					dataset.addSeries("notdraw", new double[][]{NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(notdrawx),NumberUtils.convertListDs2doubles(notdrawy), notdrawz, 1)});
 					dataset.addSeries("point", new double[][]{{0},{0},{0}});
 					return dataset;
 				}
