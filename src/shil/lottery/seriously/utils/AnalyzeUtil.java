@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.math3.stat.Frequency;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
@@ -36,6 +37,22 @@ public class AnalyzeUtil {
 	public static char Connect = ':';
 	public static int MultRate10 = 10;
 	public static int MultRate100 = 100;
+	
+	public enum AVG_TP{
+		
+		//算数平均数，	几何平均数，		标准差，				均方根，			总体方差
+		ArithmeticMean("ArithmeticMean"), GeometricMean("GeometricMean"), StandardDeviation("StandardDeviation"), RootMeanSquare("RootMeanSquare"), PopulationVariance("PopulationVariance");
+		
+		private String name;
+		
+		AVG_TP(String name){
+			this.name = name;
+		}
+		
+		public String toString(){
+			return name;
+		}
+	}
 	
 	/**
 	 * 分析X月的数据
@@ -160,5 +177,16 @@ public class AnalyzeUtil {
 			z[i] = frequency.getPct(xs[i]+Connect+ys[i])*mult;
 		}
 		return z;
+	}
+	
+	public static double getAVG(DescriptiveStatistics descriptiveStatistics,AVG_TP avg_tp){
+		switch(avg_tp){
+			case ArithmeticMean: return descriptiveStatistics.getMean();
+			case GeometricMean:	return descriptiveStatistics.getGeometricMean();
+			case StandardDeviation:	return descriptiveStatistics.getStandardDeviation();
+			case RootMeanSquare:	return descriptiveStatistics.getQuadraticMean();
+			case PopulationVariance:	return descriptiveStatistics.getPopulationVariance();
+			default : throw new RuntimeException("yo ~ this should not happend."); 
+		}
 	}
 }
