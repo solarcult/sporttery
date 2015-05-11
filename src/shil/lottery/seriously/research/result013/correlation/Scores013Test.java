@@ -23,15 +23,13 @@ import shil.lottery.sport.statistics.NumberUtils;
  * @date May 5, 2015 11:04:45 PM
  */
 public class Scores013Test {
-	
-
 
 	public static void main(String[] args){
 		
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		
-		for(AVG_TP t : AVG_TP.values()){
-			System.out.println("下面进行平均数为:"+t.name()+" 的分析");
+		for(AVG_TP tp : AVG_TP.values()){
+			System.out.println("下面进行平均数为:"+tp.name()+" 的分析");
 			final double mult = 1;
 			//描述 最后wdl代表胜负平
 			//由于要区分不同的情况的数值,所以分出来一大堆做记录的对象.
@@ -109,7 +107,7 @@ public class Scores013Test {
 				ScoreStatistics as = ScoreStatistics.analyzeVSTeams2scoreStatistics(vsTeam.getLeague(), teamA, teamAs.subList(teamAs.size()-al, teamAs.size()));
 				ScoreStatistics bs = ScoreStatistics.analyzeVSTeams2scoreStatistics(vsTeam.getLeague(), teamB, teamBs.subList(teamBs.size()-bl, teamBs.size()));
 				
-				AVG_TP avg_tp = t;
+				AVG_TP avg_tp = tp;
 				//分析,应该根据不同的数值,SD,Mean,GMean,等,写函数,传值取不同的结果,传入Statistics
 				double gsd  = AnalyzeUtil.getAVG(as.getGoalStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGoalStatistics(),avg_tp);
 				double lsd = AnalyzeUtil.getAVG(as.getLostStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getLostStatistics(),avg_tp);
@@ -155,54 +153,54 @@ public class Scores013Test {
 				}
 			}
 			
-			Score013AnalyzeProbility score013AnalyzeResult = Score013AnalyzeProbility.analyzeRecordsList(wins, draws, loses);
+			Score013AnalyzeProbility score013AnalyzeResult = Score013AnalyzeProbility.analyzeRecordsList(tp, wins, draws, loses);
 			System.out.println(score013AnalyzeResult);
 			
 			/*
 			//这里的硬拼数据展示太白痴了,应该用for[]来自动3*2的循环组装展示数据,将title也放到[]里面来拼接,下次再有这种事可千万不要这么做了.累坏了00:43
-			new AbstractBubbleChart("gsd vs lsd - 赢 "+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
+			new AbstractBubbleChart("gsd vs lsd - 赢 "+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw), glfw, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw), glfw, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs lsd - 平"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
+			new AbstractBubbleChart("gsd vs lsd - 平"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
 					double[][] dot = new double[][]{{0},{0},{0}};
-					dataset.addSeries("win", dot);
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd), glfd, mult)});
+					dataset.addSeries(AnalyzeUtil.winS, dot);
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd), glfd, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs lsd - 输"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
+			new AbstractBubbleChart("gsd vs lsd - 输"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
 					double[][] dot = new double[][]{{0},{0},{0}};
-					dataset.addSeries("win", dot);
-					dataset.addSeries("draw", dot);
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl), glfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS, dot);
+					dataset.addSeries(AnalyzeUtil.drawS, dot);
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl), glfl, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs lsd - 全"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
+			new AbstractBubbleChart("gsd vs lsd - 全"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B失球数(正数代表A比B的防御力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw), glfw, mult)});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd), glfd, mult)});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl), glfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(lsdsw), glfw, mult)});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(lsdsd), glfd, mult)});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(lsdsl), glfl, mult)});
 					return dataset;
 				}
 			};
@@ -210,225 +208,225 @@ public class Scores013Test {
 			//-----
 			
 			
-			new AbstractBubbleChart("gsd vs agbl - 赢"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("gsd vs agbl - 赢"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw), gagblfw, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw), gagblfw, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs agbl - 平"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("gsd vs agbl - 平"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd), gagblfd, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd), gagblfd, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs agbl - 输"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("gsd vs agbl - 输"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{{0},{0},{0}});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl), gagblfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl), gagblfl, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs agbl - 全"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("gsd vs agbl - 全"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw), gagblfw, mult)});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd), gagblfd, mult)});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl), gagblfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(agblsw), gagblfw, mult)});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(agblsd), gagblfd, mult)});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(agblsl), gagblfl, mult)});
 					return dataset;
 				}
 			};
 			
 			//------
 			
-			new AbstractBubbleChart("gsd vs albg - 赢"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("gsd vs albg - 赢"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw), galbgfw, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw), galbgfw, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs albg - 平"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("gsd vs albg - 平"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd), galbgfd, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd), galbgfd, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs albg - 输"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("gsd vs albg - 输"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{{0},{0},{0}});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl), galbgfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl), galbgfl, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("gsd vs albg - 全"+ t,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("gsd vs albg - 全"+ tp,"A进球数-B进球数(正数代表A的攻击力比B强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw), galbgfw, mult)});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd), galbgfd, mult)});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl), galbgfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsw),NumberUtils.convertListDs2doubles(albgsw), galbgfw, mult)});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsd),NumberUtils.convertListDs2doubles(albgsd), galbgfd, mult)});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(gsdsl),NumberUtils.convertListDs2doubles(albgsl), galbgfl, mult)});
 					return dataset;
 				}
 			};
 			
 			//----------------
-			new AbstractBubbleChart("lsd vs agbl - 赢"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("lsd vs agbl - 赢"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw), lagblfw, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw), lagblfw, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("lsd vs agbl - 平"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("lsd vs agbl - 平"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd), lagblfd, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd), lagblfd, mult)});
 					return dataset;
 				}
 			};
-			new AbstractBubbleChart("lsd vs agbl - 输"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("lsd vs agbl - 输"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{{0},{0},{0}});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl), lagblfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl), lagblfl, mult)});
 					return dataset;
 				}
 			};
-			new AbstractBubbleChart("lsd vs agbl - 全"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
+			new AbstractBubbleChart("lsd vs agbl - 全"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A进球数-B失球数(正数代表A攻击力比B防御力强)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw), lagblfw, mult)});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd), lagblfd, mult)});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl), lagblfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(agblsw), lagblfw, mult)});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(agblsd), lagblfd, mult)});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(agblsl), lagblfl, mult)});
 					return dataset;
 				}
 			};
 			
 			//-------------
-			new AbstractBubbleChart("lsd vs albg - 赢"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("lsd vs albg - 赢"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw), lalbgfw, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw), lalbgfw, mult)});
 					return dataset;
 				}
 			};
 			
-			new AbstractBubbleChart("lsd vs albg - 平"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("lsd vs albg - 平"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd), lalbgfd, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd), lalbgfd, mult)});
 					return dataset;
 				}
 			};
-			new AbstractBubbleChart("lsd vs albg - 输"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("lsd vs albg - 输"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{{0},{0},{0}});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl), lalbgfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl), lalbgfl, mult)});
 					return dataset;
 				}
 			};
-			new AbstractBubbleChart("lsd vs albg - 全"+ t,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("lsd vs albg - 全"+ tp,"A失球数-B失球数(正数代表A比B的防御力弱)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw), lalbgfw, mult)});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd), lalbgfd, mult)});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl), lalbgfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsw),NumberUtils.convertListDs2doubles(albgsw), lalbgfw, mult)});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsd),NumberUtils.convertListDs2doubles(albgsd), lalbgfd, mult)});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(lsdsl),NumberUtils.convertListDs2doubles(albgsl), lalbgfl, mult)});
 					return dataset;
 				}
 			};
 			
 			//--------------
-			new AbstractBubbleChart("agbl vs albg - 赢"+ t,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("agbl vs albg - 赢"+ tp,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw), agblalbgfw, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw), agblalbgfw, mult)});
 					return dataset;
 				}
 			};
-			new AbstractBubbleChart("agbl vs albg - 平"+ t,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("agbl vs albg - 平"+ tp,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd), agblalbgfd, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd), agblalbgfd, mult)});
 					return dataset;
 				}
 			};
-			new AbstractBubbleChart("agbl vs albg - 输"+ t,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("agbl vs albg - 输"+ tp,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{{0},{0},{0}});
-					dataset.addSeries("平",new double[][]{{0},{0},{0}});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl), agblalbgfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{{0},{0},{0}});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl), agblalbgfl, mult)});
 					return dataset;
 				}
 			};
-			new AbstractBubbleChart("agbl vs albg - 全"+ t,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
+			new AbstractBubbleChart("agbl vs albg - 全"+ tp,"A进球数-B失球数(正数代表A攻击力比B防御力强)","A失球数-B进球数(正数代表A防御力比B攻击力弱)") {
 				
 				@Override
 				public XYZDataset getXYZDataset() {
 					DefaultXYZDataset dataset = new DefaultXYZDataset();
-					dataset.addSeries("赢",new double[][]{NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw), agblalbgfw, mult)});
-					dataset.addSeries("平",new double[][]{NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd), agblalbgfd, mult)});
-					dataset.addSeries("输",new double[][]{NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl), agblalbgfl, mult)});
+					dataset.addSeries(AnalyzeUtil.winS,new double[][]{NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsw),NumberUtils.convertListDs2doubles(albgsw), agblalbgfw, mult)});
+					dataset.addSeries(AnalyzeUtil.drawS,new double[][]{NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsd),NumberUtils.convertListDs2doubles(albgsd), agblalbgfd, mult)});
+					dataset.addSeries(AnalyzeUtil.loseS,new double[][]{NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl),AnalyzeUtil.getFrequencyZvaluebyXYDoublesPct(NumberUtils.convertListDs2doubles(agblsl),NumberUtils.convertListDs2doubles(albgsl), agblalbgfl, mult)});
 					return dataset;
 				}
 			};

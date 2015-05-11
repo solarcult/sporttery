@@ -34,6 +34,10 @@ public class AnalyzeUtil {
 	public static int draw = 1;
 	public static int win = 3;
 	
+	public static String winS = "赢";
+	public static String drawS = "平";
+	public static String loseS = "负";
+	
 	public static char Connect = ':';
 	public static int MultRate10 = 10;
 	public static int MultRate100 = 100;
