@@ -21,6 +21,20 @@ public class Score013AnalyzeProbility {
 	public static final String Quadrant4 = "4第四象限";
 	public static final String QuadrantONing = "5第十象限";
 	
+	public static String getQuadrant(double xvalue, double yvalue){
+		if(xvalue > 0 && yvalue > 0){
+			return Quadrant1;
+		}else if(xvalue > 0 && yvalue < 0){
+			return Quadrant2;
+		}else if(xvalue < 0 && yvalue <0){
+			return Quadrant3;
+		}else if(xvalue < 0 && yvalue > 0){
+			return Quadrant4;
+		}else{
+			return QuadrantONing;
+		}
+	}
+	
 	public static List<String> descriptors = new ArrayList<String>();
 	public static List<String> names = new ArrayList<String>();
 	static{
@@ -98,17 +112,7 @@ public class Score013AnalyzeProbility {
 				for(int k = 0 ; k<xaix.size(); k++){
 					double xvalue = xaix.get(k);
 					double yvalue = yaix.get(k);
-					if(xvalue > 0 && yvalue > 0){
-						frequency.addValue(Quadrant1);
-					}else if(xvalue > 0 && yvalue < 0){
-						frequency.addValue(Quadrant2);
-					}else if(xvalue < 0 && yvalue <0){
-						frequency.addValue(Quadrant3);
-					}else if(xvalue < 0 && yvalue > 0){
-						frequency.addValue(Quadrant4);
-					}else{
-						frequency.addValue(QuadrantONing);
-					}
+					frequency.addValue(getQuadrant(xvalue,yvalue));
 				}
 				
 //				System.out.println(names.get(nameid));

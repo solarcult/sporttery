@@ -35,12 +35,17 @@ public class ScoreStatistics {
 	// 客场数据
 	private ScoreStatistics guestScoreStatistics;
 
+	/**
+	 * 构造函数
+	 * @param isMain 这里判断是否为主对象,从对象如主客场比赛信息里面没有嵌套自己,这个作为标示
+	 */
 	private ScoreStatistics(boolean isMain) {
 		this.goalStatistics = new DescriptiveStatistics();
 		this.lostStatistics = new DescriptiveStatistics();
 		this.goalFrequency =  new Frequency();
 		this.lostFrequency = new Frequency();
 		this.match013 = new Frequency();
+		//判断是否为主对象
 		if(isMain){
 			this.hostScoreStatistics = new ScoreStatistics(false);
 			this.guestScoreStatistics = new ScoreStatistics(false);
@@ -56,6 +61,13 @@ public class ScoreStatistics {
 		return teamname;
 	}
 
+	/**
+	 * 分析联赛和某队的进球数
+	 * @param leaguename 联赛名称
+	 * @param teamname 球队名称
+	 * @param vsTeams 历史记录
+	 * @return ScoreStatistics
+	 */
 	public static ScoreStatistics analyzeVSTeams2scoreStatistics(String leaguename, String teamname, List<VSTeam> vsTeams) {
 		ScoreStatistics scoreStatistics = new ScoreStatistics(true);
 		scoreStatistics.leaguename = leaguename;
@@ -77,6 +89,12 @@ public class ScoreStatistics {
 		return scoreStatistics;
 	}
 	
+	/**
+	 * 具体将进球数/失球数放入统计对象中
+	 * @param scoreStatistics
+	 * @param position
+	 * @param goals
+	 */
 	public static void feedScoreStatistics(ScoreStatistics scoreStatistics , int position , double[] goals){
 		int oppos = AnalyzeUtil.oppos(position);
 		scoreStatistics.goalStatistics.addValue(goals[position]);
