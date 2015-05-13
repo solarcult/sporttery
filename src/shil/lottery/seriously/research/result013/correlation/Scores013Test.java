@@ -10,6 +10,7 @@ import org.jfree.data.xy.XYZDataset;
 import shil.lottery.seriously.utils.AbstractBubbleChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.AnalyzeUtil.AVG_TP;
+import shil.lottery.seriously.vo.Score013AnalyzeProbility;
 import shil.lottery.seriously.vo.ScoreStatistics;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;

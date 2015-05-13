@@ -1,8 +1,14 @@
-package shil.lottery.seriously.research.result013.correlation;
+package shil.lottery.seriously.vo;
 
 import org.apache.commons.math3.stat.Frequency;
 
 public class FiveQuadrant {
+	
+	public static final String Quadrant1 = "1第一象限";
+	public static final String Quadrant2 = "2第二象限";
+	public static final String Quadrant3 = "3第三象限";
+	public static final String Quadrant4 = "4第四象限";
+	public static final String QuadrantONing = "5第十象限";
 	
 	private String name;
 	

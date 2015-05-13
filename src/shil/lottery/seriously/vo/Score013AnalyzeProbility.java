@@ -1,4 +1,4 @@
-package shil.lottery.seriously.research.result013.correlation;
+package shil.lottery.seriously.vo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,23 +15,17 @@ import shil.lottery.seriously.utils.AnalyzeUtil.AVG_TP;
  */
 public class Score013AnalyzeProbility {
 
-	public static final String Quadrant1 = "1第一象限";
-	public static final String Quadrant2 = "2第二象限";
-	public static final String Quadrant3 = "3第三象限";
-	public static final String Quadrant4 = "4第四象限";
-	public static final String QuadrantONing = "5第十象限";
-	
 	public static String getQuadrant(double xvalue, double yvalue){
 		if(xvalue > 0 && yvalue > 0){
-			return Quadrant1;
+			return FiveQuadrant.Quadrant1;
 		}else if(xvalue > 0 && yvalue < 0){
-			return Quadrant2;
+			return FiveQuadrant.Quadrant2;
 		}else if(xvalue < 0 && yvalue <0){
-			return Quadrant3;
+			return FiveQuadrant.Quadrant3;
 		}else if(xvalue < 0 && yvalue > 0){
-			return Quadrant4;
+			return FiveQuadrant.Quadrant4;
 		}else{
-			return QuadrantONing;
+			return FiveQuadrant.QuadrantONing;
 		}
 	}
 	
@@ -53,7 +47,7 @@ public class Score013AnalyzeProbility {
 	private List<Frequency> drawFrequencys;
 	private List<Frequency> loseFrequencys;
 	
-	//
+	//记录每一种组合类型无象限的胜负平情况
 	private List<FiveQuadrant> descriptorFiveQuadrants;
 	
 	private Score013AnalyzeProbility(AVG_TP avg_tp){
@@ -136,39 +130,38 @@ public class Score013AnalyzeProbility {
 			Frequency lose = score013AnalyzeProbility.getLoseFrequencys().get(i);
 			
 			Frequency quadrant1 = new Frequency();
-			quadrant1.incrementValue(Quadrant1+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(Quadrant1));
-			quadrant1.incrementValue(Quadrant1+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(Quadrant1));
-			quadrant1.incrementValue(Quadrant1+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(Quadrant1));
+			quadrant1.incrementValue(FiveQuadrant.Quadrant1+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant1));
+			quadrant1.incrementValue(FiveQuadrant.Quadrant1+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant1));
+			quadrant1.incrementValue(FiveQuadrant.Quadrant1+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant1));
 			fiveQuadrant.setQuadrant1(quadrant1);
 			
 			Frequency quadrant2 = new Frequency();
-			quadrant2.incrementValue(Quadrant2+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(Quadrant2));
-			quadrant2.incrementValue(Quadrant2+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(Quadrant2));
-			quadrant2.incrementValue(Quadrant2+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(Quadrant2));
+			quadrant2.incrementValue(FiveQuadrant.Quadrant2+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant2));
+			quadrant2.incrementValue(FiveQuadrant.Quadrant2+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant2));
+			quadrant2.incrementValue(FiveQuadrant.Quadrant2+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant2));
 			fiveQuadrant.setQuadrant2(quadrant2);
 			
 			Frequency quadrant3 = new Frequency();
-			quadrant3.incrementValue(Quadrant3+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(Quadrant3));
-			quadrant3.incrementValue(Quadrant3+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(Quadrant3));
-			quadrant3.incrementValue(Quadrant3+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(Quadrant3));
+			quadrant3.incrementValue(FiveQuadrant.Quadrant3+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant3));
+			quadrant3.incrementValue(FiveQuadrant.Quadrant3+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant3));
+			quadrant3.incrementValue(FiveQuadrant.Quadrant3+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant3));
 			fiveQuadrant.setQuadrant3(quadrant3);
 			
 			Frequency quadrant4 = new Frequency();
-			quadrant4.incrementValue(Quadrant4+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(Quadrant4));
-			quadrant4.incrementValue(Quadrant4+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(Quadrant4));
-			quadrant4.incrementValue(Quadrant4+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(Quadrant4));
+			quadrant4.incrementValue(FiveQuadrant.Quadrant4+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant4));
+			quadrant4.incrementValue(FiveQuadrant.Quadrant4+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant4));
+			quadrant4.incrementValue(FiveQuadrant.Quadrant4+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant4));
 			fiveQuadrant.setQuadrant4(quadrant4);
 			
 			Frequency quadrantONing = new Frequency();
-			quadrantONing.incrementValue(QuadrantONing+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(QuadrantONing));
-			quadrantONing.incrementValue(QuadrantONing+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(QuadrantONing));
-			quadrantONing.incrementValue(QuadrantONing+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(QuadrantONing));
+			quadrantONing.incrementValue(FiveQuadrant.QuadrantONing+AnalyzeUtil.Connect+AnalyzeUtil.winS, win.getCount(FiveQuadrant.QuadrantONing));
+			quadrantONing.incrementValue(FiveQuadrant.QuadrantONing+AnalyzeUtil.Connect+AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.QuadrantONing));
+			quadrantONing.incrementValue(FiveQuadrant.QuadrantONing+AnalyzeUtil.Connect+AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.QuadrantONing));
 			fiveQuadrant.setQuadrantONing(quadrantONing);
 			
 			score013AnalyzeProbility.descriptorFiveQuadrants.add(fiveQuadrant);
 		}
 	}
-	
 }
 
 
