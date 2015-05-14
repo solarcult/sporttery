@@ -73,5 +73,19 @@ public class FiveQuadrant {
 				+ ", quadrant4=" + quadrant4 + ", quadrantONing="
 				+ quadrantONing + "]";
 	}
+
+	public static String getQuadrant(double xvalue, double yvalue){
+		if(xvalue > 0 && yvalue > 0){
+			return Quadrant1;
+		}else if(xvalue > 0 && yvalue < 0){
+			return Quadrant2;
+		}else if(xvalue < 0 && yvalue <0){
+			return Quadrant3;
+		}else if(xvalue < 0 && yvalue > 0){
+			return Quadrant4;
+		}else{
+			return QuadrantONing;
+		}
+	}
 	
 }
