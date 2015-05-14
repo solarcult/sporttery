@@ -44,7 +44,7 @@ public class AnalyzeUtil {
 	
 	public enum AVG_TP{
 		
-		//算数平均数，	几何平均数，		标准差，				均方根，			总体方差
+		//算数平均数，						几何平均数，						标准差，									均方根，							总体方差
 		ArithmeticMean("ArithmeticMean"), GeometricMean("GeometricMean"), StandardDeviation("StandardDeviation"), RootMeanSquare("RootMeanSquare"), PopulationVariance("PopulationVariance");
 		
 		private String name;

@@ -12,6 +12,7 @@ import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.AnalyzeUtil.AVG_TP;
 import shil.lottery.seriously.vo.Score013AnalyzeProbility;
 import shil.lottery.seriously.vo.ScoreStatistics;
+import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
@@ -29,8 +30,8 @@ public class Scores013Test {
 		
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		
-		for(AVG_TP tp : AVG_TP.values()){
-			System.out.println("下面进行平均数为:"+tp.name()+" 的分析");
+		for(AVG_TP avg_tp : AVG_TP.values()){
+			System.out.println("下面进行平均数为:"+avg_tp.name()+" 的分析");
 			final double mult = 1;
 			//描述 最后wdl代表胜负平
 			//由于要区分不同的情况的数值,所以分出来一大堆做记录的对象.
@@ -90,31 +91,16 @@ public class Scores013Test {
 			//遍历历史记录,寻找规律
 			for(int i=0;i<vsTeams.size();i++){
 				VSTeam vsTeam = vsTeams.get(i);
-				WholeMatches wholeMatches = WholeMatches.analyzeWholeMatches(vsTeams.subList(0, i));
 	
-				String teamA = vsTeam.getVs()[0];
-				String teamB = vsTeam.getVs()[1];
+				VSTeamScore013 vsTeamScore013 = VSTeamScore013.calculateVSTeamScore013(vsTeams.subList(0,i), vsTeam, avg_tp);
 				
-				List<VSTeam> teamAs = (wholeMatches.getTeamDigest().get(teamA)!=null)? wholeMatches.getTeamDigest().get(teamA).get(vsTeam.getLeague()) : null;
-				List<VSTeam> teamBs = wholeMatches.getTeamDigest().get(teamB)!=null ? wholeMatches.getTeamDigest().get(teamB).get(vsTeam.getLeague()) : null;
-				if(teamAs == null || teamBs == null || (teamAs.size() < AnalyzeUtil.leagalMinMatches)||(teamBs.size()<AnalyzeUtil.leagalMinMatches)){
-					//确保比赛取值场次在5次到9次之间
-					continue;
-				}
+				if(!vsTeamScore013.isAvaliable()) continue;
 				
-				//得到最近的几个场次比赛数据
-				int al = (teamAs.size() > AnalyzeUtil.leagalMaxMatches)? AnalyzeUtil.leagalMaxMatches : teamAs.size();
-				int bl = (teamBs.size() > AnalyzeUtil.leagalMaxMatches)? AnalyzeUtil.leagalMaxMatches : teamBs.size();
-				ScoreStatistics as = ScoreStatistics.analyzeVSTeams2scoreStatistics(vsTeam.getLeague(), teamA, teamAs.subList(teamAs.size()-al, teamAs.size()));
-				ScoreStatistics bs = ScoreStatistics.analyzeVSTeams2scoreStatistics(vsTeam.getLeague(), teamB, teamBs.subList(teamBs.size()-bl, teamBs.size()));
+				double gsd = vsTeamScore013.getGsd();
+				double lsd = vsTeamScore013.getLsd();
+				double agbl = vsTeamScore013.getAgbl();
+				double albg = vsTeamScore013.getAlbg();
 				
-				AVG_TP avg_tp = tp;
-				//分析,应该根据不同的数值,SD,Mean,GMean,等,写函数,传值取不同的结果,传入Statistics
-				double gsd  = AnalyzeUtil.getAVG(as.getGoalStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGoalStatistics(),avg_tp);
-				double lsd = AnalyzeUtil.getAVG(as.getLostStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getLostStatistics(),avg_tp);
-				double agbl = AnalyzeUtil.getAVG(as.getGoalStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getLostStatistics(),avg_tp); 
-				double albg = AnalyzeUtil.getAVG(as.getLostStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGoalStatistics(),avg_tp); 
-	
 				mrs.add((double) vsTeam.getMatch_Result());
 	
 				//根据胜负平分类,这里的记录形式不太好,最后应该用[]List来记录
@@ -154,7 +140,7 @@ public class Scores013Test {
 				}
 			}
 			
-			Score013AnalyzeProbility score013AnalyzeResult = Score013AnalyzeProbility.analyzeRecordsList(tp, wins, draws, loses);
+			Score013AnalyzeProbility score013AnalyzeResult = Score013AnalyzeProbility.analyzeRecordsList(avg_tp, wins, draws, loses);
 			System.out.println(score013AnalyzeResult);
 			
 			/*

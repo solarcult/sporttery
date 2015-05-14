@@ -2,6 +2,12 @@ package shil.lottery.seriously.vo;
 
 import org.apache.commons.math3.stat.Frequency;
 
+/**
+ * 记录5个象限胜负平所占的比例
+ * 第5个指的是象限上的点,归为一类
+ * @author LiangJingJing
+ * @date May 14, 2015 11:27:30 PM
+ */
 public class FiveQuadrant {
 	
 	public static final String Quadrant1 = "1第一象限";
@@ -10,6 +16,7 @@ public class FiveQuadrant {
 	public static final String Quadrant4 = "4第四象限";
 	public static final String QuadrantONing = "5第十象限";
 	
+	//代表使用的是哪两种组合
 	private String name;
 	
 	private Frequency quadrant1;
