@@ -95,4 +95,14 @@ public class FiveQuadrant {
 		}
 	}
 	
+	public Frequency getQuadrantFrequency(double xvalue, double yvalue){
+		String quadrant = getQuadrant(xvalue, yvalue);
+		if(Quadrant1.equals(quadrant)) return getQuadrant1();
+		if(Quadrant2.equals(quadrant)) return getQuadrant2();
+		if(Quadrant3.equals(quadrant)) return getQuadrant3();
+		if(Quadrant4.equals(quadrant)) return getQuadrant4();
+		//TODO shall we return null? or just Oning
+		return null;
+	}
+	
 }
