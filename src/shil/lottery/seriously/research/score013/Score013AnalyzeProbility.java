@@ -1,4 +1,4 @@
-package shil.lottery.seriously.vo;
+package shil.lottery.seriously.research.score013;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.apache.commons.math3.stat.Frequency;
 
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.AnalyzeUtil.AVG_TP;
+import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.sport.entity.VSTeam;
 
 /**
@@ -16,7 +17,7 @@ import shil.lottery.sport.entity.VSTeam;
  */
 public class Score013AnalyzeProbility {
 	
-	public static int SampleAvailable = 36;
+	public static int SampleAvailable = 64;
 	
 	private int sample;
 

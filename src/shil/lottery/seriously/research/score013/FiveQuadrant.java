@@ -1,4 +1,4 @@
-package shil.lottery.seriously.vo;
+package shil.lottery.seriously.research.score013;
 
 import org.apache.commons.math3.stat.Frequency;
 
