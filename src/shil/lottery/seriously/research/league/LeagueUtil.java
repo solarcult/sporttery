@@ -1,4 +1,4 @@
-package shil.lottery.seriously.league;
+package shil.lottery.seriously.research.league;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import shil.lottery.seriously.utils.AnalyzeUtil;
-import shil.lottery.seriously.vo.LeaguePosition;
 import shil.lottery.seriously.vo.TeamValuePosition;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.entity.VSTeam;

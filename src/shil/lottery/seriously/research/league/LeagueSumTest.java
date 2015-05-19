@@ -1,4 +1,4 @@
-package shil.lottery.seriously.research.sumpos;
+package shil.lottery.seriously.research.league;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,6 @@ import org.jfree.data.xy.XYZDataset;
 
 import shil.lottery.seriously.utils.AbstractBubbleChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
-import shil.lottery.seriously.vo.LeaguePosition;
 import shil.lottery.seriously.vo.TeamValuePosition;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;

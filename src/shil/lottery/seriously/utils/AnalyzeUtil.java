@@ -38,9 +38,6 @@ public class AnalyzeUtil {
 	public static String drawS = "平";
 	public static String loseS = "负";
 	
-	public static String Bingo = "预测正确";
-	public static String NotBingo = "预测错误";
-	
 	public static char Connect = ':';
 	public static int MultRate10 = 10;
 	public static int MultRate100 = 100;

@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.commons.math3.stat.Frequency;
 
-import shil.lottery.seriously.utils.AnalyzeUtil;
+import shil.lottery.seriously.research.evaluators.AbstractEvaluators;
 import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
@@ -46,14 +46,14 @@ public class PrediectByScores013 {
 			if(!score013xyCombineFrequency.isAvaliable()) return frequency;
 			
 			//预测与记录
-			int result = score013xyCombineFrequency.predictMatchResult();
+			int result = 0;
 			if(result<0)
 				throw new RuntimeException("result has trouble");
 			
 			if(vsTeam.getMatch_Result() == result){
-				frequency.addValue(AnalyzeUtil.Bingo);
+				frequency.addValue(AbstractEvaluators.Bingo);
 			}else{
-				frequency.addValue(AnalyzeUtil.NotBingo);
+				frequency.addValue(AbstractEvaluators.NotBingo);
 			}
 			return frequency;
 		}

@@ -176,8 +176,6 @@ public class Score013AnalyzeProbility {
 	}
 	
 	private static void analyzeOneReccordsList(List<List<Double>> records,List<Frequency> frequencys,String status013){
-//		System.out.println(status013);
-//		int nameid = 0;
 		for(int i=0;i<records.size();i++){
 			for(int j=i+1;j<records.size();j++){
 				List<Double> xaix = records.get(i);
@@ -189,11 +187,7 @@ public class Score013AnalyzeProbility {
 					frequency.addValue(FiveQuadrant.getQuadrant(xvalue,yvalue));
 				}
 				
-//				System.out.println(names.get(nameid));
-//				System.out.println(frequency);
-//				System.out.println(frequency.getSumFreq()+"\n");
 				frequencys.add(frequency);
-//				nameid++;
 			}
 		}
 	}

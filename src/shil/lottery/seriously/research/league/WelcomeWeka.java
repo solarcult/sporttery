@@ -1,4 +1,4 @@
-package shil.lottery.seriously.league;
+package shil.lottery.seriously.research.league;
 
 import java.util.ArrayList;
 
