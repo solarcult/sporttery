@@ -140,6 +140,13 @@ public class AnalyzeUtil {
 		return biggest;
 	}
 	
+	public static String convert013toS(int value){
+		if(value==Guess013.win) return Guess013.winS;
+		if(value==Guess013.draw) return Guess013.drawS;
+		if(value==Guess013.lose) return Guess013.loseS;
+		return Guess013.ErrorWarningS;
+	}
+	
 	/**
 	 * 将Vsteams过滤为只有某联赛和某组队的数据
 	 * @param leaguename

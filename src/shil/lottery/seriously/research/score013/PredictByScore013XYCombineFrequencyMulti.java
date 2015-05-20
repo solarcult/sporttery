@@ -3,12 +3,17 @@ package shil.lottery.seriously.research.score013;
 import java.util.List;
 
 import shil.lottery.seriously.research.Guess013;
-import shil.lottery.seriously.research.evaluators.AbstractEvaluators;
+import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.sport.entity.VSTeam;
 
-public class PredictByScore013XYCombineFrequencyMulti extends AbstractEvaluators{
+/**
+ * 将xy组合的所有结果相乘,有一些武断,44%左右胜率.
+ * @author LiangJingJing
+ * @date May 20, 2015 9:44:01 PM
+ */
+public class PredictByScore013XYCombineFrequencyMulti extends Abstract013Evaluators{
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {

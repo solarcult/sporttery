@@ -5,12 +5,17 @@ import java.util.List;
 import org.apache.commons.math3.stat.Frequency;
 
 import shil.lottery.seriously.research.Guess013;
-import shil.lottery.seriously.research.evaluators.AbstractEvaluators;
+import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.sport.entity.VSTeam;
 
-public class PredictByScore013XYCombineFrequencyCountSame extends AbstractEvaluators{
+/**
+ * 将不同xy组合的结果,投票选出最多的一个,做为预测结果. 45%左右胜率
+ * @author LiangJingJing
+ * @date May 20, 2015 9:43:12 PM
+ */
+public class PredictByScore013XYCombineFrequencyCountSame extends Abstract013Evaluators{
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {

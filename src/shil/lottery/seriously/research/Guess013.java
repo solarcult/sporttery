@@ -13,5 +13,6 @@ public interface Guess013 {
 	public static String winS = "赢";
 	public static String drawS = "平";
 	public static String loseS = "负";
+	public static String ErrorWarningS = "Call 911";
 	public int guess013(List<VSTeam> vsTeams,VSTeam vsTeam);
 }
