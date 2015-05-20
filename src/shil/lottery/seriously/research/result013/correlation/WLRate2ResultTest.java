@@ -8,6 +8,7 @@ import org.apache.commons.math3.stat.Frequency;
 import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYZDataset;
 
+import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.utils.AbstractBubbleChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.WholeMatches;
@@ -43,11 +44,11 @@ public class WLRate2ResultTest {
 			final Frequency drawz = new Frequency();
 			final Frequency losez = new Frequency();
 			for(VSTeam vsTeam : vsTeams){
-				if(vsTeam.getMatch_Result() == AnalyzeUtil.win){
+				if(vsTeam.getMatch_Result() == Guess013.win){
 					winx.add(vsTeam.getBetCalcRate_web()[0]*AnalyzeUtil.MultRate100);
 					winy.add(vsTeam.getBetCalcRate_web()[2]*AnalyzeUtil.MultRate100);
 					winz.addValue(vsTeam.getBetCalcRate_web()[0]*AnalyzeUtil.MultRate100+AnalyzeUtil.Connect+vsTeam.getBetCalcRate_web()[2]*AnalyzeUtil.MultRate100);
-				}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
+				}else if(vsTeam.getMatch_Result() == Guess013.draw){
 					drawx.add(vsTeam.getBetCalcRate_web()[0]*AnalyzeUtil.MultRate100);
 					drawy.add(vsTeam.getBetCalcRate_web()[2]*AnalyzeUtil.MultRate100);
 					drawz.addValue(vsTeam.getBetCalcRate_web()[0]*AnalyzeUtil.MultRate100+AnalyzeUtil.Connect+vsTeam.getBetCalcRate_web()[2]*AnalyzeUtil.MultRate100);

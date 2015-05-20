@@ -10,6 +10,7 @@ import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
 
+import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.utils.AbstractBubbleChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.WholeMatches;
@@ -40,7 +41,7 @@ public class DrawDetectedTest {
 			final Frequency notdrawz = new Frequency();
 
 			for(VSTeam vsTeam : vsTeams){
-				if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
+				if(vsTeam.getMatch_Result() == Guess013.draw){
 					drawx.add((vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]);
 					drawy.add(vsTeam.getBetCalcRate_web()[1]);
 					drawz.addValue((vsTeam.getBetCalcRate_web()[0]-vsTeam.getBetCalcRate_web()[2])/vsTeam.getBetCalcRate_web()[1]+AnalyzeUtil.Connect+vsTeam.getBetCalcRate_web()[1]);

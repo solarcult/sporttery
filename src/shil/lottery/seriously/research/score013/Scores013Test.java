@@ -7,6 +7,7 @@ import org.apache.commons.math3.stat.Frequency;
 import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYZDataset;
 
+import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.utils.AbstractBubbleChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.AnalyzeUtil.AVG_TP;
@@ -103,7 +104,7 @@ public class Scores013Test {
 				mrs.add((double) vsTeam.getMatch_Result());
 	
 				//根据胜负平分类,这里的记录形式不太好,最后应该用[]List来记录
-				if(vsTeam.getMatch_Result()==AnalyzeUtil.win){
+				if(vsTeam.getMatch_Result()==Guess013.win){
 					gsdsw.add(gsd);
 					lsdsw.add(lsd);
 					agblsw.add(agbl);
@@ -114,7 +115,7 @@ public class Scores013Test {
 					lagblfw.addValue(lsd+AnalyzeUtil.Connect+agbl);
 					lalbgfw.addValue(lsd+AnalyzeUtil.Connect+albg);
 					agblalbgfw.addValue(agbl+AnalyzeUtil.Connect+albg);
-				}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
+				}else if(vsTeam.getMatch_Result() == Guess013.draw){
 					gsdsd.add(gsd);
 					lsdsd.add(lsd);
 					agblsd.add(agbl);

@@ -9,6 +9,7 @@ import org.jfree.data.xy.DefaultXYZDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYZDataset;
 
+import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.utils.AbstractBubbleChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.TeamValuePosition;
@@ -49,10 +50,10 @@ public class LeagueSumTest {
 			if(teamValuePositionA == null || teamValuePositionB == null) continue;
 			xs.add((double) (teamValuePositionA.getValue()-teamValuePositionB.getValue()));
 			ys.add((double) vsTeam.getMatch_Result());
-			if(vsTeam.getMatch_Result()==AnalyzeUtil.win){
+			if(vsTeam.getMatch_Result()==Guess013.win){
 				win.addValue(teamValuePositionA.getValue()-teamValuePositionB.getValue());
 				winlevel.addValue(teamValuePositionA.getLevel()-teamValuePositionB.getLevel());
-			}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
+			}else if(vsTeam.getMatch_Result() == Guess013.draw){
 				draw.addValue(teamValuePositionA.getValue()-teamValuePositionB.getValue());
 				drawlevel.addValue(teamValuePositionA.getLevel()-teamValuePositionB.getLevel());
 			}else{

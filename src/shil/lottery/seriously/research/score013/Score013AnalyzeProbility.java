@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.math3.stat.Frequency;
 
+import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.AnalyzeUtil.AVG_TP;
 import shil.lottery.seriously.vo.VSTeamScore013;
@@ -140,12 +141,12 @@ public class Score013AnalyzeProbility {
 			double albg = vsTeamScore013.getAlbg();
 			
 			//根据胜负平分类,这里的记录形式不太好,最后应该用[]List来记录
-			if(vsTeam.getMatch_Result()==AnalyzeUtil.win){
+			if(vsTeam.getMatch_Result()==Guess013.win){
 				gsdsw.add(gsd);
 				lsdsw.add(lsd);
 				agblsw.add(agbl);
 				albgsw.add(albg);
-			}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
+			}else if(vsTeam.getMatch_Result() == Guess013.draw){
 				gsdsd.add(gsd);
 				lsdsd.add(lsd);
 				agblsd.add(agbl);
@@ -168,9 +169,9 @@ public class Score013AnalyzeProbility {
 
 	public static Score013AnalyzeProbility analyzeRecordsList(AVG_TP avt_tp,List<List<Double>> wins,List<List<Double>> draws,List<List<Double>> loses){
 		Score013AnalyzeProbility score013AnalyzeResult = new Score013AnalyzeProbility(avt_tp);
-		analyzeOneReccordsList(wins, score013AnalyzeResult.winFrequencys,AnalyzeUtil.winS);
-		analyzeOneReccordsList(draws, score013AnalyzeResult.drawFrequencys,AnalyzeUtil.drawS);
-		analyzeOneReccordsList(loses, score013AnalyzeResult.loseFrequencys,AnalyzeUtil.loseS);
+		analyzeOneReccordsList(wins, score013AnalyzeResult.winFrequencys,Guess013.winS);
+		analyzeOneReccordsList(draws, score013AnalyzeResult.drawFrequencys,Guess013.drawS);
+		analyzeOneReccordsList(loses, score013AnalyzeResult.loseFrequencys,Guess013.loseS);
 		descriptorCombine(score013AnalyzeResult);
 		return score013AnalyzeResult;
 	}
@@ -204,33 +205,33 @@ public class Score013AnalyzeProbility {
 			Frequency lose = score013AnalyzeProbility.getLoseFrequencys().get(i);
 			
 			Frequency quadrant1 = new Frequency();
-			quadrant1.incrementValue(AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant1));
-			quadrant1.incrementValue(AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant1));
-			quadrant1.incrementValue(AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant1));
+			quadrant1.incrementValue(Guess013.winS, win.getCount(FiveQuadrant.Quadrant1));
+			quadrant1.incrementValue(Guess013.drawS, draw.getCount(FiveQuadrant.Quadrant1));
+			quadrant1.incrementValue(Guess013.loseS, lose.getCount(FiveQuadrant.Quadrant1));
 			fiveQuadrant.setQuadrant1(quadrant1);
 			
 			Frequency quadrant2 = new Frequency();
-			quadrant2.incrementValue(AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant2));
-			quadrant2.incrementValue(AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant2));
-			quadrant2.incrementValue(AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant2));
+			quadrant2.incrementValue(Guess013.winS, win.getCount(FiveQuadrant.Quadrant2));
+			quadrant2.incrementValue(Guess013.drawS, draw.getCount(FiveQuadrant.Quadrant2));
+			quadrant2.incrementValue(Guess013.loseS, lose.getCount(FiveQuadrant.Quadrant2));
 			fiveQuadrant.setQuadrant2(quadrant2);
 			
 			Frequency quadrant3 = new Frequency();
-			quadrant3.incrementValue(AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant3));
-			quadrant3.incrementValue(AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant3));
-			quadrant3.incrementValue(AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant3));
+			quadrant3.incrementValue(Guess013.winS, win.getCount(FiveQuadrant.Quadrant3));
+			quadrant3.incrementValue(Guess013.drawS, draw.getCount(FiveQuadrant.Quadrant3));
+			quadrant3.incrementValue(Guess013.loseS, lose.getCount(FiveQuadrant.Quadrant3));
 			fiveQuadrant.setQuadrant3(quadrant3);
 			
 			Frequency quadrant4 = new Frequency();
-			quadrant4.incrementValue(AnalyzeUtil.winS, win.getCount(FiveQuadrant.Quadrant4));
-			quadrant4.incrementValue(AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.Quadrant4));
-			quadrant4.incrementValue(AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.Quadrant4));
+			quadrant4.incrementValue(Guess013.winS, win.getCount(FiveQuadrant.Quadrant4));
+			quadrant4.incrementValue(Guess013.drawS, draw.getCount(FiveQuadrant.Quadrant4));
+			quadrant4.incrementValue(Guess013.loseS, lose.getCount(FiveQuadrant.Quadrant4));
 			fiveQuadrant.setQuadrant4(quadrant4);
 			
 			Frequency quadrantONing = new Frequency();
-			quadrantONing.incrementValue(AnalyzeUtil.winS, win.getCount(FiveQuadrant.QuadrantONing));
-			quadrantONing.incrementValue(AnalyzeUtil.drawS, draw.getCount(FiveQuadrant.QuadrantONing));
-			quadrantONing.incrementValue(AnalyzeUtil.loseS, lose.getCount(FiveQuadrant.QuadrantONing));
+			quadrantONing.incrementValue(Guess013.winS, win.getCount(FiveQuadrant.QuadrantONing));
+			quadrantONing.incrementValue(Guess013.drawS, draw.getCount(FiveQuadrant.QuadrantONing));
+			quadrantONing.incrementValue(Guess013.loseS, lose.getCount(FiveQuadrant.QuadrantONing));
 			fiveQuadrant.setQuadrantONing(quadrantONing);
 			
 			score013AnalyzeProbility.descriptorFiveQuadrants.add(fiveQuadrant);

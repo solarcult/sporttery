@@ -7,6 +7,7 @@ import java.util.Set;
 import org.jfree.data.xy.DefaultXYDataset;
 import org.jfree.data.xy.XYDataset;
 
+import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.entity.VSTeam;
@@ -33,10 +34,10 @@ public class BasicWinLoseRateTest {
 			final List<Double> drawValues = new ArrayList<Double>();
 			final List<Double> loseValues = new ArrayList<Double>();
 			for(VSTeam vsTeam : vsTeams){
-				if(vsTeam.getMatch_Result() == AnalyzeUtil.win){
+				if(vsTeam.getMatch_Result() == Guess013.win){
 					winValues.add(vsTeam.getBetCalcRate_web()[0]);
 					loseValues.add(vsTeam.getBetCalcRate_web()[2]);
-				}else if(vsTeam.getMatch_Result() == AnalyzeUtil.draw){
+				}else if(vsTeam.getMatch_Result() == Guess013.draw){
 					drawValues.add(vsTeam.getBetCalcRate_web()[1]);
 				}else{
 					winValues.add(vsTeam.getBetCalcRate_web()[2]);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.math3.stat.Frequency;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
+import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.vo.WholeMatches;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
@@ -29,14 +30,6 @@ public class AnalyzeUtil {
 
 	public static int leagalMinMatches = 5;
 	public static int leagalMaxMatches = 9;
-	
-	public static int lose = 0;
-	public static int draw = 1;
-	public static int win = 3;
-	
-	public static String winS = "赢";
-	public static String drawS = "平";
-	public static String loseS = "负";
 	
 	public static char Connect = ':';
 	public static int MultRate10 = 10;
@@ -109,16 +102,42 @@ public class AnalyzeUtil {
 	 * @return
 	 */
 	public static int match013(int pos,double goals[]){
-		int result = AnalyzeUtil.draw;
+		int result = Guess013.draw;
 		int oppos = AnalyzeUtil.oppos(pos);
 		
 		if(goals[pos] > goals[oppos]){
-			result = AnalyzeUtil.win;
+			result = Guess013.win;
 		}else if(goals[pos] < goals[oppos]){
-			result = AnalyzeUtil.lose;
+			result = Guess013.lose;
 		}
 		
 		return result;
+	}
+	
+	public static int get013WDLresult(double winV,double drawV,double loseV){
+		double biggest = getBiggest(winV, drawV, loseV);
+		int result = Guess013.NotAvaliable;
+		if (biggest == winV) result = Guess013.win;
+		else if (biggest == drawV) result = Guess013.draw;
+		else if (biggest == loseV) result = Guess013.lose;
+		else result = Guess013.ErrorWarning;
+		return result;
+	}
+	
+	public static String get013WDLresultS(double winV,double drawV,double loseV){
+		double biggest = getBiggest(winV, drawV, loseV);
+		String result = null;
+		if (biggest == winV) result = Guess013.winS;
+		else if (biggest == drawV) result = Guess013.drawS;
+		else if (biggest == loseV) result = Guess013.loseS;
+		else result = null;
+		return result;
+	}
+	
+	public static double getBiggest(double winV,double drawV,double loseV){
+		double biggest = (winV > drawV) ? winV : drawV;
+		biggest = (biggest > loseV) ? biggest : loseV;
+		return biggest;
 	}
 	
 	/**

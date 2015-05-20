@@ -56,8 +56,8 @@ public abstract class AbstractEvaluators implements Guess013{
 		Frequency resultRecords = new Frequency();
 		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		CompletionService<Frequency> completionService = new ExecutorCompletionService<Frequency>(executorService);
-		int totals = 1100; 
-//		int totals = vsTeams.size();
+//		int totals = 1100; 
+		int totals = vsTeams.size();
 		//分发任务
 		for(int i=0;i<totals;i++){
 			VSTeam vsTeam = vsTeams.get(i);

@@ -8,7 +8,7 @@ import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.sport.entity.VSTeam;
 
-public class PredictByScore013XYCombineFrequency extends AbstractEvaluators{
+public class PredictByScore013XYCombineFrequencyMulti extends AbstractEvaluators{
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {
@@ -19,19 +19,12 @@ public class PredictByScore013XYCombineFrequency extends AbstractEvaluators{
 		if(!vsTeamScore013.isAvaliable()) return Guess013.NotAvaliable;
 		Score013XYCombineFrequency score013xyCombineFrequency = Score013XYCombineFrequency.buildScore013XYCombineFrequency(score013AnalyzeProbility, vsTeamScore013);
 		if(!score013xyCombineFrequency.isAvaliable()) return Guess013.NotAvaliable;
-		int result = Guess013.NotAvaliable;
 
-		double winV = getResultTypeValue(score013xyCombineFrequency,AnalyzeUtil.winS);
-		double drawV = getResultTypeValue(score013xyCombineFrequency,AnalyzeUtil.drawS);
-		double loseV = getResultTypeValue(score013xyCombineFrequency,AnalyzeUtil.loseS);
-		double biggest = (winV > drawV) ? winV : drawV;
-		biggest = (biggest > loseV) ? biggest : loseV;
-		if (biggest == winV) result = AnalyzeUtil.win;
-		else if (biggest == drawV) result = AnalyzeUtil.draw;
-		else if (biggest == loseV) result = AnalyzeUtil.lose;
-		else result = -2;
+		double winV = getResultTypeValue(score013xyCombineFrequency,Guess013.winS);
+		double drawV = getResultTypeValue(score013xyCombineFrequency,Guess013.drawS);
+		double loseV = getResultTypeValue(score013xyCombineFrequency,Guess013.loseS);
 		
-		return result;
+		return AnalyzeUtil.get013WDLresult(winV, drawV, loseV);
 	}
 	
 	/**
@@ -45,6 +38,6 @@ public class PredictByScore013XYCombineFrequency extends AbstractEvaluators{
 	}
 	
 	public static void main(String[] args){
-		new PredictByScore013XYCombineFrequency().startEvaluator();
+		new PredictByScore013XYCombineFrequencyMulti().startEvaluator();
 	}
 }
