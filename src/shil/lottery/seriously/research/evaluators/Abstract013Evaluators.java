@@ -93,8 +93,8 @@ public abstract class Abstract013Evaluators implements Guess013{
 		PredictResultAnalyze resultRecords = new PredictResultAnalyze();
 		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		CompletionService<PredictResultAnalyze> completionService = new ExecutorCompletionService<PredictResultAnalyze>(executorService);
-		int totals = 1100; 
-//		int totals = vsTeams.size();
+//		int totals = 1100; 
+		int totals = vsTeams.size();
 		//分发任务
 		for(int i=1;i<totals;i++){
 			VSTeam vsTeam = vsTeams.get(i);
