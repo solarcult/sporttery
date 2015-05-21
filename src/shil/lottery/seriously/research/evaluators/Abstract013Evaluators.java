@@ -16,6 +16,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.utils.AbstractLineChart;
 import shil.lottery.seriously.utils.AnalyzeUtil;
+import shil.lottery.seriously.utils.EvaluatorRecorder;
+import shil.lottery.seriously.utils.WriteFileUtil;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 
@@ -25,6 +27,8 @@ import shil.lottery.sport.entity.VSTeam;
  * @date May 21, 2015 12:26:39 AM
  */
 public abstract class Abstract013Evaluators implements Guess013{
+	
+	public static boolean output2file = false;
 	
 	public static String Bingo = "预测正确";
 	public static String NotBingo = "预测错误";
@@ -70,6 +74,7 @@ public abstract class Abstract013Evaluators implements Guess013{
 		@Override
 		public PredictResultAnalyze call() throws Exception {
 			int result = guess013(vsTeams, vsTeam);
+			if(output2file) EvaluatorRecorder.getEvaluatorRecorder().putResult(vsTeam, result+"->"+vsTeam.getMatch_Result());
 			PredictResultAnalyze predictResultAnalyze = new PredictResultAnalyze();
 			if(result>=0){
 				if(vsTeam.getMatch_Result() == result){
@@ -89,12 +94,13 @@ public abstract class Abstract013Evaluators implements Guess013{
 	}
 	
 	public void startEvaluator(){
+		if(output2file) EvaluatorRecorder.getEvaluatorRecorder().setName(this.getClass().getName()+System.currentTimeMillis());
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		PredictResultAnalyze resultRecords = new PredictResultAnalyze();
 		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		CompletionService<PredictResultAnalyze> completionService = new ExecutorCompletionService<PredictResultAnalyze>(executorService);
-//		int totals = 1100; 
-		int totals = vsTeams.size();
+		int totals = 1100; 
+//		int totals = vsTeams.size();
 		//分发任务
 		for(int i=1;i<totals;i++){
 			VSTeam vsTeam = vsTeams.get(i);
@@ -139,5 +145,7 @@ public abstract class Abstract013Evaluators implements Guess013{
 		
 		System.out.println("\nall done,this is result:");
 		System.out.print(resultRecords);
+		
+		if(output2file) WriteFileUtil.writeEvaluatorRecorder2File(EvaluatorRecorder.getEvaluatorRecorder());
 	}
 }

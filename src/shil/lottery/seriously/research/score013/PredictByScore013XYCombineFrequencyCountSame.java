@@ -11,6 +11,23 @@ import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.sport.entity.VSTeam;
 
 /**
+ * 
+	all done,this is result:
+	PredictResultAnalyze [bingoFrequency=
+	Value 	 Freq. 	 Pct. 	 Cum Pct. 
+	预测正确	1454	45%	45%
+	预测错误	1788	55%	100%
+	, result013Frequency=
+	Value 	 Freq. 	 Pct. 	 Cum Pct. 
+	预测正确:0	2	0%	0%
+	预测正确:1	10	0%	0%
+	预测正确:3	1442	44%	45%
+	预测错误:0->1	3	0%	45%
+	预测错误:0->3	4	0%	45%
+	预测错误:1->0	10	0%	45%
+	预测错误:1->3	14	0%	46%
+	预测错误:3->0	900	28%	74%
+	预测错误:3->1	857	26%	100%
  * 将不同xy组合的结果,投票选出最多的一个,做为预测结果. 45%左右胜率
  * @author LiangJingJing
  * @date May 20, 2015 9:43:12 PM

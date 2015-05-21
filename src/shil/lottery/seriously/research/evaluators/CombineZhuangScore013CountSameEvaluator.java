@@ -7,16 +7,16 @@ import shil.lottery.seriously.research.score013.PredictByScore013XYCombineFreque
 import shil.lottery.sport.entity.VSTeam;
 /**
  * 
- * all done,this is result:
-PredictResultAnalyze [bingoFrequency=
-Value 	 Freq. 	 Pct. 	 Cum Pct. 
-预测正确	1215	52%	52%
-预测错误	1112	48%	100%
-, result013Frequency=
-Value 	 Freq. 	 Pct. 	 Cum Pct. 
-预测正确:3	1215	52%	52%
-预测错误:3->0	493	21%	73%
-预测错误:3->1	619	27%	100%
+	all done,this is result:
+	PredictResultAnalyze [bingoFrequency=
+	Value 	 Freq. 	 Pct. 	 Cum Pct. 
+	预测正确	1215	52%	52%
+	预测错误	1112	48%	100%
+	, result013Frequency=
+	Value 	 Freq. 	 Pct. 	 Cum Pct. 
+	预测正确:3	1215	52%	52%
+	预测错误:3->0	493	21%	73%
+	预测错误:3->1	619	27%	100%
  * @author LiangJingJing
  * @date May 20, 2015 11:53:06 PM
  */
