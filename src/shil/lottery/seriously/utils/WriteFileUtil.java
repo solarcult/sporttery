@@ -14,6 +14,7 @@ public class WriteFileUtil {
 		try {
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(evaluatorRecorder.getName())));
 			for(Entry<VSTeam, ContentResult> entry : evaluatorRecorder.getRecorder().entrySet()){
+				if(entry.getValue().getContent()==null) continue;
 				bufferedWriter.newLine();
 				bufferedWriter.write(entry.getKey().toString());
 				bufferedWriter.newLine();

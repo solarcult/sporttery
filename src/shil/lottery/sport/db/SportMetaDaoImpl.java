@@ -67,9 +67,9 @@ public class SportMetaDaoImpl {
 				preStatement.setDouble(18, vsTeam.getPeopleVote_rate()[0]);
 				preStatement.setDouble(19, vsTeam.getPeopleVote_rate()[1]);
 				preStatement.setDouble(20, vsTeam.getPeopleVote_rate()[2]);
-				preStatement.setDouble(21, vsTeam.getPeopleVote_rate()[0]-vsTeam.getBetCalcRate_web()[0]);
-				preStatement.setDouble(22, vsTeam.getPeopleVote_rate()[1]-vsTeam.getBetCalcRate_web()[1]);
-				preStatement.setDouble(23, vsTeam.getPeopleVote_rate()[2]-vsTeam.getBetCalcRate_web()[2]);
+				preStatement.setDouble(21, vsTeam.getBetCalcRate_web()[0] - vsTeam.getPeopleVote_rate()[0]);
+				preStatement.setDouble(22, vsTeam.getBetCalcRate_web()[1] - vsTeam.getPeopleVote_rate()[1]);
+				preStatement.setDouble(23, vsTeam.getBetCalcRate_web()[2] - vsTeam.getPeopleVote_rate()[2]);
 				preStatement.setInt(24, vsTeam.getTeama_goals());
 				preStatement.setInt(25, vsTeam.getTeamb_goals());
 				preStatement.setInt(26, vsTeam.getMatch_Result());
@@ -121,7 +121,7 @@ public class SportMetaDaoImpl {
 					+ "year,month,day,changci,week,league,teama,teamb,"
 					+ "win_odds,draw_odds,lose_odds,"
 					+ "people_bet_win_count,people_bet_draw_count,people_bet_lose_count,"
-					+ "teama_goals,teamb_goals "
+					+ "teama_goals,teamb_goals,id "
 					+ "from sport_meta_data "
 					+ "where match_date > ? order by match_date asc"
 					);
@@ -152,12 +152,12 @@ public class SportMetaDaoImpl {
 		        peopleVote_num[1] = resultSet.getDouble(13);
 		        peopleVote_num[2] = resultSet.getDouble(14);
 		        
-
-		        
 		        int teama_goals = resultSet.getInt(15);
 		        int teamb_goals = resultSet.getInt(16);
+		        
+		        int id = resultSet.getInt(17);
 				
-				vsTeams.add(VSTeam.builderVSTeam(vs, peilv, peopleVote_num, year, month, day, changci, week, league, teama_goals, teamb_goals));
+				vsTeams.add(VSTeam.builderVSTeam(vs, peilv, peopleVote_num, year, month, day, changci, week, league, teama_goals, teamb_goals, id));
 			}
 			
 		}catch(Exception e)

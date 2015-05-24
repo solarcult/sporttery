@@ -1,5 +1,7 @@
 package shil.lottery.seriously.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import shil.lottery.sport.entity.VSTeam;
@@ -34,10 +36,10 @@ public class EvaluatorRecorder {
 		ContentResult contentResult = evaluatorRecorder.recorder.get(vsTeam);
 		if(contentResult==null){
 			contentResult = new ContentResult();
-			contentResult.setContent(content);
+			contentResult.addContent(content);
 			evaluatorRecorder.recorder.put(vsTeam, contentResult);
 		}else{
-			contentResult.setContent(content);
+			contentResult.addContent(content);
 		}
 	}
 	
@@ -53,17 +55,13 @@ public class EvaluatorRecorder {
 	}
 }
 class ContentResult{
-	private String content;
+	private List<String> content;
 	private String result;
 	
-	public String getContent() {
-		return content;
+	public ContentResult(){
+		this.content = new ArrayList<String>();
 	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
+	
 	public String getResult() {
 		return result;
 	}
@@ -72,8 +70,18 @@ class ContentResult{
 		this.result = result;
 	}
 
+	public void addContent(String content){
+		this.content.add(content);
+	}
+
+	public List<String> getContent() {
+		return content;
+	}
+
 	@Override
 	public String toString() {
-		return "ContentResult [result=" + result + ", content=" + content + "]";
+		return "ContentResult [result=" + result + ", \ncontent=" + content + "]";
 	}
+	
+	
 }

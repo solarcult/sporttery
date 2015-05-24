@@ -78,6 +78,11 @@ public class VSTeamScore013 {
 			double lsd = AnalyzeUtil.getAVG(as.getLostStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getLostStatistics(),avg_tp);
 			double agbl = AnalyzeUtil.getAVG(as.getGoalStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getLostStatistics(),avg_tp); 
 			double albg = AnalyzeUtil.getAVG(as.getLostStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGoalStatistics(),avg_tp);
+			//用主场客场来分析,但需要重写比较场数的代码,因为那里检测的总size,为host和guest相加的数量,实际应该检测单独将要比较的host和guest参数的数量
+//			double gsd  = AnalyzeUtil.getAVG(as.getHostScoreStatistics().getGoalStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGuestScoreStatistics().getGoalStatistics(),avg_tp);
+//			double lsd = AnalyzeUtil.getAVG(as.getHostScoreStatistics().getLostStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGuestScoreStatistics().getLostStatistics(),avg_tp);
+//			double agbl = AnalyzeUtil.getAVG(as.getHostScoreStatistics().getGoalStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGuestScoreStatistics().getLostStatistics(),avg_tp); 
+//			double albg = AnalyzeUtil.getAVG(as.getHostScoreStatistics().getLostStatistics(), avg_tp) - AnalyzeUtil.getAVG(bs.getGuestScoreStatistics().getGoalStatistics(),avg_tp);
 			vsTeamScore013.gsd = gsd;
 			vsTeamScore013.lsd = lsd;
 			vsTeamScore013.agbl = agbl;

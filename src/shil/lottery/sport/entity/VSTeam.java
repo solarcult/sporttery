@@ -9,6 +9,8 @@ import java.util.Arrays;
  */
 public class VSTeam implements Comparable<VSTeam>{
 	
+	private long id;
+	
 	//对战双方
 	private String[] vs;
 	//官方给的赔率
@@ -62,6 +64,15 @@ public class VSTeam implements Comparable<VSTeam>{
 		vsTeam.setLeague(league);
 		vsTeam.setTeama_goals(teama_goals);
 		vsTeam.setTeamb_goals(teamb_goals);
+		
+		return vsTeam;
+	}
+	
+	public static VSTeam builderVSTeam(String[] vs,double[] peilv,double[] peopleVote_num,
+			int year,int month, int day,int changci,String week,String league,int teama_goals,int teamb_goals, int id)
+	{
+		VSTeam vsTeam = builderVSTeam(vs, peilv, peopleVote_num, year, month, day, changci, week, league, teama_goals, teamb_goals);
+		vsTeam.setId(id);
 		
 		return vsTeam;
 	}
@@ -188,7 +199,7 @@ public class VSTeam implements Comparable<VSTeam>{
 	
 	@Override
 	public String toString() {
-		return "VSTeam [vs=" + Arrays.toString(vs) + ", peilv="
+		return "VSTeam [id=" + id + ", vs=" + Arrays.toString(vs) + ", peilv="
 				+ Arrays.toString(peilv) + ", peopleVote_num="
 				+ Arrays.toString(peopleVote_num) + ", betCalcRate_web="
 				+ Arrays.toString(betCalcRate_web) + ", peopleVote_rate="
@@ -281,6 +292,14 @@ public class VSTeam implements Comparable<VSTeam>{
 	
 	public double[] getGoals() {
 		return goals;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public static void main(String[] args)

@@ -50,8 +50,8 @@ public class Evaluator {
 //		findbest4();
 //		evaluatorVsTeamScores();	//71.4%	85/119 	23.9%
 //		evalutorLeagueScores();	//66.75%  538/806	22.5%
-//		evaluatorGuessTwo();
-//		evaluatorGuessThree();
+		evaluatorGuessTwo();	// 159.0 / 215.0 eva: 1839 guess two : 0.7395348837209302 <-  correct%
+		evaluatorGuessThree();
 //		evaluatorGuessTwoThree();
 //		evaluatorGuessFour();
 //		findbestGuessFour();
@@ -62,13 +62,13 @@ public class Evaluator {
 //		evaluatorGuessEight();
 //		evaluatorGuessCardsCircleMatchResult();
 //		findbestGuessCardsCircleMatchResult();
-//		evaluatorGuessNiceMatchResult();
-		evaluatorVsTeamScoresWeight();
+		evaluatorGuessNiceMatchResult();
+//		evaluatorVsTeamScoresWeight();
 //		findbestVSTeamScoresWeight();
 //		evaluatorVsTeamScoresWeight7VSTeam(); 	//67.8% 59/87			25.5%
 //		evaluatorVsTeamScoresWeight7League();	//66.7%  76/114			23.9%
 //		evaluatorVsTeamScoresWeight7League7VSTeam();	//68.9% 42/61	25.5%
-		evaluatorVsTeamScoresWeightNoFirstdoor();	//	65.8%  807/1227	21.9%
+//		evaluatorVsTeamScoresWeightNoFirstdoor();	//	65.8%  807/1227	21.9%
 //		evaluatorScoresCombine();	//59%	136/230						23.5%
 //		evaluatorScoresCombine7Weight(); //60.8% 104/171				23.4%
 		evaluatorScoresWeight7NoDoor();

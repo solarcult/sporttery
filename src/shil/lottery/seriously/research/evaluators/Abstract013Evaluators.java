@@ -1,6 +1,8 @@
 package shil.lottery.seriously.research.evaluators;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
@@ -28,7 +30,7 @@ import shil.lottery.sport.entity.VSTeam;
  */
 public abstract class Abstract013Evaluators implements Guess013{
 	
-	public static boolean output2file = false;
+	public static boolean output2file = true;
 	
 	public static String Bingo = "预测正确";
 	public static String NotBingo = "预测错误";
@@ -93,14 +95,20 @@ public abstract class Abstract013Evaluators implements Guess013{
 		}
 	}
 	
+	public void startEvaluator(boolean output){
+		output2file = output;
+		startEvaluator();
+	}
+	
 	public void startEvaluator(){
-		if(output2file) EvaluatorRecorder.getEvaluatorRecorder().setName(this.getClass().getName()+System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMMMM-dd_HH.mm.ss");
+		if(output2file) EvaluatorRecorder.getEvaluatorRecorder().setName(this.getClass().getSimpleName()+"@"+sdf.format(Calendar.getInstance().getTime()));
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		PredictResultAnalyze resultRecords = new PredictResultAnalyze();
 		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		CompletionService<PredictResultAnalyze> completionService = new ExecutorCompletionService<PredictResultAnalyze>(executorService);
-		int totals = 1100; 
-//		int totals = vsTeams.size();
+//		int totals = 1100; 
+		int totals = vsTeams.size();
 		//分发任务
 		for(int i=1;i<totals;i++){
 			VSTeam vsTeam = vsTeams.get(i);

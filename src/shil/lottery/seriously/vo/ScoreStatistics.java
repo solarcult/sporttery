@@ -75,7 +75,7 @@ public class ScoreStatistics {
 
 		for (VSTeam vsTeam : vsTeams) {
 			int pos = AnalyzeUtil.pos(teamname, vsTeam.getVs());
-			if(pos==-1) continue;
+			if(pos==-1) throw new RuntimeException("wtf of this , should not be happend, continue;");
 			feedScoreStatistics(scoreStatistics, pos, vsTeam.getGoals());
 			
 			//host?

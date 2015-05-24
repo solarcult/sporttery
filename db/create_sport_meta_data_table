@@ -30,5 +30,6 @@ CREATE TABLE sport_meta_data
   match_result smallint NOT NULL,
   host_rate_1125 double precision NOT NULL,
   match_date date NOT NULL,
+  id serial NOT NULL,
   CONSTRAINT sport_meta_data_pkey PRIMARY KEY (year, month, day, changci, week, league)
 )
