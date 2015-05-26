@@ -102,7 +102,7 @@ public abstract class Abstract013Evaluators implements Guess013{
 	
 	public void startEvaluator(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMMMM-dd_HH.mm.ss");
-		if(output2file) EvaluatorRecorder.getEvaluatorRecorder().setName(this.getClass().getSimpleName()+"@"+sdf.format(Calendar.getInstance().getTime()));
+		if(output2file) EvaluatorRecorder.getEvaluatorRecorder().setName("recorder." + this.getClass().getSimpleName()+"@"+sdf.format(Calendar.getInstance().getTime()));
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		PredictResultAnalyze resultRecords = new PredictResultAnalyze();
 		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
