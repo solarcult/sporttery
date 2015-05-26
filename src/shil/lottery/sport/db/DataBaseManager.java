@@ -11,21 +11,24 @@ import java.sql.DriverManager;
  */
 public class DataBaseManager
 {
+	public static Connection connection;
 
 	public static Connection getConnection()
-	{	
-		try
-		{
-			Class.forName("org.postgresql.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/sporttery", "postgres", "134120");
-			
-			return conn;
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
+	{
+		if(connection == null){
+			try
+			{
+				Class.forName("org.postgresql.Driver");
+				Connection conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/sporttery", "postgres", "134120");
+				
+				connection = conn;
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 		
-		return null;
+		return connection;
 	}
 }

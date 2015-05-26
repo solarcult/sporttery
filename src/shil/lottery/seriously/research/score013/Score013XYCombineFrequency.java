@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.commons.math3.stat.Frequency;
 
+import shil.lottery.seriously.research.Guess013;
+import shil.lottery.seriously.vo.Score013;
 import shil.lottery.seriously.vo.VSTeamScore013;
 
 /**
@@ -53,7 +55,51 @@ public class Score013XYCombineFrequency {
 		
 		return score013xyCombineFrequency;
 	}
-
+	
+	public static Score013XYCombineFrequency buildScore013XYCombineFrequency(Score013 score013){
+		Score013XYCombineFrequency score013xyCombineFrequency = new Score013XYCombineFrequency();
+		
+		Frequency gsd_lsd = new Frequency();
+		gsd_lsd.incrementValue(Guess013.winS, score013.getGsd_lsd_current_quadrant_win_precentL());
+		gsd_lsd.incrementValue(Guess013.drawS, score013.getGsd_lsd_current_quadrant_draw_precentL());
+		gsd_lsd.incrementValue(Guess013.loseS, score013.getGsd_lsd_current_quadrant_lose_precentL());
+		score013xyCombineFrequency.gsd_lsd = gsd_lsd;
+		
+		Frequency gsd_agbl = new Frequency();
+		gsd_agbl.incrementValue(Guess013.winS, score013.getGsd_agbl_current_quadrant_win_precentL());
+		gsd_agbl.incrementValue(Guess013.drawS, score013.getGsd_agbl_current_quadrant_draw_precentL());
+		gsd_agbl.incrementValue(Guess013.loseS, score013.getGsd_agbl_current_quadrant_lose_precentL());
+		score013xyCombineFrequency.gsd_agbl = gsd_agbl;
+		
+		Frequency gsd_albg = new Frequency();
+		gsd_albg.incrementValue(Guess013.winS, score013.getGsd_albg_current_quadrant_win_precentL());
+		gsd_albg.incrementValue(Guess013.drawS, score013.getGsd_albg_current_quadrant_draw_precentL());
+		gsd_albg.incrementValue(Guess013.loseS, score013.getGsd_albg_current_quadrant_lose_precentL());
+		score013xyCombineFrequency.gsd_albg = gsd_albg;
+		
+		Frequency lsd_agbl = new Frequency();
+		lsd_agbl.incrementValue(Guess013.winS, score013.getLsd_agbl_current_quadrant_win_precentL());
+		lsd_agbl.incrementValue(Guess013.drawS, score013.getLsd_agbl_current_quadrant_draw_precentL());
+		lsd_agbl.incrementValue(Guess013.loseS, score013.getLsd_agbl_current_quadrant_lose_precentL());
+		score013xyCombineFrequency.lsd_agbl = lsd_agbl;
+		
+		Frequency lsd_albg = new Frequency();
+		lsd_albg.incrementValue(Guess013.winS, score013.getLsd_albg_current_quadrant_win_precentL());
+		lsd_albg.incrementValue(Guess013.drawS, score013.getLsd_albg_current_quadrant_draw_precentL());
+		lsd_albg.incrementValue(Guess013.loseS, score013.getLsd_albg_current_quadrant_lose_precentL());
+		score013xyCombineFrequency.lsd_albg = lsd_albg;
+		
+		Frequency agbl_albg = new Frequency();
+		agbl_albg.incrementValue(Guess013.winS, score013.getAgbl_albg_current_quadrant_win_precentL());
+		agbl_albg.incrementValue(Guess013.drawS, score013.getAgbl_albg_current_quadrant_draw_precentL());
+		agbl_albg.incrementValue(Guess013.loseS, score013.getAgbl_albg_current_quadrant_lose_precentL());
+		score013xyCombineFrequency.agbl_albg = agbl_albg;
+		
+		score013xyCombineFrequency.isAvaliable = true;
+		
+		return score013xyCombineFrequency;
+	}
+	
 	public Frequency getGsd_lsd() {
 		return gsd_lsd;
 	}
@@ -88,5 +134,81 @@ public class Score013XYCombineFrequency {
 				+ gsd_agbl + ", gsd_albg=" + gsd_albg + ", lsd_agbl="
 				+ lsd_agbl + ", lsd_albg=" + lsd_albg + ", agbl_albg="
 				+ agbl_albg + ", isAvaliable=" + isAvaliable + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((agbl_albg == null) ? 0 : agbl_albg.hashCode());
+		result = prime * result
+				+ ((gsd_agbl == null) ? 0 : gsd_agbl.hashCode());
+		result = prime * result
+				+ ((gsd_albg == null) ? 0 : gsd_albg.hashCode());
+		result = prime * result + ((gsd_lsd == null) ? 0 : gsd_lsd.hashCode());
+		result = prime * result + (isAvaliable ? 1231 : 1237);
+		result = prime * result
+				+ ((lsd_agbl == null) ? 0 : lsd_agbl.hashCode());
+		result = prime * result
+				+ ((lsd_albg == null) ? 0 : lsd_albg.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Score013XYCombineFrequency other = (Score013XYCombineFrequency) obj;
+		if (agbl_albg == null) {
+			if (other.agbl_albg != null)
+				return false;
+		} else if (!isPctEqual(agbl_albg,other.agbl_albg))
+			return false;
+		if (gsd_agbl == null) {
+			if (other.gsd_agbl != null)
+				return false;
+		} else if (!isPctEqual(gsd_agbl,other.gsd_agbl))
+			return false;
+		if (gsd_albg == null) {
+			if (other.gsd_albg != null)
+				return false;
+		} else if (!isPctEqual(gsd_albg,other.gsd_albg))
+			return false;
+		if (gsd_lsd == null) {
+			if (other.gsd_lsd != null)
+				return false;
+		} else if (!isPctEqual(gsd_lsd,other.gsd_lsd))
+			return false;
+		if (isAvaliable != other.isAvaliable)
+			return false;
+		if (lsd_agbl == null) {
+			if (other.lsd_agbl != null)
+				return false;
+		} else if (!isPctEqual(lsd_agbl,other.lsd_agbl))
+			return false;
+		if (lsd_albg == null) {
+			if (other.lsd_albg != null)
+				return false;
+		} else if (!isPctEqual(lsd_albg,other.lsd_albg))
+			return false;
+		return true;
+	}
+	
+	public boolean isPctEqual(Frequency one, Frequency two){
+		int oneW = (int) (one.getPct(Guess013.winS)*100);
+		int twoW = (int) (two.getPct(Guess013.winS)*100);
+		if(oneW != twoW) return false;
+		int oneD = (int) (one.getPct(Guess013.drawS)*100);
+		int twoD = (int) (two.getPct(Guess013.drawS)*100);
+		if(oneD != twoD) return false;
+		int oneL = (int) (one.getPct(Guess013.loseS)*100);
+		int twoL = (int) (two.getPct(Guess013.loseS)*100);
+		if(oneL != twoL) return false;
+		return true;
 	}
 }

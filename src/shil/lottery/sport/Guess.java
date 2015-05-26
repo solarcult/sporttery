@@ -30,7 +30,7 @@ public class Guess {
 		
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		
-		List<VSTeam> guessTeams = LoadExcelData2VSTeams.justDoIt(new File("d:\\abc.xls"),false);
+		List<VSTeam> guessTeams = LoadExcelData2VSTeams.justDoIt(new File("e:\\abc.xls"),false);
 		
 		Guess4TeamMatchResult2 result = new GuessTwo();
 		Guess4TeamMatchResult3 result3 = new GuessThree();

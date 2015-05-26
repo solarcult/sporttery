@@ -37,9 +37,8 @@ public class SportMetaDaoImpl {
 					+ "people_bet_win_count,people_bet_draw_count,people_bet_lose_count,"
 					+ "win_odds_percent,draw_odds_percent,lose_odds_percent,"
 					+ "people_bet_win_percent,people_bet_draw_percent,people_bet_lose_percent,"
-					+ "win_rate_mismatch,draw_rate_mismatch,lose_rate_mismatch,"
 					+ "teama_goals,teamb_goals,match_result,host_rate_1125,match_date)"
-					+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+					+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
 					);
 
 		
@@ -67,18 +66,15 @@ public class SportMetaDaoImpl {
 				preStatement.setDouble(18, vsTeam.getPeopleVote_rate()[0]);
 				preStatement.setDouble(19, vsTeam.getPeopleVote_rate()[1]);
 				preStatement.setDouble(20, vsTeam.getPeopleVote_rate()[2]);
-				preStatement.setDouble(21, vsTeam.getBetCalcRate_web()[0] - vsTeam.getPeopleVote_rate()[0]);
-				preStatement.setDouble(22, vsTeam.getBetCalcRate_web()[1] - vsTeam.getPeopleVote_rate()[1]);
-				preStatement.setDouble(23, vsTeam.getBetCalcRate_web()[2] - vsTeam.getPeopleVote_rate()[2]);
-				preStatement.setInt(24, vsTeam.getTeama_goals());
-				preStatement.setInt(25, vsTeam.getTeamb_goals());
-				preStatement.setInt(26, vsTeam.getMatch_Result());
-				preStatement.setDouble(27, vsTeam.getHost_rate_1125());
+				preStatement.setInt(21, vsTeam.getTeama_goals());
+				preStatement.setInt(22, vsTeam.getTeamb_goals());
+				preStatement.setInt(23, vsTeam.getMatch_Result());
+				preStatement.setDouble(24, vsTeam.getHost_rate_1125());
 				
 				Calendar date = Calendar.getInstance();
 				date.set(vsTeam.getYear(), vsTeam.getMonth() - 1, vsTeam.getDay());
 				
-				preStatement.setDate(28, new java.sql.Date(date.getTimeInMillis()));
+				preStatement.setDate(25, new java.sql.Date(date.getTimeInMillis()));
 				
 				preStatement.executeUpdate();
 			}
@@ -93,7 +89,7 @@ public class SportMetaDaoImpl {
 		{
 			try {
 				if(preStatement!=null) preStatement.close();
-				if(connection!=null) connection.close();
+//				if(connection!=null) connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -155,7 +151,7 @@ public class SportMetaDaoImpl {
 		        int teama_goals = resultSet.getInt(15);
 		        int teamb_goals = resultSet.getInt(16);
 		        
-		        int id = resultSet.getInt(17);
+		        long id = resultSet.getLong(17);
 				
 				vsTeams.add(VSTeam.builderVSTeam(vs, peilv, peopleVote_num, year, month, day, changci, week, league, teama_goals, teamb_goals, id));
 			}
@@ -168,7 +164,7 @@ public class SportMetaDaoImpl {
 		{
 			try {
 				if(preStatement!=null) preStatement.close();
-				if(connection!=null) connection.close();
+//				if(connection!=null) connection.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

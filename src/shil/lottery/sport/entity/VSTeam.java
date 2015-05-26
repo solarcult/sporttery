@@ -69,7 +69,7 @@ public class VSTeam implements Comparable<VSTeam>{
 	}
 	
 	public static VSTeam builderVSTeam(String[] vs,double[] peilv,double[] peopleVote_num,
-			int year,int month, int day,int changci,String week,String league,int teama_goals,int teamb_goals, int id)
+			int year,int month, int day,int changci,String week,String league,int teama_goals,int teamb_goals, long id)
 	{
 		VSTeam vsTeam = builderVSTeam(vs, peilv, peopleVote_num, year, month, day, changci, week, league, teama_goals, teamb_goals);
 		vsTeam.setId(id);

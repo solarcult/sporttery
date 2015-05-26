@@ -8,7 +8,9 @@ import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.EvaluatorRecorder;
+import shil.lottery.seriously.vo.Score013;
 import shil.lottery.seriously.vo.VSTeamScore013;
+import shil.lottery.sport.db.Score013DaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 
 /**
@@ -60,13 +62,18 @@ public class PredictByScore013XYCombineFrequencyCountSame extends Abstract013Eva
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {
 		
+		/*
 		Score013AnalyzeProbility score013AnalyzeProbility = Score013AnalyzeProbility.analyzeScore013AnalyzeProbility(vsTeams);
 		if(!score013AnalyzeProbility.isSampleAvailable()) return Guess013.NotAvaliable;
 		VSTeamScore013 vsTeamScore013 = VSTeamScore013.calculateVSTeamScore013(vsTeams, vsTeam);
 		if(!vsTeamScore013.isAvaliable()) return Guess013.NotAvaliable;
 		Score013XYCombineFrequency score013xyCombineFrequency = Score013XYCombineFrequency.buildScore013XYCombineFrequency(score013AnalyzeProbility, vsTeamScore013);
 		if(!score013xyCombineFrequency.isAvaliable()) return Guess013.NotAvaliable;
-
+		 */
+		Score013 score013 = Score013DaoImpl.queryScore013ByVsTeamId(vsTeam.getId());
+		if(score013 == null) return Guess013.NotAvaliable;
+		Score013XYCombineFrequency score013xyCombineFrequency = Score013XYCombineFrequency.buildScore013XYCombineFrequency(score013);
+		
 		//6种类型投票
 		Frequency resultF = new Frequency();
 		resultF.addValue(getResultS(score013xyCombineFrequency.getGsd_lsd()));

@@ -1,5 +1,8 @@
 CREATE DATABASE sporttery
 
+
+-- DROP TABLE sport_meta_data;
+
 CREATE TABLE sport_meta_data
 (
   year integer NOT NULL,
@@ -22,14 +25,11 @@ CREATE TABLE sport_meta_data
   people_bet_win_percent double precision NOT NULL,
   people_bet_draw_percent double precision NOT NULL,
   people_bet_lose_percent double precision NOT NULL,
-  win_rate_mismatch double precision NOT NULL,
-  draw_rate_mismatch double precision NOT NULL,
-  lose_rate_mismatch double precision NOT NULL,
   teama_goals integer NOT NULL,
   teamb_goals integer NOT NULL,
   match_result smallint NOT NULL,
   host_rate_1125 double precision NOT NULL,
   match_date date NOT NULL,
-  id serial NOT NULL,
+  id bigserial NOT NULL,
   CONSTRAINT sport_meta_data_pkey PRIMARY KEY (year, month, day, changci, week, league)
 )

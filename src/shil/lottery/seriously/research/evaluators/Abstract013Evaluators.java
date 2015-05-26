@@ -120,7 +120,7 @@ public abstract class Abstract013Evaluators implements Guess013{
 		//收集结果合并,一般存放Bingo,NotBingo
 		final List<Long> xaix = new ArrayList<Long>();
 		final List<Double> yaix = new ArrayList<Double>();
-		for(int i=0;i<totals-1;i++){
+		for(int i=1;i<totals;i++){
 			PredictResultAnalyze predictResultAnalyze = new PredictResultAnalyze();
 			try {
 				predictResultAnalyze = completionService.take().get();
