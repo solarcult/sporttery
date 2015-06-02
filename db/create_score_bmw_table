@@ -1,0 +1,26 @@
+-- Table: score_bmw
+
+-- DROP TABLE score_bmw;
+
+CREATE TABLE score_bmw
+(
+  id bigint NOT NULL,
+  odd_bm double precision,
+  odd_ms double precision,
+  odd_bms double precision,
+  gsd_lsd_ms double precision,
+  gsd_lsd_ratio double precision,
+  gsd_agbl_ms double precision,
+  gsd_agbl_ratio double precision,
+  gsd_albg_ms double precision,
+  gsd_albg_ratio double precision,
+  lsd_agbl_ms double precision,
+  lsd_agbl_ratio double precision,
+  lsd_albg_ms double precision,
+  lsd_albg_ratio double precision,
+  agbl_albg_ms double precision,
+  agbl_albg_ratio double precision,
+  bingo text,
+  result text,
+  CONSTRAINT score_bms_pkey PRIMARY KEY (id)
+)
