@@ -52,6 +52,8 @@ public class DrawDetectedTest {
 				}
 			}
 			
+			if(drawx.size()+notdrawx.size() < 26) continue;
+			
 			new AbstractScatterPlotGraphic(leaguename+"_draw","相减绝对值比","draw_value"){
 				@Override
 				public XYDataset getDeltaCards() {
