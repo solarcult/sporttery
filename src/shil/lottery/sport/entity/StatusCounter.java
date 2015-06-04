@@ -1,6 +1,10 @@
 package shil.lottery.sport.entity;
 
-
+/**
+ * 概率 和 它所代表的胜负平 结果、
+ * 支持排序,排序后,概率大的放在前面.
+ * @author LiangJingJing
+ */
 public class StatusCounter implements Comparable<StatusCounter> {
 
 	private int result;
