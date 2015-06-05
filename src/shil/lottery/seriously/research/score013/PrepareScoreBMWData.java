@@ -1,10 +1,12 @@
 package shil.lottery.seriously.research.score013;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
+import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.sport.entity.StatusCounter;
 import shil.lottery.sport.entity.VSTeam;
 
@@ -29,7 +31,17 @@ public class PrepareScoreBMWData extends Abstract013Evaluators {
 		scs.add(new StatusCounter(Guess013.draw, vsTeam.getBetCalcRate_web()[1]));
 		scs.add(new StatusCounter(Guess013.lose, vsTeam.getBetCalcRate_web()[2]));
 		
+		Collections.sort(scs);
 		
+		StatusCounter big = scs.get(0);
+		StatusCounter medium = scs.get(1);
+		StatusCounter small = scs.get(2);
+		
+		double odd_bm = big.getProb() - medium.getProb();
+		double odd_ms = medium.getProb() - small.getProb();
+		double odd_bms = odd_bm / odd_ms;
+		
+		String odd_rate_bingo = (big.getResult() == vsTeam.getMatch_Result())?"":"";
 		
 		return Guess013.NotAvaliable;
 	}
