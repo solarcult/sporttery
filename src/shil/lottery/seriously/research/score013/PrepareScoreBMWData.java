@@ -7,6 +7,7 @@ import java.util.List;
 import shil.lottery.seriously.research.Guess013;
 import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
 import shil.lottery.seriously.utils.AnalyzeUtil;
+import shil.lottery.sport.db.ScoreBMWDaoImpl;
 import shil.lottery.sport.entity.StatusCounter;
 import shil.lottery.sport.entity.VSTeam;
 
@@ -37,13 +38,30 @@ public class PrepareScoreBMWData extends Abstract013Evaluators {
 		StatusCounter medium = scs.get(1);
 		StatusCounter small = scs.get(2);
 		
-		double odd_bm = big.getProb() - medium.getProb();
-		double odd_ms = medium.getProb() - small.getProb();
-		double odd_bms = odd_bm / odd_ms;
+		double odd_rate_bm = big.getProb() - medium.getProb();
+		double odd_rate_ms = medium.getProb() - small.getProb();
+		double odd_rate_bms = odd_rate_bm / odd_rate_ms;
 		
-		String odd_rate_bingo = (big.getResult() == vsTeam.getMatch_Result())?"":"";
+		if(odd_rate_bm==0 || odd_rate_ms==0)
+			return Guess013.NotAvaliable;
+		String odd_rate_bingo = (big.getResult() == vsTeam.getMatch_Result())?"BINGO":"NOTBINGO";
+		
+		Score013BMW score013bmw = new Score013BMW();
+		score013bmw.setId(vsTeam.getId());
+		score013bmw.setName("only odd");
+		score013bmw.setOdd_rate_bm(odd_rate_bm);
+		score013bmw.setOdd_rate_ms(odd_rate_ms);
+		score013bmw.setOdd_rate_bms(odd_rate_bms);
+		score013bmw.setOdd_rate_bingo(odd_rate_bingo);
+		score013bmw.setResult(String.valueOf(vsTeam.getMatch_Result()));
+		
+		ScoreBMWDaoImpl.insertScoreBMSOnlyOdd(score013bmw);
 		
 		return Guess013.NotAvaliable;
+	}
+	
+	public static void main(String[] args){
+		new PrepareScoreBMWData().startEvaluator();
 	}
 
 }

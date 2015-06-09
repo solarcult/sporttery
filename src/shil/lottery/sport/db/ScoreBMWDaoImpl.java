@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import shil.lottery.seriously.research.score013.Score013BMW;
+
 public class ScoreBMWDaoImpl {
 
 	public static void insertScoreBMS(){
@@ -33,6 +35,39 @@ public class ScoreBMWDaoImpl {
 			
 			
 			preparedStatement.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if(preparedStatement!=null)
+				try {
+					preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+	}
+	
+	public static void insertScoreBMSOnlyOdd(Score013BMW score013bmw){
+		Connection connection = DataBaseManager.getConnection();
+		PreparedStatement preparedStatement = null;
+		try{
+			preparedStatement = connection.prepareStatement(
+				"insert into score_bmw("
+				+"id,name, odd_rate_bm, odd_rate_ms, odd_rate_bms,"
+				+"odd_rate_bingo, result)"
+				+" values(?,?,?,?,?,?,?)"
+			);
+			
+			preparedStatement.setLong(1, score013bmw.getId());
+			preparedStatement.setString(2,score013bmw.getName());
+			preparedStatement.setDouble(3, score013bmw.getOdd_rate_bm());
+			preparedStatement.setDouble(4, score013bmw.getOdd_rate_ms());
+			preparedStatement.setDouble(5, score013bmw.getOdd_rate_bms());
+			preparedStatement.setString(6, score013bmw.getOdd_rate_bingo());
+			preparedStatement.setString(7, score013bmw.getResult());
+			
+			preparedStatement.executeUpdate();
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
