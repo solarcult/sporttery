@@ -1,4 +1,4 @@
-package shil.lottery.seriously.research.evaluators;
+package shil.lottery.seriously.research.evaluators.r013;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import shil.lottery.sport.entity.VSTeam;
  * @author LiangJingJing
  * @date May 23, 2015 11:30:52 PM
  */
-public class CombileScore013MultiCountSameEvaluator extends Abstract013Evaluators {
+public class CombileScore013MultiCountSameEvaluator extends Abstract013Evaluator {
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {

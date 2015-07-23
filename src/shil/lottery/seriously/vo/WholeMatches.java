@@ -36,7 +36,7 @@ public class WholeMatches {
 	private Map<String,Set<String>> leaguesTeamnamesMap;
 	//队伍set<名称>
 	private Set<String> teamnames;
-	//队伍name,Map<联赛名称,List<VSTeam>自己在这个联赛中的比赛记录,按从旧到新>
+	//<队伍name,Map<联赛名称,List<VSTeam>>>自己在这个联赛中的比赛记录,按从旧到新>
 	Map<String,Map<String,List<VSTeam>>> teamDigest;
 	
 	public WholeMatches(){

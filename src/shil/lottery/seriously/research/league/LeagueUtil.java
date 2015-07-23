@@ -25,13 +25,20 @@ import weka.core.Instances;
  */
 public class LeagueUtil {
 	
-	public static LeaguePosition analyzeOneLeague(String leaguename,WholeMatches wholeMatches){
-		LeaguePosition leaguePosition = new LeaguePosition(leaguename);
+	/**
+	 * 如果找不到,返回Integer.MAX_VALUE.
+	 * 最大值不超过 AnalyzeUtil.leagalMaxMatches,最小值不低于AnalyzeUtil.leagalMinMatches
+	 * @param leaguename
+	 * @param wholeMatches
+	 * @return
+	 */
+	public static int findMinMatchNumber(String leaguename,WholeMatches wholeMatches){
 		
 		int minmatch = Integer.MAX_VALUE;
 		
 		//寻找所有队中,比赛次数最小的数字,为了均衡计算比赛成绩,相同的比赛次数.
 		Set<String> teamnames = wholeMatches.getLeaguesTeamnamesMap().get(leaguename);
+		if(teamnames==null) return minmatch;
 		for(String teamname : teamnames){
 			List<VSTeam> history = wholeMatches.getTeamDigest().get(teamname).get(leaguename);
 			if(history.size() < AnalyzeUtil.leagalMinMatches){
@@ -44,9 +51,17 @@ public class LeagueUtil {
 			}
 		}
 		
-		leaguePosition.setMinMatches(minmatch);
-		leaguePosition.setTotalTeamNum(teamnames.size());
+		if(minmatch!=Integer.MAX_VALUE){
+			//不能超过最大取的比赛数量
+			minmatch = (minmatch > AnalyzeUtil.leagalMaxMatches)? AnalyzeUtil.leagalMaxMatches : minmatch;
+		}
 		
+		return minmatch;
+	}
+	
+	public static Map<String,List<VSTeam>> refineMatches(String leaguename,WholeMatches wholeMatches,int minmatch){
+		
+		Set<String> teamnames = wholeMatches.getLeaguesTeamnamesMap().get(leaguename);
 		//获取最终拿来分析的比赛信息
 		Map<String,List<VSTeam>> cutMatches = new HashMap<String, List<VSTeam>>();
 		for(String teamname : teamnames){
@@ -57,7 +72,25 @@ public class LeagueUtil {
 			}
 		}
 		
+		return cutMatches;
+	}
+	
+	public static LeaguePosition analyzeOneLeague(String leaguename,WholeMatches wholeMatches){
+		
+		LeaguePosition leaguePosition = new LeaguePosition(leaguename);
+
+		int minmatch = findMinMatchNumber(leaguename,wholeMatches);
+		if(minmatch==Integer.MAX_VALUE) return null;
+		
+		leaguePosition.setMinMatches(minmatch);
+		leaguePosition.setTotalTeamNum(wholeMatches.getLeaguesTeamnamesMap().get(leaguename).size());
+		
+		//获取最终拿来分析的比赛信息
+		Map<String,List<VSTeam>> cutMatches = refineMatches(leaguename, wholeMatches, minmatch);
+		
 		leaguePosition.setContainTeamNum(cutMatches.size());
+		
+		if(!leaguePosition.isBelievable()) return null;
 		
 		//计算总分
 		//索引map
@@ -67,6 +100,7 @@ public class LeagueUtil {
 		for(Entry<String,List<VSTeam>> entry : cutMatches.entrySet()){
 			List<VSTeam> vsTeams = entry.getValue();
 			TeamValuePosition teamValuePosition = new TeamValuePosition(leaguename,entry.getKey());
+			//统计队伍得分数 
 			for(VSTeam vsTeam : vsTeams){
 				teamValuePosition.addValue(vsTeam.getMatch_Result());
 			}
@@ -75,7 +109,7 @@ public class LeagueUtil {
 		}
 		Collections.sort(teamValuePositions);
 		
-		if(teamValuePositions.size()<4) return leaguePosition;
+		if(teamValuePositions.size()<LeaguePosition.perfect) return null;
 		
 		//构造WEKA cluster
 		//数据类型
@@ -95,7 +129,7 @@ public class LeagueUtil {
 		//运行参数
 		String[] options = new String[6];
 		options[0] = "-N";
-		options[1] = "4"; //分四段
+		options[1] = String.valueOf(LeaguePosition.perfect); //分5段
 		options[2] = "-I";
 		options[3] = "100";
 		options[4] = "-init";
@@ -128,6 +162,7 @@ public class LeagueUtil {
 		}catch(Exception e){
 			System.out.println("hey , nice shot~ ");
 			e.printStackTrace();
+			return null;
 		}
 	
 		leaguePosition.setTeamValuePositions(teamValuePositions);

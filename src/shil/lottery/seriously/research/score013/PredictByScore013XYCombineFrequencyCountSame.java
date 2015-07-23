@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.commons.math3.stat.Frequency;
 
 import shil.lottery.seriously.research.Guess013;
-import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
+import shil.lottery.seriously.research.evaluators.r013.Abstract013Evaluator;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.EvaluatorRecorder;
 import shil.lottery.seriously.vo.Score013;
@@ -57,7 +57,7 @@ import shil.lottery.sport.entity.VSTeam;
  * @author LiangJingJing
  * @date May 20, 2015 9:43:12 PM
  */
-public class PredictByScore013XYCombineFrequencyCountSame extends Abstract013Evaluators{
+public class PredictByScore013XYCombineFrequencyCountSame extends Abstract013Evaluator{
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {

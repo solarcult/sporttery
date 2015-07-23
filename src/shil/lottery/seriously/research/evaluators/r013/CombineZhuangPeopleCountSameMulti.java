@@ -1,4 +1,4 @@
-package shil.lottery.seriously.research.evaluators;
+package shil.lottery.seriously.research.evaluators.r013;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import shil.lottery.sport.entity.VSTeam;
  * @author LiangJingJing
  * @date May 24, 2015 11:52:07 AM
  */
-public class CombineZhuangPeopleCountSameMulti extends Abstract013Evaluators {
+public class CombineZhuangPeopleCountSameMulti extends Abstract013Evaluator {
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {

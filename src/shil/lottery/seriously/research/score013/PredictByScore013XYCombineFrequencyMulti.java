@@ -3,7 +3,7 @@ package shil.lottery.seriously.research.score013;
 import java.util.List;
 
 import shil.lottery.seriously.research.Guess013;
-import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
+import shil.lottery.seriously.research.evaluators.r013.Abstract013Evaluator;
 import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.utils.EvaluatorRecorder;
 import shil.lottery.seriously.vo.Score013;
@@ -97,7 +97,7 @@ import shil.lottery.sport.entity.VSTeam;
  * @author LiangJingJing
  * @date May 20, 2015 9:44:01 PM
  */
-public class PredictByScore013XYCombineFrequencyMulti extends Abstract013Evaluators{
+public class PredictByScore013XYCombineFrequencyMulti extends Abstract013Evaluator{
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {

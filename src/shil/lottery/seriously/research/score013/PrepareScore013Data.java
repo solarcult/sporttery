@@ -3,12 +3,12 @@ package shil.lottery.seriously.research.score013;
 import java.util.List;
 
 import shil.lottery.seriously.research.Guess013;
-import shil.lottery.seriously.research.evaluators.Abstract013Evaluators;
+import shil.lottery.seriously.research.evaluators.r013.Abstract013Evaluator;
 import shil.lottery.seriously.vo.VSTeamScore013;
 import shil.lottery.sport.db.Score013DaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 
-public class PrepareScore013Data extends Abstract013Evaluators{
+public class PrepareScore013Data extends Abstract013Evaluator{
 
 	@Override
 	public int guess013(List<VSTeam> vsTeams, VSTeam vsTeam) {
