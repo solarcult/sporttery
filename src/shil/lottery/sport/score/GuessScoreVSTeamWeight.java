@@ -10,6 +10,7 @@ import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeScore;
 import shil.lottery.sport.entity.ScoreCounter;
+import shil.lottery.sport.entity.ScoreCounterValueComparator;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.guess.Guess4TeamScores1;
@@ -270,7 +271,7 @@ public class GuessScoreVSTeamWeight implements Guess4TeamScores1 , SpeicalPostio
 			everylist.add(sc);
 		}
 
-		Collections.sort(everylist);
+		Collections.sort(everylist,new ScoreCounterValueComparator());
 		
 		if (debug) 
 		{

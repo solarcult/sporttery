@@ -10,9 +10,9 @@ import shil.lottery.sport.entity.VSTeam;
 
 public class WriteFileUtil {
 	
-	public static void writeEvaluatorRecorder2File(EvaluatorRecorder evaluatorRecorder){
+	public static void writeEvaluatorRecorder2File(String parentFolder,EvaluatorRecorder evaluatorRecorder){
 		try {
-			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(evaluatorRecorder.getName())));
+			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(parentFolder,evaluatorRecorder.getName())));
 			for(Entry<VSTeam, ContentResult> entry : evaluatorRecorder.getRecorder().entrySet()){
 				if(entry.getValue().getContent()==null) continue;
 				bufferedWriter.newLine();

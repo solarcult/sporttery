@@ -10,6 +10,7 @@ import java.util.Set;
 
 import shil.lottery.sport.analyze.AnalyzeScore;
 import shil.lottery.sport.entity.ScoreCounter;
+import shil.lottery.sport.entity.ScoreCounterValueComparator;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
 import shil.lottery.sport.guess.Guess4TeamScores1;
@@ -65,7 +66,7 @@ public class GuessRefineScoreVSTeamProbability implements Guess4TeamScores1 {
 		{
 			awlist.add(sc);
 		}
-		Collections.sort(awlist);
+		Collections.sort(awlist,new ScoreCounterValueComparator());
 //		System.out.println("a wins:");
 //		StrategyUtils.printFirst24Item(awlist);
 		
@@ -106,7 +107,7 @@ public class GuessRefineScoreVSTeamProbability implements Guess4TeamScores1 {
 		{
 			bwlist.add(sc);
 		}
-		Collections.sort(bwlist);
+		Collections.sort(bwlist,new ScoreCounterValueComparator());
 //		System.out.println("b wins:");
 //		StrategyUtils.printFirst24Item(bwlist);
 		
@@ -147,7 +148,7 @@ public class GuessRefineScoreVSTeamProbability implements Guess4TeamScores1 {
 		{
 			allist.add(sc);
 		}
-		Collections.sort(allist);
+		Collections.sort(allist,new ScoreCounterValueComparator());
 //		System.out.println("a loses:");
 //		StrategyUtils.printFirst24Item(allist);
 		
@@ -188,7 +189,7 @@ public class GuessRefineScoreVSTeamProbability implements Guess4TeamScores1 {
 		{
 			bllist.add(sc);
 		}
-		Collections.sort(bllist);
+		Collections.sort(bllist,new ScoreCounterValueComparator());
 //		System.out.println("b loses:");
 //		StrategyUtils.printFirst24Item(bllist);
 		
@@ -282,7 +283,7 @@ public class GuessRefineScoreVSTeamProbability implements Guess4TeamScores1 {
 
 		if(debug)
 		{
-			Collections.sort(everylist);
+			Collections.sort(everylist,new ScoreCounterValueComparator());
 			System.out.println("everylist :");
 			StrategyUtils.printFirst24Item(everylist);
 		}

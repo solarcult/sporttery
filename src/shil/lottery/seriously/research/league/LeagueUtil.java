@@ -59,11 +59,14 @@ public class LeagueUtil {
 		return minmatch;
 	}
 	
-	public static Map<String,List<VSTeam>> refineMatches(String leaguename,WholeMatches wholeMatches,int minmatch){
+	public static Map<String,List<VSTeam>> refineLeagueTeamMatches(String leaguename,WholeMatches wholeMatches){
+		Map<String,List<VSTeam>> cutMatches = new HashMap<String, List<VSTeam>>();
+		int minmatch = findMinMatchNumber(leaguename, wholeMatches);
+		if(minmatch == Integer.MAX_VALUE) return cutMatches;
 		
 		Set<String> teamnames = wholeMatches.getLeaguesTeamnamesMap().get(leaguename);
 		//获取最终拿来分析的比赛信息
-		Map<String,List<VSTeam>> cutMatches = new HashMap<String, List<VSTeam>>();
+		
 		for(String teamname : teamnames){
 			List<VSTeam> history = wholeMatches.getTeamDigest().get(teamname).get(leaguename);
 			if(history.size() >= minmatch){
@@ -86,7 +89,8 @@ public class LeagueUtil {
 		leaguePosition.setTotalTeamNum(wholeMatches.getLeaguesTeamnamesMap().get(leaguename).size());
 		
 		//获取最终拿来分析的比赛信息
-		Map<String,List<VSTeam>> cutMatches = refineMatches(leaguename, wholeMatches, minmatch);
+		Map<String,List<VSTeam>> cutMatches = refineLeagueTeamMatches(leaguename, wholeMatches);
+		if(cutMatches.isEmpty()) return null;
 		
 		leaguePosition.setContainTeamNum(cutMatches.size());
 		

@@ -69,7 +69,8 @@ public class LeagueSumTest {
 		System.out.println(drawlevel);
 		System.out.println(loselevel);
 		
-		for(int i=-3;i<4;i++){
+		for(int i=-(LeaguePosition.perfect - LeaguePosition.bad) ;i<=(LeaguePosition.perfect - LeaguePosition.bad);i++){
+			System.out.println("~ start ~ "+ i);
 			Frequency x = new Frequency();
 			x.incrementValue(i+"win", winlevel.getCount(i));
 			x.incrementValue(i+"draw", drawlevel.getCount(i));

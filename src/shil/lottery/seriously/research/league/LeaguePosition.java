@@ -1,22 +1,10 @@
 package shil.lottery.seriously.research.league;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
-import shil.lottery.seriously.utils.AnalyzeUtil;
 import shil.lottery.seriously.vo.TeamValuePosition;
 import shil.lottery.seriously.vo.WholeMatches;
-import shil.lottery.sport.entity.VSTeam;
-import weka.clusterers.SimpleKMeans;
-import weka.core.Attribute;
-import weka.core.DenseInstance;
-import weka.core.Instance;
-import weka.core.Instances;
 
 /**
  * 联赛分析位置结果类
@@ -30,6 +18,8 @@ public class LeaguePosition {
 	public static int normal = 3;
 	public static int notgood = 2;
 	public static int bad = 1;
+	
+	public static double BelievableRate = 0.89;
 	
 	private String leaguename;
 	//<队伍名称,分析结果对象>方便定位具体某个队伍 
@@ -108,7 +98,7 @@ public class LeaguePosition {
 	}
 	
 	public boolean isBelievable(){
-		return this.percentOfTeam() >= 0.925;
+		return this.percentOfTeam() >= LeaguePosition.BelievableRate;
 	}
 	
 	public static LeaguePosition analyzeOneLeague(String leaguename,WholeMatches wholeMatches){

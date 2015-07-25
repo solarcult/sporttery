@@ -1,6 +1,6 @@
 package shil.lottery.sport.entity;
 
-public class ScoreCounter implements Comparable<ScoreCounter> {
+public class ScoreCounter{
 
 	private int score;
 	private double counter;
@@ -10,6 +10,12 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 		this.score = score;
 		this.counter = 0;
 		this.weight = 0;
+	}
+	
+	public ScoreCounter(int score, double counter, double weight){
+		this.score = score;
+		this.counter = counter;
+		this.weight = weight;
 	}
 
 	public void increaseBingo() {
@@ -43,21 +49,7 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 		if(weight==0) return counter;
 		else return weight;
 	}
-
-	@Override
-	public int compareTo(ScoreCounter o) 
-	{
-		if (this.getValue() > o.getValue()) 
-		{
-			return -1;
-		} 
-		else if (this.getValue() < o.getValue()) 
-		{
-			return 1;
-		}
-		return 0;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -96,5 +88,4 @@ public class ScoreCounter implements Comparable<ScoreCounter> {
 		return "ScoreCounter [score=" + score + ", counter=" + counter
 				+ ", weight=" + weight + ", getValue()=" + getValue() + "]";
 	}
-
 }

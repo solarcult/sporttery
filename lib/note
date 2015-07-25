@@ -1,8 +1,27 @@
 									DIARY
 
+2015-Jul-24 14:24
+经过SimpleTop2的进球数预测,将host和guest的位置加上以后的预测结果从46% -> 49%提升了3%. 
+
+用不分主客场的数据
+all done,this is result:
+PredictResultAnalyze [bingoFrequency=
+Value 	 Freq. 	 Pct. 	 Cum Pct. 
+预测正确	1641	46%	46%
+预测错误	1901	54%	100%
+]
+
+分了主客场的数据
+all done,this is result:
+PredictResultAnalyze [bingoFrequency=
+Value 	 Freq. 	 Pct. 	 Cum Pct. 
+预测正确	1724	49%	49%
+预测错误	1818	51%	100%
+
+------------------------
+
 2015-Jul-23 22:15
 应该统计一下,球队进球数/输球数 与 球队所在league位置是否成正相关
-
 
 ------------------------
 

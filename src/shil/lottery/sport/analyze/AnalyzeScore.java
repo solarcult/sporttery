@@ -12,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import shil.lottery.sport.db.SportMetaDaoImpl;
+import shil.lottery.sport.entity.ScoreCounterValueComparator;
 import shil.lottery.sport.entity.ScoreCounter;
 import shil.lottery.sport.entity.ScoreStuff;
 import shil.lottery.sport.entity.VSTeam;
@@ -159,7 +160,7 @@ public class AnalyzeScore {
 		{
 			bwlist.add(sc);
 		}
-		Collections.sort(bwlist);
+		Collections.sort(bwlist,new ScoreCounterValueComparator());
 		return bwlist;
 	}
 	

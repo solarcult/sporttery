@@ -1,7 +1,10 @@
 package shil.lottery.seriously.research.evaluators.scores;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
@@ -16,11 +19,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import shil.lottery.seriously.research.GuessScores;
 import shil.lottery.seriously.research.evaluators.r013.Abstract013Evaluator;
 import shil.lottery.seriously.utils.AbstractLineChart;
+import shil.lottery.seriously.utils.EvaluatorRecorder;
+import shil.lottery.seriously.utils.WriteFileUtil;
 import shil.lottery.sport.db.SportMetaDaoImpl;
 import shil.lottery.sport.entity.VSTeam;
 
 public abstract class AbstractScoreEvaluator implements GuessScores{
 
+	public static boolean output2file = true;
+	
 	class PredictResultAnalyze{
 		private Frequency bingoFrequency;
 		
@@ -55,8 +62,7 @@ public abstract class AbstractScoreEvaluator implements GuessScores{
 		@Override
 		public PredictResultAnalyze call() throws Exception {
 			PredictResultAnalyze predictResultAnalyze = new PredictResultAnalyze();
-			List<Integer> result = guessScores(vsTeams, vsTeam);
-			
+			Set<Integer> result = guessScores(vsTeams, vsTeam);
 			if(!result.isEmpty()){
 				//have result
 				int totalScores = vsTeam.getTeama_goals() + vsTeam.getTeamb_goals();
@@ -65,9 +71,9 @@ public abstract class AbstractScoreEvaluator implements GuessScores{
 				}else{
 					predictResultAnalyze.getBingoFrequency().addValue(Abstract013Evaluator.NotBingo);
 				}
+				if(output2file) EvaluatorRecorder.getEvaluatorRecorder().putResult(vsTeam, result+" -> "+totalScores);
 			}else{
 				//no result
-				predictResultAnalyze.getBingoFrequency().addValue(Abstract013Evaluator.NotAvaliable);
 			}
 			
 			return predictResultAnalyze;
@@ -75,6 +81,8 @@ public abstract class AbstractScoreEvaluator implements GuessScores{
 	}
 	
 	public void startEvaluator(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMMMM-dd_HH.mm.ss");
+		if(output2file) EvaluatorRecorder.getEvaluatorRecorder().setName("scores." + this.getClass().getSimpleName()+"@"+sdf.format(Calendar.getInstance().getTime()));
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
 		PredictResultAnalyze resultRecords = new PredictResultAnalyze();
 		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
@@ -125,6 +133,8 @@ public abstract class AbstractScoreEvaluator implements GuessScores{
 
 		System.out.println("\nall done,this is result:");
 		System.out.print(resultRecords);
+		
+		if(output2file) WriteFileUtil.writeEvaluatorRecorder2File("history/score",EvaluatorRecorder.getEvaluatorRecorder());
 	}
 	
 }
