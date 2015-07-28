@@ -80,7 +80,7 @@ public abstract class AbstractScoreEvaluator implements GuessScores{
 		}
 	}
 	
-	public void startEvaluator(){
+	public PredictResultAnalyze startEvaluator(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMMMM-dd_HH.mm.ss");
 		if(output2file) EvaluatorRecorder.getEvaluatorRecorder().setName("scores." + this.getClass().getSimpleName()+"@"+sdf.format(Calendar.getInstance().getTime()));
 		List<VSTeam> vsTeams = SportMetaDaoImpl.loadEveryVSTeamRecords();
@@ -135,6 +135,8 @@ public abstract class AbstractScoreEvaluator implements GuessScores{
 		System.out.print(resultRecords);
 		
 		if(output2file) WriteFileUtil.writeEvaluatorRecorder2File("history/score",EvaluatorRecorder.getEvaluatorRecorder());
+		
+		return resultRecords;
 	}
 	
 }

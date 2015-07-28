@@ -25,23 +25,23 @@ public class SimpleTop2Evaluator extends AbstractScoreEvaluator {
 		ScoreStatistics teamBss = ScoreStatistics.analyzeVSTeams2scoreStatistics(vsTeam.getLeague(), vsTeam.getVs()[1], refineMatches.get(vsTeam.getVs()[1]));
 
 		//分主客场比赛进球数
-		int gg = (int) Math.round(teamAss.getHostScoreStatistics().getGoalStatistics().getMean() + teamBss.getGuestScoreStatistics().getGoalStatistics().getMean());
-		int gl = (int) Math.round(teamAss.getHostScoreStatistics().getGoalStatistics().getMean() + teamBss.getGuestScoreStatistics().getLostStatistics().getMean());
-		int lg = (int) Math.round(teamAss.getHostScoreStatistics().getLostStatistics().getMean() + teamBss.getGuestScoreStatistics().getGoalStatistics().getMean());
-		int ll = (int) Math.round(teamAss.getHostScoreStatistics().getLostStatistics().getMean() + teamBss.getGuestScoreStatistics().getLostStatistics().getMean());
+//		int gg = (int) Math.round(teamAss.getHostScoreStatistics().getGoalStatistics().getMean() + teamBss.getGuestScoreStatistics().getGoalStatistics().getMean());
+//		int gl = (int) Math.round(teamAss.getHostScoreStatistics().getGoalStatistics().getMean() + teamBss.getGuestScoreStatistics().getLostStatistics().getMean());
+//		int lg = (int) Math.round(teamAss.getHostScoreStatistics().getLostStatistics().getMean() + teamBss.getGuestScoreStatistics().getGoalStatistics().getMean());
+//		int ll = (int) Math.round(teamAss.getHostScoreStatistics().getLostStatistics().getMean() + teamBss.getGuestScoreStatistics().getLostStatistics().getMean());
 		
 		//不分主客场进球数
-//		int gg = (int) Math.round(teamAss.getGoalStatistics().getMean() + teamBss.getGoalStatistics().getMean());
-//		int gl = (int) Math.round(teamAss.getGoalStatistics().getMean() + teamBss.getLostStatistics().getMean());
-//		int lg = (int) Math.round(teamAss.getLostStatistics().getMean() + teamBss.getGoalStatistics().getMean());
-//		int ll = (int) Math.round(teamAss.getLostStatistics().getMean() + teamBss.getLostStatistics().getMean());
+		int gg = (int) Math.round(teamAss.getGoalStatistics().getMean() + teamBss.getGoalStatistics().getMean());
+		int gl = (int) Math.round(teamAss.getGoalStatistics().getMean() + teamBss.getLostStatistics().getMean());
+		int lg = (int) Math.round(teamAss.getLostStatistics().getMean() + teamBss.getGoalStatistics().getMean());
+		int ll = (int) Math.round(teamAss.getLostStatistics().getMean() + teamBss.getLostStatistics().getMean());
 		
 		predictScores.add(gg);
 		predictScores.add(gl);
 		predictScores.add(lg);
 		predictScores.add(ll);
 		
-//		if(predictScores.size() > 2) predictScores.clear();
+		if(predictScores.size() > 2) predictScores.clear();
 		
 		return predictScores;
 	}

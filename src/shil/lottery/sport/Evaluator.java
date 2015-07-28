@@ -49,7 +49,7 @@ public class Evaluator {
 	{
 //		findbest4();
 //		evaluatorVsTeamScores();	//71.4%	85/119 	23.9%
-//		evalutorLeagueScores();	//66.75%  538/806	22.5%
+		evalutorLeagueScores();	//66.75%  538/806	22.5%
 		evaluatorGuessTwo();	// 159.0 / 215.0 eva: 1839 guess two : 0.7395348837209302 <-  correct%
 		evaluatorGuessThree();
 //		evaluatorGuessTwoThree();

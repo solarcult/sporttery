@@ -1,5 +1,27 @@
 									DIARY
 
+2015-Jul-28 22:25
+TestLeagueTop2Evaluator 基本达到了以前算法的水平,因为算法核心是一致的.
+基本预测2个球为44%,3个球为 62%. 1个球的正确率在21%左右.
+
+2015-Jul-25 20:40
+经过TestLeagueTop2Evaluator的分析，将host和gues位置加上以后的预测结果从 44% -> 42%.
+经过我观看数据是因为是因为主客场的比赛数据较少造成的
+
+all done,this is result:
+PredictResultAnalyze [bingoFrequency=
+Value 	 Freq. 	 Pct. 	 Cum Pct. 
+预测正确	1573	44%	44%
+预测错误	1969	56%	100%
+]
+
+all done,this is result:
+PredictResultAnalyze [bingoFrequency=
+Value 	 Freq. 	 Pct. 	 Cum Pct. 
+预测正确	1497	42%	42%
+预测错误	2042	58%	100%
+]
+
 2015-Jul-24 14:24
 经过SimpleTop2的进球数预测,将host和guest的位置加上以后的预测结果从46% -> 49%提升了3%. 
 

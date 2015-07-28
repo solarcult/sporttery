@@ -78,6 +78,20 @@ public class LeagueUtil {
 		return cutMatches;
 	}
 	
+	public static Map<String,List<VSTeam>> getAllLeagueTeamMatches(String leaguename,WholeMatches wholeMatches){
+		Map<String,List<VSTeam>> allMatches = new HashMap<String, List<VSTeam>>();
+		
+		Set<String> teamnames = wholeMatches.getLeaguesTeamnamesMap().get(leaguename);
+		//获取最终拿来分析的比赛信息
+		
+		for(String teamname : teamnames){
+			List<VSTeam> history = wholeMatches.getTeamDigest().get(teamname).get(leaguename);
+				allMatches.put(teamname, history);
+		}
+		
+		return allMatches;
+	}
+	
 	public static LeaguePosition analyzeOneLeague(String leaguename,WholeMatches wholeMatches){
 		
 		LeaguePosition leaguePosition = new LeaguePosition(leaguename);
