@@ -34,7 +34,7 @@ public class TestLeagueTop2Evaluator extends AbstractScoreEvaluator {
 	
 	public static int topN = 3;
 	
-	public static double pctLimit = 0.825d;
+	public static double pctLimit = 0.758d;
 	
 	@Override
 	public Set<Integer> guessScores(List<VSTeam> vsTeams, VSTeam vsTeam) {

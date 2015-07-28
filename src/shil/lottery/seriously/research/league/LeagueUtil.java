@@ -42,7 +42,7 @@ public class LeagueUtil {
 		for(String teamname : teamnames){
 			List<VSTeam> history = wholeMatches.getTeamDigest().get(teamname).get(leaguename);
 			if(history.size() < AnalyzeUtil.leagalMinMatches){
-				System.out.println(teamname+" DO NOT have enough matches: "+history.size());
+//				System.out.println(teamname+" DO NOT have enough matches: "+history.size());
 				continue;
 			}else{
 				if(history.size() < minmatch ){
